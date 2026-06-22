@@ -1,26 +1,457 @@
 <!doctype html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ANNÉES — Die besten Schuhe für deinen Fuß</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-neutral-950 text-neutral-100 antialiased">
-  <main class="max-w-2xl mx-auto px-6 py-24">
-    <h1 class="text-5xl font-serif tracking-tight">ANNÉES</h1>
-    <p class="mt-4 text-lg text-neutral-300">
-      Die App, die dir aus dem ganzen Internet die Schuhe findet,
-      die wirklich zu deinem Fuß passen — und immer den günstigsten Preis.
-    </p>
-    <p class="mt-8 inline-block rounded-full border border-neutral-700 px-4 py-2 text-sm text-neutral-400">
-      Bald im App Store
-    </p>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ANNÉES — Die besten Schuhe für deinen Fuß</title>
+<meta name="description" content="ANNÉES findet dir aus dem ganzen Internet die Schuhe, die wirklich zu deinem Fuß passen — zum günstigsten Preis. Bald im App Store.">
+<meta name="theme-color" content="#0e0e0e">
+<meta property="og:title" content="ANNÉES — Die besten Schuhe für deinen Fuß">
+<meta property="og:description" content="Schuhe, die wirklich passen — zum besten Preis. Bald im App Store.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e0e0e;
+    --surface:#161616;
+    --text:#f5f4f1;
+    --muted:#a8a49c;
+    --faint:#6d6960;
+    --line:rgba(255,255,255,.10);
+    --accent:#6e92ff;
+    --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--text);font-family:var(--sans);
+    line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  a{color:inherit}
+  #wind{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+  .wrap{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:0 28px}
 
-    <footer class="mt-24 border-t border-neutral-800 pt-8 text-sm text-neutral-500">
-      <a href="#impressum" class="underline mr-4">Impressum</a>
-      <a href="#datenschutz" class="underline">Datenschutz</a>
-    </footer>
-  </main>
+  /* ---------- HERO ---------- */
+  header.hero{min-height:92vh;display:flex;flex-direction:column;justify-content:center;padding:120px 0 80px}
+  .eyebrow{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--faint);font-weight:600;margin-bottom:26px}
+  .wordmark{font-family:var(--serif);font-weight:600;font-size:clamp(56px,13vw,132px);line-height:.95;letter-spacing:.01em}
+  .lede{font-family:var(--serif);font-weight:500;font-size:clamp(21px,3.2vw,30px);line-height:1.4;color:var(--text);max-width:18ch;margin:30px 0 14px}
+  .sub{font-size:clamp(15px,2vw,17px);color:var(--muted);max-width:46ch}
+  .cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:40px}
+  .badge{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:999px;padding:13px 22px;font-size:14px;color:var(--text);background:rgba(255,255,255,.02)}
+  .badge .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+  .link-cta{font-size:14px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:3px;transition:.25s}
+  .link-cta:hover{color:var(--text);border-color:var(--text)}
+
+  /* ---------- SECTIONS ---------- */
+  section.block{padding:84px 0;border-top:1px solid var(--line)}
+  .label{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--faint);font-weight:600;margin-bottom:40px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+  .card h3{font-family:var(--serif);font-weight:600;font-size:23px;margin-bottom:12px;line-height:1.25}
+  .card p{color:var(--muted);font-size:15.5px}
+  .card .num{font-family:var(--serif);font-size:15px;color:var(--accent);margin-bottom:18px;opacity:.85}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+  .step .n{font-family:var(--serif);font-size:34px;color:var(--faint);line-height:1;margin-bottom:14px}
+  .step h3{font-size:17px;font-weight:600;margin-bottom:8px}
+  .step p{color:var(--muted);font-size:14.5px}
+
+  /* ---------- CLOSING ---------- */
+  .closing{padding:96px 0;border-top:1px solid var(--line);text-align:center}
+  .closing h2{font-family:var(--serif);font-weight:600;font-size:clamp(28px,5vw,46px);line-height:1.15;max-width:16ch;margin:0 auto 30px}
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--line);padding:40px 0 60px;color:var(--faint);font-size:13.5px}
+  footer .row{display:flex;flex-wrap:wrap;gap:10px 26px;align-items:center;justify-content:space-between}
+  footer a{color:var(--muted);text-decoration:none;transition:.2s}
+  footer a:hover{color:var(--text)}
+  .mark{font-family:var(--serif);font-size:17px;color:var(--text);letter-spacing:.04em}
+
+  /* ---------- LEGAL OVERLAYS (CSS-only via :target) ---------- */
+  .legal{position:fixed;inset:0;z-index:60;background:var(--bg);overflow-y:auto;display:none;padding:40px 0 100px}
+  .legal:target{display:block}
+  .legal .top{display:flex;justify-content:space-between;align-items:center;padding:8px 0 30px;border-bottom:1px solid var(--line);margin-bottom:34px}
+  .legal .back{font-size:14px;color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:9px 18px;transition:.2s}
+  .legal .back:hover{color:var(--text);border-color:var(--text)}
+  .legal h1{font-family:var(--serif);font-weight:600;font-size:34px}
+  .legal h2{font-family:var(--serif);font-weight:600;font-size:22px;margin:34px 0 12px}
+  .legal h3{font-size:16px;font-weight:600;margin:22px 0 8px}
+  .legal p,.legal li{color:var(--muted);font-size:15px;margin-bottom:12px;max-width:74ch}
+  .legal ul{padding-left:20px;margin-bottom:12px}
+  .legal a{color:var(--accent)}
+  .legal strong{color:var(--text);font-weight:600}
+  .legal table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+  .legal th,.legal td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;color:var(--muted)}
+  .legal th{color:var(--text);font-weight:600}
+  .draft{background:rgba(110,146,255,.08);border:1px solid rgba(110,146,255,.3);border-radius:10px;padding:14px 16px;font-size:14px;color:var(--text);margin-bottom:30px}
+  .note{background:rgba(255,255,255,.03);border-left:2px solid var(--faint);padding:10px 14px;font-size:13.5px;color:var(--faint);margin:12px 0;border-radius:0 6px 6px 0}
+
+  @media(max-width:720px){
+    .grid,.steps{grid-template-columns:1fr;gap:34px}
+    header.hero{min-height:88vh;padding:100px 0 60px}
+  }
+  @media(prefers-reduced-motion:reduce){#wind{opacity:.5}}
+</style>
+</head>
+<body>
+<canvas id="wind"></canvas>
+
+<!-- ============ LANDING ============ -->
+<main id="home">
+  <div class="wrap">
+    <header class="hero">
+      <div class="eyebrow">Bald im App Store</div>
+      <div class="wordmark">ANNÉES</div>
+      <p class="lede">Schuhe, die wirklich zu deinem Fuß passen.</p>
+      <p class="sub">ANNÉES findet dir aus dem ganzen Internet die richtigen Schuhe — und immer den günstigsten Preis. Kein Raten, keine Fehlkäufe, kein Zurückschicken.</p>
+      <div class="cta">
+        <span class="badge"><span class="dot"></span>Bald im App Store</span>
+        <a class="link-cta" href="mailto:kontakt@xn--annes-dsa.de?subject=Launch-Benachrichtigung">Zum Launch benachrichtigen →</a>
+      </div>
+    </header>
+  </div>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="label">Warum ANNÉES</div>
+      <div class="grid">
+        <div class="card">
+          <div class="num">01</div>
+          <h3>Auf deinen Fuß gemessen</h3>
+          <p>Ein kurzer 3D-Scan mit deinem iPhone erfasst Länge, Breite, Spann und Ferse. So kennen wir deine echte Passform — nicht bloß deine Größe.</p>
+        </div>
+        <div class="card">
+          <div class="num">02</div>
+          <h3>Immer der beste Preis</h3>
+          <p>Wir vergleichen alle Partner-Shops und zeigen dir den günstigsten Preis. Die lästige Sucherei übernehmen wir für dich.</p>
+        </div>
+        <div class="card">
+          <div class="num">03</div>
+          <h3>Deine Daten bleiben bei dir</h3>
+          <p>Dein 3D-Scan verlässt dein Gerät nie. Die Berechnung passiert komplett lokal auf deinem iPhone.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="label">So einfach</div>
+      <div class="steps">
+        <div class="step">
+          <div class="n">1</div>
+          <h3>Fuß scannen</h3>
+          <p>Einmal mit der Kamera über deinen Fuß — fertig in unter einer Minute.</p>
+        </div>
+        <div class="step">
+          <div class="n">2</div>
+          <h3>Passende Schuhe entdecken</h3>
+          <p>Du siehst nur Modelle, die wirklich zu deiner Fußform passen.</p>
+        </div>
+        <div class="step">
+          <div class="n">3</div>
+          <h3>Zum besten Preis kaufen</h3>
+          <p>Direkt zum günstigsten Shop — ohne Risiko, ohne Umweg.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <h2>Die richtigen Schuhe finden — endlich ohne Glücksspiel.</h2>
+      <div class="cta" style="justify-content:center">
+        <span class="badge"><span class="dot"></span>Bald im App Store</span>
+        <a class="link-cta" href="mailto:kontakt@xn--annes-dsa.de?subject=Launch-Benachrichtigung">Zum Launch benachrichtigen →</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="row">
+        <span class="mark">ANNÉES</span>
+        <span>
+          <a href="#impressum">Impressum</a> &nbsp;·&nbsp;
+          <a href="#datenschutz">Datenschutz</a> &nbsp;·&nbsp;
+          <a href="mailto:kontakt@xn--annes-dsa.de">Kontakt</a>
+        </span>
+        <span>© 2026 ANNÉES</span>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<!-- ============ IMPRESSUM ============ -->
+<section id="impressum" class="legal">
+  <div class="wrap">
+    <div class="top">
+      <h1>Impressum</h1>
+      <a class="back" href="#home">← Zurück</a>
+    </div>
+    <div class="draft">⚠️ Entwurf — ersetze vor der Veröffentlichung alle <strong>[Platzhalter in eckigen Klammern]</strong> durch deine echten Daten und entferne die grauen Hinweis-Kästen.</div>
+
+    <p>ANNÉES App · Stand: Juni 2026</p>
+
+    <h2>1. Angaben gemäß § 5 DDG</h2>
+    <p>[DEIN VORNAME NACHNAME ODER FIRMENNAME]<br>[STRASSE UND HAUSNUMMER]<br>[PLZ UND ORT]<br>Deutschland</p>
+    <p><strong>Vertreten durch:</strong><br>[DEIN VORNAME NACHNAME]</p>
+
+    <h2>2. Kontakt</h2>
+    <ul>
+      <li><strong>E-Mail:</strong> kontakt@années.de</li>
+      <li><strong>Telefon:</strong> [DEINE TELEFONNUMMER, z. B. +49 (0) 123 456789]</li>
+    </ul>
+
+    <h2>3. Umsatzsteuer-Identifikationsnummer</h2>
+    <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:<br><strong>[DEINE UST-ID, z. B. DE123456789]</strong></p>
+    <div class="note">Falls die Kleinunternehmerregelung gemäß § 19 UStG greift, kann dieser Block entfernt werden. Stattdessen: „Gemäß § 19 UStG wird keine Umsatzsteuer ausgewiesen."</div>
+
+    <h2>4. Registereintrag</h2>
+    <div class="note">Nur ausfüllen bei eingetragenen Gesellschaften (GmbH, UG, e.K.) — bei Einzelunternehmen ohne HR-Eintrag entfernen.</div>
+    <p>Eintragung im Handelsregister<br>Registergericht: [AMTSGERICHT ORT]<br>Registernummer: [HRB-NUMMER]</p>
+
+    <h2>5. Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+    <p>[DEIN VORNAME NACHNAME]<br>[STRASSE UND HAUSNUMMER]<br>[PLZ UND ORT]</p>
+
+    <h2>6. EU-Streitbeilegung</h2>
+    <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr/</a>. Unsere E-Mail-Adresse findest du oben unter Punkt 2.</p>
+
+    <h2>7. Verbraucherstreitbeilegung / Universalschlichtungsstelle</h2>
+    <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen (§ 36 VSBG).</p>
+
+    <h2>8. Haftung für Inhalte</h2>
+    <p>Als Diensteanbieter sind wir gemäß § 7 Abs. 1 DDG für eigene Inhalte auf diesen Seiten und in der App nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 DDG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.</p>
+    <p>Verpflichtungen zur Entfernung oder Sperrung der Nutzung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt. Eine diesbezügliche Haftung ist jedoch erst ab dem Zeitpunkt der Kenntnis einer konkreten Rechtsverletzung möglich. Bei Bekanntwerden von entsprechenden Rechtsverletzungen werden wir diese Inhalte umgehend entfernen.</p>
+
+    <h2>9. Haftung für Links</h2>
+    <p>Unsere App enthält Links zu externen Websites Dritter (insbesondere zu Online-Shops von Schuhherstellern), auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.</p>
+    <p>Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p>
+
+    <h2>10. Urheberrecht</h2>
+    <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke in dieser App unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.</p>
+    <p>Soweit die Inhalte in dieser App nicht vom Betreiber erstellt wurden (z. B. 3D-Modelle der Schuhhersteller), werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Solltest du trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.</p>
+
+    <p style="margin-top:34px"><a class="back" href="#home">← Zurück zur Startseite</a></p>
+  </div>
+</section>
+
+<!-- ============ DATENSCHUTZ ============ -->
+<section id="datenschutz" class="legal">
+  <div class="wrap">
+    <div class="top">
+      <h1>Datenschutzerklärung</h1>
+      <a class="back" href="#home">← Zurück</a>
+    </div>
+    <div class="draft">⚠️ Entwurf — ersetze alle <strong>[Platzhalter]</strong> (Verantwortlicher, DSB, Aufsichtsbehörde) durch deine echten Daten und entferne die grauen Hinweis-Kästen, bevor die Seite öffentlich genutzt wird.</div>
+
+    <p>ANNÉES App · Stand: Juni 2026</p>
+
+    <h2>1. Einleitung und Verantwortlicher</h2>
+    <p>Wir freuen uns über dein Interesse an der ANNÉES App (nachfolgend „App"). Der Schutz deiner Privatsphäre und insbesondere deiner sensiblen biometrischen Daten ist das Fundament unserer Technologie. Diese Datenschutzerklärung informiert dich transparent darüber, welche Daten erhoben und verarbeitet werden, welche Daten dein Endgerät niemals verlassen, und welche Rechte dir nach der Datenschutz-Grundverordnung (DSGVO) zustehen.</p>
+    <p><strong>Verantwortlicher</strong> im Sinne der DSGVO ist:</p>
+    <p>[DEIN NAME / FIRMA]<br>[STRASSE UND HAUSNUMMER]<br>[PLZ UND ORT]<br>E-Mail: datenschutz@années.de</p>
+    <h3>Datenschutzbeauftragter</h3>
+    <div class="note">Du verarbeitest Daten gemäß Art. 9 DSGVO als Kerntätigkeit. Damit greift die Pflicht zur Bestellung eines Datenschutzbeauftragten nach Art. 37 DSGVO mit hoher Wahrscheinlichkeit. Bestelle einen externen DSB und benenne ihn hier.</div>
+    <p>Wir haben einen externen Datenschutzbeauftragten bestellt. Du erreichst ihn unter:</p>
+    <p>[NAME DES DSB]<br>[ADRESSE]<br>E-Mail: dsb@années.de</p>
+
+    <h2>2. Unser Kernprinzip: On-Device-Verarbeitung (Privacy by Design)</h2>
+    <p>Um dir eine präzise Schuhgröße zu empfehlen, nutzt unsere App die LiDAR-Sensoren bzw. die TrueDepth-Kamera deines Geräts, um detaillierte 3D-Modelle (Punktewolken sowie USDZ-Dateien) deiner Füße zu erstellen. Da diese Daten hochgradig individuell sind und einer Person eindeutig zugeordnet werden können, behandeln wir sie als <strong>besondere Kategorie personenbezogener Daten (biometrische Daten gemäß Art. 9 Abs. 1 DSGVO)</strong>.</p>
+    <h3>Technische Garantie zur Datenübertragung</h3>
+    <p>Deine 3D-Fußscans werden <strong>ausschließlich lokal auf deinem Endgerät</strong> verarbeitet. Es findet durch unsere App <strong>kein Upload</strong> dieser biometrischen Rohdaten an unsere Server, an Cloud-Anbieter, an Supabase oder an sonstige Dritt-Tracking-Dienste statt. Der gesamte Abgleich zwischen deinem Fußscan und den hinterlegten 3D-Modellen der Schuhe geschieht isoliert auf dem Prozessor deines Smartphones.</p>
+    <p>Eine eng begrenzte Ausnahme bildet — <strong>nur auf deine ausdrückliche Aktion hin</strong> — ein anonymes Passform-Feedback (siehe Ziffer 4e): Dabei verlässt <strong>nicht</strong> der Scan, sondern lediglich eine kleine Anzahl dimensionsloser Maßzahlen dein Gerät, die für sich genommen keine Wiedererkennung einer Person erlauben. Ohne dein aktives Antippen wird auch das nicht übertragen.</p>
+    <p><strong>Zweck der Verarbeitung:</strong> Ermittlung einer präzisen, individuellen Passformempfehlung für Schuhwerk.</p>
+    <p><strong>Rechtsgrundlage:</strong> Deine ausdrückliche, freiwillige und jederzeit widerrufbare Einwilligung gemäß Art. 9 Abs. 2 lit. a i. V. m. Art. 6 Abs. 1 lit. a DSGVO, die du beim Onboarding erteilst.</p>
+    <h3>Wichtiger Hinweis zum Apple iCloud-Backup</h3>
+    <p>Auch wenn wir deine Scans nicht übertragen, können diese USDZ-Dateien durch das Betriebssystem (iOS) automatisch in deinem persönlichen Apple iCloud-Backup gespeichert werden, sofern du dieses auf deinem iPhone aktiviert hast. Hierauf haben wir technisch keinen Einfluss. Du kannst das iCloud-Backup für die ANNÉES App jederzeit in deinen iOS-Einstellungen unter „Apple-ID › iCloud › iCloud Backup" deaktivieren.</p>
+    <h3>Widerruf und Löschung</h3>
+    <p>Du kannst deine Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen, indem du die lokalen Scans in den App-Einstellungen löschst oder die App von deinem Gerät entfernst. Da wir keine Kopie deiner Scans haben, sind diese damit unwiederbringlich gelöscht.</p>
+
+    <h2>3. Automatisierte Entscheidungsfindung und Profiling (Art. 22 DSGVO)</h2>
+    <p>Die Berechnung deiner Passformempfehlung erfolgt durch einen automatisierten algorithmischen Abgleich deiner lokal erfassten Fuß-Geometrie mit den Geometrien hinterlegter Schuh-Leistenmodelle. Diese algorithmische Empfehlung entfaltet jedoch <strong>keine rechtliche Wirkung</strong> und beeinträchtigt dich auch nicht in vergleichbarer erheblicher Weise im Sinne des Art. 22 Abs. 1 DSGVO. Die endgültige Kaufentscheidung triffst stets ausschließlich du selbst.</p>
+    <p>Eine automatisierte Entscheidungsfindung im Sinne von Art. 22 DSGVO findet daher nicht statt. Ein darüber hinausgehendes Profiling, das auf die Bewertung persönlicher Aspekte abzielt, führen wir ebenfalls nicht durch.</p>
+
+    <h2>3a. Übersicht: Mit welchen Dienstleistern arbeiten wir?</h2>
+    <table>
+      <tr><th>Dienstleister</th><th>Zweck</th><th>Rolle</th></tr>
+      <tr><td><strong>Supabase, Inc.</strong> (Singapur, Server-Region Frankfurt/AWS)</td><td>Hosting deiner Account-Daten, Wunschliste, Schuhgröße, Klick-Statistik sowie des anonymen Passform-Feedbacks (Ziffer 4e).</td><td>Auftragsverarbeiter (Art. 28 DSGVO)</td></tr>
+      <tr><td><strong>IONOS SE</strong> (Montabaur, Deutschland)</td><td>Web-Hosting der Marken-Website années.de und E-Mail-Postfächer für die Kontaktadressen.</td><td>Auftragsverarbeiter (Art. 28 DSGVO)</td></tr>
+      <tr><td><strong>Apple Inc.</strong> (Cupertino, USA)</td><td>App-Store-Distribution; bei „Sign in with Apple" zusätzlich Authentifizierungs-Provider.</td><td>Eigenständig Verantwortlicher</td></tr>
+      <tr><td><strong>Awin AG</strong> (Berlin) und angeschlossene Partner-Shops</td><td>Vermittlungs-Tracking, wenn du auf einen Partner-Link tippst und dort kaufst.</td><td>Eigenständig Verantwortlicher für die Browser-Weiterleitung.</td></tr>
+    </table>
+
+    <h2>4. Daten, die auf unseren Servern verarbeitet werden</h2>
+    <p>Um dir ein Nutzerkonto bereitzustellen und deine Einstellungen geräteübergreifend abrufbar zu machen, verarbeiten wir die nachfolgend aufgeführten Basis-Daten auf unseren Servern (Hosting siehe Ziffer 6):</p>
+    <h3>a) Account-Daten</h3>
+    <ul>
+      <li>E-Mail-Adresse und kryptographisch gehashtes Passwort</li>
+      <li>Bei „Sign in with Apple": die von Apple bereitgestellte kryptographische User-ID (anstelle eines Passworts)</li>
+      <li>Zeitstempel deiner Registrierung sowie deiner Einwilligungen zu AGB und Datenschutzerklärung (Nachweispflicht nach Art. 7 Abs. 1 DSGVO)</li>
+    </ul>
+    <h3>b) Profil-Daten</h3>
+    <ul><li>Anzeigename (optional)</li><li>Deine favorisierten Schuhmodelle (Wunschliste)</li></ul>
+    <h3>c) Filter-Präferenzen</h3>
+    <p>Präferenz der Schuhkategorie (z. B. „Damen", „Herren", „Unisex"). Diese Angabe dient ausschließlich der ressourcenschonenden algorithmischen Vorfilterung des Schuh-Katalogs (Datenminimierung gemäß Art. 5 Abs. 1 lit. c DSGVO) und lässt keine Rückschlüsse auf deine Geschlechtsidentität zu.</p>
+    <h3>d) Berechnete Passform</h3>
+    <p>Die abstrakt errechnete Schuhgröße (z. B. „42.5 EU"). Das zugrundeliegende 3D-Modell wird hierbei nicht übertragen.</p>
+    <p><strong>Zwecke:</strong> Bereitstellung der App-Infrastruktur, Synchronisierung deiner Wunschliste sowie deiner Größeneinstellung über mehrere Geräte hinweg, Authentifizierung beim Login.</p>
+    <p><strong>Rechtsgrundlagen:</strong></p>
+    <ul>
+      <li>Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung) für Account- und Profildaten — auch im Rahmen des Vertrags über digitale Dienste gegen Datenbereitstellung gemäß § 312 Abs. 1a BGB.</li>
+      <li>Art. 6 Abs. 1 lit. a DSGVO (Einwilligung), soweit Verarbeitungen über die Vertragserfüllung hinausgehen.</li>
+      <li>Art. 6 Abs. 1 lit. c DSGVO (rechtliche Verpflichtung) zur Dokumentation der Einwilligungs-Zeitstempel.</li>
+    </ul>
+    <h3>e) Anonymisiertes Passform-Feedback (freiwilliges Community-Lernsystem)</h3>
+    <p>Damit unsere Empfehlungen mit jedem Nutzer treffsicherer werden, kannst du uns — <strong>vollkommen freiwillig</strong> — pro Schuh mitteilen, ob er dir gut gepasst hat („PASST MIR") oder nicht. Tippst du auf diese Schaltfläche, übermitteln wir an unsere Datenbank ausschließlich:</p>
+    <ul>
+      <li>einen <strong>festen, kleinen Satz dimensionsloser Maßverhältnisse</strong> deines Fußes (Verhältnis von Ballenbreite, Fersenbreite und Spannhöhe jeweils zur Fußlänge) sowie drei daraus abgeleitete Form-Klassen (z. B. „schmal / normal / breit");</li>
+      <li>die betroffene <strong>Schuhgröße</strong> und das von dir gemeldete <strong>Ergebnis</strong> (gepasst / zu eng / zu locker / zu klein / zu groß);</li>
+      <li>die Kennung des Schuh-<strong>Modells</strong>.</li>
+    </ul>
+    <p><strong>Was wir ausdrücklich NICHT übertragen:</strong> deinen 3D-Scan, die Punktewolke oder sonstige biometrische Rohdaten. Diese verbleiben — wie unter Ziffer 2 beschrieben — ausschließlich auf deinem Gerät. Die übermittelten Verhältniszahlen und Klassen beschreiben nur die grobe Form eines Fußes und erlauben für sich genommen <strong>keine eindeutige Identifizierung</strong>. Sie stellen daher <strong>keine biometrischen Daten im Sinne des Art. 9 Abs. 1 DSGVO</strong> dar.</p>
+    <p><strong>Zweck:</strong> Wir bilden je Schuhmodell einen anonymen Durchschnittswert der Füße, denen das Modell gut gepasst hat, und vergleichen deinen Fuß anschließend lokal auf deinem Gerät damit. Ein solcher Durchschnitt wird erst <strong>ab mindestens fünf unabhängigen Rückmeldungen</strong> je Modell gebildet — so lässt sich aus dem Mittelwert kein einzelner Datensatz rekonstruieren.</p>
+    <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO (deine ausdrückliche Einwilligung durch das aktive Antippen der Feedback-Schaltfläche). Du kannst es jederzeit unterlassen, ohne dass dir dadurch Nachteile entstehen.</p>
+    <p><strong>Verknüpfung und Löschung:</strong> Eine Rückmeldung wird intern mit deinem Account verknüpft — ausschließlich, damit du sie löschen kannst und damit je Modell nur eine Rückmeldung pro Person gewertet wird. Löschst du deinen Account, wird diese Verknüpfung dauerhaft gekappt; die verbleibende, dann keiner Person mehr zuordenbare Maßzahl kann im anonymen Modell-Durchschnitt erhalten bleiben.</p>
+
+    <h2>5. Server-Logfiles und Authentifizierung</h2>
+    <p>Bei jeder Anmeldung am Backend (Login, Synchronisierung der Profil-Daten) werden technisch zwingend folgende Daten automatisch durch unseren Hosting-Dienstleister erfasst:</p>
+    <ul>
+      <li>IP-Adresse des anfragenden Geräts (gekürzt, sofern technisch möglich)</li>
+      <li>Datum und Uhrzeit des Zugriffs</li>
+      <li>Verwendete App-Version und Betriebssystem-Version</li>
+      <li>HTTP-Statuscode der Antwort</li>
+    </ul>
+    <p>Diese Logdaten dienen der IT-Sicherheit, der Missbrauchserkennung (z. B. Brute-Force-Angriffe auf Logins) und der technischen Fehleranalyse. Sie werden getrennt von deinen Account-Daten gespeichert.</p>
+    <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO — berechtigtes Interesse an der Sicherheit und Stabilität des Dienstes. <strong>Speicherdauer:</strong> Maximal 7 Tage, danach automatische Löschung.</p>
+
+    <h2>6. Drittlandtransfer und Hosting (Supabase)</h2>
+    <p>Die unter Ziffer 4 und 5 genannten Account- und Logdaten hosten wir bei unserem Cloud-Dienstleister <strong>Supabase, Inc.</strong>, 970 Toa Payoh North #07-04, Singapur 318992.</p>
+    <h3>Serverstandort</h3>
+    <p>Die Speicherung erfolgt zwingend auf Servern innerhalb der Europäischen Union (Region Frankfurt am Main, AWS eu-central-1). Diese Konfiguration ist auf Datenbankebene festgelegt und kann nicht durch das App-Frontend umgangen werden.</p>
+    <h3>Auftragsverarbeitung</h3>
+    <p>Mit Supabase wurde ein Auftragsverarbeitungsvertrag (AVV) gemäß Art. 28 DSGVO geschlossen, der Supabase auf strikte Weisungsgebundenheit verpflichtet.</p>
+    <h3>Drittland-Garantien</h3>
+    <p>Da die Muttergesellschaft Supabase, Inc. ein US-Unternehmen ist, kann ein theoretischer Zugriff durch US-Behörden (insbesondere nach dem CLOUD Act) trotz EU-Speicherort nicht vollständig ausgeschlossen werden. Wir haben diesen Drittlandtransfer durch EU-Standardvertragsklauseln (SCCs) gemäß Art. 46 DSGVO sowie ein internes Transfer Impact Assessment (TIA) abgesichert. Zusätzlich sind alle übertragenen Daten Transport-verschlüsselt (TLS 1.3) und ruhen bei Supabase verschlüsselt (AES-256).</p>
+    <h3>Erinnerung</h3>
+    <p>Deine <strong>biometrischen 3D-Scans (Art. 9 DSGVO) sind von diesem Drittlandtransfer ausdrücklich nicht betroffen</strong>, da sie dein Gerät nicht verlassen (siehe Ziffer 2).</p>
+
+    <h2>7. Externe Dienste</h2>
+    <h3>a) Sign in with Apple</h3>
+    <p>Wenn du dich über „Sign in with Apple" registrierst oder anmeldest, übermittelt Apple uns eine kryptographische User-ID sowie — sofern von dir freigegeben — deinen Namen und deine E-Mail-Adresse (oder eine private Apple-Relay-Adresse). Apple verarbeitet diese Daten als eigenständig Verantwortlicher.</p>
+    <p><strong>Anbieter:</strong> Apple Inc., One Apple Park Way, Cupertino, CA 95014, USA. Datenschutzerklärung: <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">apple.com/legal/privacy</a>. <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO (Einwilligung). Alternative Anmeldemethoden stehen zur Verfügung.</p>
+    <h3>b) App-Store-Datenverarbeitung durch Apple</h3>
+    <p>Die Distribution der App erfolgt über den Apple App Store. Beim Download verarbeitet Apple Inc. eigenverantwortlich Daten (z. B. Apple-ID, Zahlungsdaten, Geräte-Informationen). Wir erhalten ausschließlich anonymisierte oder aggregierte Statistiken über Downloads und Crashes.</p>
+
+    <h2>8. Partner-Links und Klick-Statistik (Affiliate-Marketing)</h2>
+    <p>Die App finanziert sich u. a. durch <strong>Affiliate-Verlinkungen</strong> zu Schuh-Shops Dritter. Wenn du auf einen „ZUM SHOP"-Link tippst und dort kaufst, erhalten wir eine <strong>Provision vom jeweiligen Shop</strong> — für dich entstehen <strong>keine Mehrkosten</strong>. Diese Links sind stets mit dem Hinweis „Partnerlink (§5a UWG) — keine Mehrkosten für dich" gekennzeichnet.</p>
+    <h3>a) Weiterleitung über Awin</h3>
+    <p>Beim Tippen auf einen „ZUM SHOP"-Link öffnet das System des Affiliate-Netzwerks (aktuell: <strong>Awin AG / Awin Ltd.</strong>) im Browser deines Geräts eine Weiterleitungs-URL mit einem Tracking-Parameter, damit ein späterer Kauf unserer Empfehlung zugeordnet werden kann. Auf diesen Browser-Vorgang haben wir keinen Einfluss; es gelten die Datenschutzbestimmungen von Awin.</p>
+    <p><strong>Anbieter:</strong> Awin AG, Eichhornstraße 3, 10785 Berlin. Datenschutzerklärung: <a href="https://www.awin.com/de/rechtliches/privacy-policy-de" target="_blank" rel="noopener">awin.com/de/rechtliches/privacy-policy-de</a>. <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO — berechtigtes Interesse an der Finanzierung des kostenlos angebotenen Dienstes.</p>
+    <h3>b) Eigene Klick-Statistik</h3>
+    <p>Damit wir Affiliate-Klicks intern auswerten können, speichern wir bei jedem Tap auf „ZUM SHOP": eine anonyme Geräte-/Account-Kennung (UUID — keine PII), die ID des angeschauten Schuhs, den Score-Wert, die Quelle des Klicks, die ID des Partner-Programms und den Zeitstempel. Diese Daten werden <strong>nicht mit deinem Account verknüpft</strong>. <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO. Speicherdauer: maximal 24 Monate.</p>
+    <h3>c) Reihenfolge der Schuh-Empfehlungen</h3>
+    <p>Die Reihenfolge richtet sich <strong>primär nach der Passform-Übereinstimmung</strong> (Score 0–100). Bei mehreren gleich gut passenden Modellen kann die Position zusätzlich von kommerziellen Faktoren beeinflusst sein (z. B. höherer Provisionssatz). In solchen Fällen kennzeichnen wir das Modell mit dem Hinweis <strong>„Anzeige"</strong> (§5a UWG, EU-Verordnung 2019/1150).</p>
+
+    <h2>9. Push-Benachrichtigungen</h2>
+    <div class="note">Falls die App keine Push-Benachrichtigungen versendet, kann dieser Abschnitt entfernt werden.</div>
+    <p>Wir senden dir ggf. Push-Benachrichtigungen (z. B. zu neuen Schuhmodellen oder Statusmeldungen). Hierfür erhalten wir von Apple einen Push-Token, der dein Gerät anonym identifiziert (Apple Push Notification Service, APNs). <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO (Einwilligung über den iOS-Systemdialog), jederzeit in den iOS-Einstellungen widerrufbar.</p>
+
+    <h2>10. Fehleranalyse, Tracking und Werbe-IDs</h2>
+    <p>Wir verzichten vollständig auf invasive Tracking-Tools, Werbe-Frameworks und gerätübergreifendes Profiling. Es kommen <strong>keine</strong> Drittanbieter-Analysetools (wie Google Firebase Analytics, Sentry, Adjust, AppsFlyer o. ä.) zum Einsatz. Wir nutzen die <strong>Apple-Werbekennung (IDFA) nicht</strong>.</p>
+
+    <h2>11. Sicherheit der Verarbeitung (Art. 32 DSGVO)</h2>
+    <p>Wir treffen geeignete technische und organisatorische Maßnahmen (TOMs):</p>
+    <ul>
+      <li>Transportverschlüsselung sämtlicher Datenübertragungen mittels TLS 1.3</li>
+      <li>Verschlüsselte Speicherung („Encryption at Rest", AES-256) bei Supabase</li>
+      <li>Hashing von Passwörtern (bcrypt bzw. Supabase-Auth-Standard)</li>
+      <li>Strikte Rollen- und Rechteverwaltung (Row Level Security)</li>
+      <li>On-Device-Verarbeitung biometrischer Rohdaten als zentrales Sicherheits-Konzept</li>
+      <li>Regelmäßige Sicherheitsupdates der App und des Backends</li>
+    </ul>
+
+    <h2>12. Datenschutz-Folgenabschätzung (Art. 35 DSGVO)</h2>
+    <p>Aufgrund der Verarbeitung biometrischer Daten haben wir vor der Inbetriebnahme eine Datenschutz-Folgenabschätzung durchgeführt und dokumentiert. Sie wird regelmäßig überprüft und bei wesentlichen Änderungen aktualisiert.</p>
+    <div class="note">Die DSFA muss tatsächlich durchgeführt und intern dokumentiert werden (Schutzbedarf, Risikoanalyse, TOMs). Vorlagen z. B. beim BayLDA oder im CNIL-PIA-Tool.</div>
+
+    <h2>13. Speicherdauer und Löschung</h2>
+    <ul>
+      <li><strong>Lokale Scans (USDZ, Punktewolken):</strong> verbleiben auf deinem Gerät, bis du sie löschst oder die App deinstallierst.</li>
+      <li><strong>Account- und Profildaten:</strong> Löschung über die Funktion „Account löschen", spätestens 30 Tage danach unwiderrufliche Vernichtung.</li>
+      <li><strong>Inaktive Accounts:</strong> Nach 24 Monaten Inaktivität Kontaktaufnahme; ohne Reaktion binnen 30 Tagen automatische Löschung.</li>
+      <li><strong>Server-Logfiles:</strong> nach 7 Tagen automatisch gelöscht.</li>
+      <li><strong>Klick-Statistik (Affiliate):</strong> maximal 24 Monate.</li>
+      <li><strong>Anonymes Passform-Feedback:</strong> Account-Verknüpfung wird bei Löschung entfernt; die anonymen Maßzahlen verbleiben im Modell-Durchschnitt.</li>
+      <li><strong>Einwilligungs-Zeitstempel:</strong> bis 3 Jahre nach Account-Löschung (Art. 7 Abs. 1 DSGVO).</li>
+    </ul>
+
+    <h2>14. Deine Rechte als betroffene Person</h2>
+    <ul>
+      <li><strong>Auskunftsrecht</strong> (Art. 15 DSGVO)</li>
+      <li><strong>Recht auf Berichtigung</strong> (Art. 16 DSGVO)</li>
+      <li><strong>Recht auf Löschung</strong> (Art. 17 DSGVO) — Funktion „Account löschen"</li>
+      <li><strong>Recht auf Einschränkung</strong> (Art. 18 DSGVO)</li>
+      <li><strong>Recht auf Datenübertragbarkeit</strong> (Art. 20 DSGVO)</li>
+      <li><strong>Widerspruchsrecht</strong> (Art. 21 DSGVO)</li>
+      <li><strong>Widerrufsrecht</strong> (Art. 7 Abs. 3 DSGVO)</li>
+    </ul>
+    <p>Zur Ausübung deiner Rechte wende dich an: <strong>datenschutz@années.de</strong> oder an unseren Datenschutzbeauftragten.</p>
+    <h3>Beschwerderecht bei einer Aufsichtsbehörde</h3>
+    <p>Du hast das Recht, dich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art. 77 DSGVO). Die für uns zuständige Aufsichtsbehörde ist:</p>
+    <p>[ZUSTÄNDIGE LANDESDATENSCHUTZBEHÖRDE]<br>[ADRESSE DER BEHÖRDE]</p>
+
+    <h2>15. Aktualität und Änderung dieser Datenschutzerklärung</h2>
+    <p>Diese Datenschutzerklärung hat den oben angegebenen Stand. Aufgrund der Weiterentwicklung der App oder gesetzlicher Vorgaben kann eine Änderung notwendig werden. Über wesentliche Änderungen informieren wir dich rechtzeitig in der App und/oder per E-Mail.</p>
+
+    <p style="margin-top:34px"><a class="back" href="#home">← Zurück zur Startseite</a></p>
+  </div>
+</section>
+
+<script>
+(function(){
+  var c=document.getElementById('wind');
+  if(!c) return;
+  var x=c.getContext('2d'), W,H,dpr,parts,raf;
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function size(){
+    dpr=Math.min(window.devicePixelRatio||1,2);
+    W=c.width=Math.floor(innerWidth*dpr);
+    H=c.height=Math.floor(innerHeight*dpr);
+    c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';
+  }
+  function init(){
+    var n=Math.max(40,Math.min(150,Math.floor(innerWidth/11)));
+    parts=[];
+    for(var i=0;i<n;i++){
+      parts.push({
+        x:Math.random()*W, y:Math.random()*H,
+        vx:(0.15+Math.random()*0.5)*dpr, vy:(Math.random()-0.5)*0.25*dpr,
+        r:(Math.random()*1.6+0.5)*dpr, a:Math.random()*0.5+0.15
+      });
+    }
+  }
+  function draw(){
+    x.clearRect(0,0,W,H);
+    for(var i=0;i<parts.length;i++){
+      var p=parts[i];
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x>W+10){p.x=-10;p.y=Math.random()*H;}
+      if(p.y<-10)p.y=H+10; if(p.y>H+10)p.y=-10;
+      x.beginPath();
+      x.arc(p.x,p.y,p.r,0,6.283);
+      x.fillStyle='rgba('+(200+Math.floor(p.a*55))+','+(205+Math.floor(p.a*50))+',255,'+(p.a*0.6)+')';
+      x.fill();
+    }
+    raf=requestAnimationFrame(draw);
+  }
+  function start(){ size(); init(); cancelAnimationFrame(raf); draw(); }
+  window.addEventListener('resize',function(){ size(); init(); });
+  start();
+})();
+</script>
 </body>
 </html>

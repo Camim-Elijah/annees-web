@@ -3,75 +3,94 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ANNÉES — Die besten Schuhe für deinen Fuß</title>
-<meta name="description" content="ANNÉES findet dir aus dem ganzen Internet die Schuhe, die wirklich zu deinem Fuß passen — zum günstigsten Preis. Bald im App Store.">
-<meta name="theme-color" content="#0e0e0e">
-<meta property="og:title" content="ANNÉES — Die besten Schuhe für deinen Fuß">
-<meta property="og:description" content="Schuhe, die wirklich passen — zum besten Preis. Bald im App Store.">
+<meta name="robots" content="noindex, nofollow">
+<title>ANNÉES — Schuhe, die wirklich passen</title>
+<meta name="description" content="ANNÉES vermisst deinen Fuß in 3D und findet aus dem ganzen Internet die Schuhe, die wirklich passen — automatisch zum besten Preis. Bald im App Store.">
+<meta name="theme-color" content="#0a0a0a">
+<meta property="og:title" content="ANNÉES — Schuhe, die wirklich passen">
+<meta property="og:description" content="Dein Fuß in 3D. Schuhe, die passen — zum besten Preis. Bald im App Store.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0e0e0e;
-    --surface:#161616;
-    --text:#f5f4f1;
+    --bg:#0a0a0a;
+    --text:#f6f5f2;
     --muted:#a8a49c;
     --faint:#6d6960;
     --line:rgba(255,255,255,.10);
-    --accent:#6e92ff;
-    --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+    --accent:#7aa2ff;
+    --serif:"Playfair Display",Georgia,serif;
     --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth}
-  body{
-    background:var(--bg);color:var(--text);font-family:var(--sans);
-    line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
-  }
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
   a{color:inherit}
-  #wind{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
-  .wrap{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:0 28px}
+  #scene{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 28px}
 
-  /* ---------- HERO ---------- */
-  header.hero{min-height:92vh;display:flex;flex-direction:column;justify-content:center;padding:120px 0 80px}
-  .eyebrow{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--faint);font-weight:600;margin-bottom:26px}
-  .wordmark{font-family:var(--serif);font-weight:600;font-size:clamp(56px,13vw,132px);line-height:.95;letter-spacing:.01em}
-  .lede{font-family:var(--serif);font-weight:500;font-size:clamp(21px,3.2vw,30px);line-height:1.4;color:var(--text);max-width:18ch;margin:30px 0 14px}
-  .sub{font-size:clamp(15px,2vw,17px);color:var(--muted);max-width:46ch}
-  .cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:40px}
-  .badge{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:999px;padding:13px 22px;font-size:14px;color:var(--text);background:rgba(255,255,255,.02)}
-  .badge .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+  /* sections: solid hides the 3D, glass reveals it */
+  section,header.hero{position:relative;z-index:1}
+  .solid{background:var(--bg)}
+  .glass{background:transparent}
+  .pad{padding:clamp(96px,15vh,168px) 0}
+
+  /* ---- HERO ---- */
+  header.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:120px 0 60px}
+  .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(120% 80% at 30% 40%,rgba(10,10,10,.55),rgba(10,10,10,.86) 70%)}
+  .eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:24px}
+  .wordmark{font-family:var(--serif);font-weight:700;font-size:clamp(58px,15vw,150px);line-height:.92;letter-spacing:.005em}
+  .hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(24px,4vw,40px);line-height:1.25;margin:26px 0 16px;max-width:20ch}
+  .hero .sub{font-size:clamp(16px,2.1vw,19px);color:var(--muted);max-width:50ch}
+  .cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:38px}
+  .badge{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:999px;padding:13px 22px;font-size:14px;background:rgba(255,255,255,.03);backdrop-filter:blur(8px)}
+  .badge .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
   .link-cta{font-size:14px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:3px;transition:.25s}
   .link-cta:hover{color:var(--text);border-color:var(--text)}
+  .scrollhint{margin-top:64px;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--faint)}
 
-  /* ---------- SECTIONS ---------- */
-  section.block{padding:84px 0;border-top:1px solid var(--line)}
-  .label{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--faint);font-weight:600;margin-bottom:40px}
-  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
-  .card h3{font-family:var(--serif);font-weight:600;font-size:23px;margin-bottom:12px;line-height:1.25}
-  .card p{color:var(--muted);font-size:15.5px}
-  .card .num{font-family:var(--serif);font-size:15px;color:var(--accent);margin-bottom:18px;opacity:.85}
+  /* ---- STAT BAND ---- */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .stat{padding:42px 0;text-align:center}
+  .stat .big{font-family:var(--serif);font-size:clamp(30px,5vw,46px);font-weight:600;line-height:1}
+  .stat .lbl{font-size:13px;color:var(--muted);margin-top:12px}
 
-  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
-  .step .n{font-family:var(--serif);font-size:34px;color:var(--faint);line-height:1;margin-bottom:14px}
-  .step h3{font-size:17px;font-weight:600;margin-bottom:8px}
-  .step p{color:var(--muted);font-size:14.5px}
+  /* ---- STATEMENTS ---- */
+  .statement{font-family:var(--serif);font-weight:600;font-size:clamp(32px,6.2vw,70px);line-height:1.06;letter-spacing:-.01em;max-width:15ch}
+  .center{margin-left:auto;margin-right:auto;text-align:center;max-width:18ch}
+  .lead-sub{font-size:clamp(16px,2.2vw,21px);color:var(--muted);max-width:54ch;margin-top:26px}
+  .center+.lead-sub{margin-left:auto;margin-right:auto;text-align:center}
+  .seclabel{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:26px}
+  .accenttext{color:var(--accent)}
 
-  /* ---------- CLOSING ---------- */
-  .closing{padding:96px 0;border-top:1px solid var(--line);text-align:center}
-  .closing h2{font-family:var(--serif);font-weight:600;font-size:clamp(28px,5vw,46px);line-height:1.15;max-width:16ch;margin:0 auto 30px}
+  /* ---- HOW (steps) ---- */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin-top:54px}
+  .step .n{font-family:var(--serif);font-size:42px;color:var(--faint);line-height:1;margin-bottom:16px}
+  .step h3{font-size:19px;font-weight:600;margin-bottom:8px}
+  .step p{color:var(--muted);font-size:15px}
 
-  /* ---------- FOOTER ---------- */
-  footer{border-top:1px solid var(--line);padding:40px 0 60px;color:var(--faint);font-size:13.5px}
-  footer .row{display:flex;flex-wrap:wrap;gap:10px 26px;align-items:center;justify-content:space-between}
+  /* ---- CARDS ---- */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:54px}
+  .card{border:1px solid var(--line);border-radius:18px;padding:30px;background:rgba(255,255,255,.02)}
+  .card h3{font-family:var(--serif);font-weight:600;font-size:22px;margin-bottom:10px}
+  .card p{color:var(--muted);font-size:15px}
+
+  /* ---- FOOTER ---- */
+  footer{border-top:1px solid var(--line);padding:44px 0 64px;color:var(--faint);font-size:13.5px;position:relative;z-index:1;background:var(--bg)}
+  footer .row{display:flex;flex-wrap:wrap;gap:12px 26px;align-items:center;justify-content:space-between}
   footer a{color:var(--muted);text-decoration:none;transition:.2s}
   footer a:hover{color:var(--text)}
-  .mark{font-family:var(--serif);font-size:17px;color:var(--text);letter-spacing:.04em}
+  .mark{font-family:var(--serif);font-size:18px;color:var(--text);letter-spacing:.04em}
 
-  /* ---------- LEGAL OVERLAYS (CSS-only via :target) ---------- */
-  .legal{position:fixed;inset:0;z-index:60;background:var(--bg);overflow-y:auto;display:none;padding:40px 0 100px}
+  /* ---- scroll reveal ---- */
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---- LEGAL OVERLAYS ---- */
+  .legal{position:fixed;inset:0;z-index:90;background:var(--bg);overflow-y:auto;display:none;padding:40px 0 100px}
   .legal:target{display:block}
   .legal .top{display:flex;justify-content:space-between;align-items:center;padding:8px 0 30px;border-bottom:1px solid var(--line);margin-bottom:34px}
   .legal .back{font-size:14px;color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:9px 18px;transition:.2s}
@@ -86,84 +105,98 @@
   .legal table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
   .legal th,.legal td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;color:var(--muted)}
   .legal th{color:var(--text);font-weight:600}
-  .draft{background:rgba(110,146,255,.08);border:1px solid rgba(110,146,255,.3);border-radius:10px;padding:14px 16px;font-size:14px;color:var(--text);margin-bottom:30px}
+  .draft{background:rgba(122,162,255,.08);border:1px solid rgba(122,162,255,.3);border-radius:10px;padding:14px 16px;font-size:14px;color:var(--text);margin-bottom:30px}
   .note{background:rgba(255,255,255,.03);border-left:2px solid var(--faint);padding:10px 14px;font-size:13.5px;color:var(--faint);margin:12px 0;border-radius:0 6px 6px 0}
 
-  @media(max-width:720px){
-    .grid,.steps{grid-template-columns:1fr;gap:34px}
-    header.hero{min-height:88vh;padding:100px 0 60px}
+  @media(max-width:760px){
+    .stats,.steps,.grid3{grid-template-columns:1fr;gap:28px}
+    .stat{padding:30px 0}
   }
-  @media(prefers-reduced-motion:reduce){#wind{opacity:.5}}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
 </style>
 </head>
 <body>
-<canvas id="wind"></canvas>
+<canvas id="scene"></canvas>
 
-<!-- ============ LANDING ============ -->
 <main id="home">
-  <div class="wrap">
-    <header class="hero">
-      <div class="eyebrow">Bald im App Store</div>
+
+  <header class="hero glass">
+    <div class="wrap">
+      <div class="eyebrow">Die Zukunft des Schuhkaufs</div>
       <div class="wordmark">ANNÉES</div>
-      <p class="lede">Schuhe, die wirklich zu deinem Fuß passen.</p>
-      <p class="sub">ANNÉES findet dir aus dem ganzen Internet die richtigen Schuhe — und immer den günstigsten Preis. Kein Raten, keine Fehlkäufe, kein Zurückschicken.</p>
+      <h1>Schuhe, die wirklich zu deinem Fuß passen.</h1>
+      <p class="sub">ANNÉES vermisst deinen Fuß in 3D und findet aus dem ganzen Internet die Modelle, die wirklich passen — automatisch zum besten Preis. Schluss mit Raten, Fehlkäufen und Zurückschicken.</p>
       <div class="cta">
         <span class="badge"><span class="dot"></span>Bald im App Store</span>
         <a class="link-cta" href="mailto:kontakt@xn--annes-dsa.de?subject=Launch-Benachrichtigung">Zum Launch benachrichtigen →</a>
       </div>
-    </header>
-  </div>
+      <div class="scrollhint">↓ Scrollen</div>
+    </div>
+  </header>
 
-  <section class="block">
+  <section class="solid">
     <div class="wrap">
-      <div class="label">Warum ANNÉES</div>
-      <div class="grid">
-        <div class="card">
-          <div class="num">01</div>
-          <h3>Auf deinen Fuß gemessen</h3>
-          <p>Ein kurzer 3D-Scan mit deinem iPhone erfasst Länge, Breite, Spann und Ferse. So kennen wir deine echte Passform — nicht bloß deine Größe.</p>
-        </div>
-        <div class="card">
-          <div class="num">02</div>
-          <h3>Immer der beste Preis</h3>
-          <p>Wir vergleichen alle Partner-Shops und zeigen dir den günstigsten Preis. Die lästige Sucherei übernehmen wir für dich.</p>
-        </div>
-        <div class="card">
-          <div class="num">03</div>
-          <h3>Deine Daten bleiben bei dir</h3>
-          <p>Dein 3D-Scan verlässt dein Gerät nie. Die Berechnung passiert komplett lokal auf deinem iPhone.</p>
-        </div>
+      <div class="stats reveal">
+        <div class="stat"><div class="big">&lt; 60 Sek.</div><div class="lbl">Ein Scan, ein Leben lang passende Schuhe</div></div>
+        <div class="stat"><div class="big">Millimeter</div><div class="lbl">Länge, Breite, Spann &amp; Ferse — exakt</div></div>
+        <div class="stat"><div class="big">100 % lokal</div><div class="lbl">Dein 3D-Scan verlässt dein iPhone nie</div></div>
       </div>
     </div>
   </section>
 
-  <section class="block">
+  <section class="solid pad">
     <div class="wrap">
-      <div class="label">So einfach</div>
+      <h2 class="statement reveal">Jeder Fuß ist einzigartig. Schuhgrößen sind es nicht.</h2>
+      <p class="lead-sub reveal">Eine 43 ist nicht überall eine 43. Genau deshalb passt online so oft nichts. Wir hören auf zu schätzen — und fangen an zu messen.</p>
+    </div>
+  </section>
+
+  <section class="glass pad">
+    <div class="wrap">
+      <div class="seclabel reveal">3D-Präzision</div>
+      <h2 class="statement reveal">Ein Scan.<br>Tausende Schuhe.<br>Eine perfekte Passform.</h2>
+      <p class="lead-sub reveal">Wir erfassen die echte Form deines Fußes und gleichen sie mit jedem Modell ab — nicht nur eine Zahl auf dem Karton. Was passt, kommt nach oben. Der Rest bleibt im Regal.</p>
+    </div>
+  </section>
+
+  <section class="solid pad">
+    <div class="wrap">
+      <div class="seclabel reveal">So einfach</div>
       <div class="steps">
-        <div class="step">
-          <div class="n">1</div>
-          <h3>Fuß scannen</h3>
-          <p>Einmal mit der Kamera über deinen Fuß — fertig in unter einer Minute.</p>
-        </div>
-        <div class="step">
-          <div class="n">2</div>
-          <h3>Passende Schuhe entdecken</h3>
-          <p>Du siehst nur Modelle, die wirklich zu deiner Fußform passen.</p>
-        </div>
-        <div class="step">
-          <div class="n">3</div>
-          <h3>Zum besten Preis kaufen</h3>
-          <p>Direkt zum günstigsten Shop — ohne Risiko, ohne Umweg.</p>
-        </div>
+        <div class="step reveal"><div class="n">1</div><h3>Scannen</h3><p>Einmal mit der iPhone-Kamera über deinen Fuß. Fertig in unter einer Minute.</p></div>
+        <div class="step reveal"><div class="n">2</div><h3>Entdecken</h3><p>Du siehst nur Schuhe, die wirklich zu deiner Fußform passen — klar bewertet.</p></div>
+        <div class="step reveal"><div class="n">3</div><h3>Kaufen</h3><p>Direkt zum günstigsten Shop. Ohne Risiko, ohne Umweg, ohne Reue.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="closing">
+  <section class="solid pad">
     <div class="wrap">
-      <h2>Die richtigen Schuhe finden — endlich ohne Glücksspiel.</h2>
-      <div class="cta" style="justify-content:center">
+      <h2 class="statement reveal">Immer der beste Preis. <span class="accenttext">Automatisch.</span></h2>
+      <p class="lead-sub reveal">Wir vergleichen alle Partner-Shops in Echtzeit und schicken dich direkt zum günstigsten Angebot. Du sparst Zeit und Geld — bei jedem einzelnen Paar.</p>
+    </div>
+  </section>
+
+  <section class="solid pad">
+    <div class="wrap">
+      <div class="seclabel reveal">Privacy by Design</div>
+      <h2 class="statement reveal">Dein Körper gehört dir. Deine Daten auch.</h2>
+      <p class="lead-sub reveal">Dein 3D-Scan verlässt dein iPhone nie. Alles wird lokal auf deinem Gerät berechnet — kein Upload, kein Tracking, keine Werbe-IDs. Privatsphäre ist bei uns kein Feature, sondern das Fundament.</p>
+    </div>
+  </section>
+
+  <section class="solid pad">
+    <div class="wrap">
+      <div class="seclabel reveal">Nachhaltigkeit</div>
+      <h2 class="statement reveal">Gut für dich. <span class="accenttext">Gut für den Planeten.</span></h2>
+      <p class="lead-sub reveal">Fast jeder zweite online bestellte Schuh geht zurück — Millionen Pakete, Lkw-Kilometer und Verpackung für nichts. Wer von Anfang an das Richtige findet, schickt nichts zurück. Weniger Retouren, weniger CO₂, weniger Müll.</p>
+    </div>
+  </section>
+
+  <section class="glass pad">
+    <div class="wrap" style="text-align:center">
+      <h2 class="statement center reveal">Die Schuh-Revolution beginnt mit deinem Fuß.</h2>
+      <div class="cta reveal" style="justify-content:center;margin-top:34px">
         <span class="badge"><span class="dot"></span>Bald im App Store</span>
         <a class="link-cta" href="mailto:kontakt@xn--annes-dsa.de?subject=Launch-Benachrichtigung">Zum Launch benachrichtigen →</a>
       </div>
@@ -325,132 +358,143 @@
       <li>Verwendete App-Version und Betriebssystem-Version</li>
       <li>HTTP-Statuscode der Antwort</li>
     </ul>
-    <p>Diese Logdaten dienen der IT-Sicherheit, der Missbrauchserkennung (z. B. Brute-Force-Angriffe auf Logins) und der technischen Fehleranalyse. Sie werden getrennt von deinen Account-Daten gespeichert.</p>
-    <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO — berechtigtes Interesse an der Sicherheit und Stabilität des Dienstes. <strong>Speicherdauer:</strong> Maximal 7 Tage, danach automatische Löschung.</p>
+    <p>Diese Logdaten dienen der IT-Sicherheit, der Missbrauchserkennung und der technischen Fehleranalyse. Sie werden getrennt von deinen Account-Daten gespeichert. <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO. <strong>Speicherdauer:</strong> Maximal 7 Tage.</p>
 
     <h2>6. Drittlandtransfer und Hosting (Supabase)</h2>
-    <p>Die unter Ziffer 4 und 5 genannten Account- und Logdaten hosten wir bei unserem Cloud-Dienstleister <strong>Supabase, Inc.</strong>, 970 Toa Payoh North #07-04, Singapur 318992.</p>
-    <h3>Serverstandort</h3>
-    <p>Die Speicherung erfolgt zwingend auf Servern innerhalb der Europäischen Union (Region Frankfurt am Main, AWS eu-central-1). Diese Konfiguration ist auf Datenbankebene festgelegt und kann nicht durch das App-Frontend umgangen werden.</p>
-    <h3>Auftragsverarbeitung</h3>
-    <p>Mit Supabase wurde ein Auftragsverarbeitungsvertrag (AVV) gemäß Art. 28 DSGVO geschlossen, der Supabase auf strikte Weisungsgebundenheit verpflichtet.</p>
-    <h3>Drittland-Garantien</h3>
-    <p>Da die Muttergesellschaft Supabase, Inc. ein US-Unternehmen ist, kann ein theoretischer Zugriff durch US-Behörden (insbesondere nach dem CLOUD Act) trotz EU-Speicherort nicht vollständig ausgeschlossen werden. Wir haben diesen Drittlandtransfer durch EU-Standardvertragsklauseln (SCCs) gemäß Art. 46 DSGVO sowie ein internes Transfer Impact Assessment (TIA) abgesichert. Zusätzlich sind alle übertragenen Daten Transport-verschlüsselt (TLS 1.3) und ruhen bei Supabase verschlüsselt (AES-256).</p>
-    <h3>Erinnerung</h3>
-    <p>Deine <strong>biometrischen 3D-Scans (Art. 9 DSGVO) sind von diesem Drittlandtransfer ausdrücklich nicht betroffen</strong>, da sie dein Gerät nicht verlassen (siehe Ziffer 2).</p>
+    <p>Die unter Ziffer 4 und 5 genannten Account- und Logdaten hosten wir bei <strong>Supabase, Inc.</strong>, 970 Toa Payoh North #07-04, Singapur 318992. Die Speicherung erfolgt zwingend auf Servern innerhalb der EU (Region Frankfurt am Main, AWS eu-central-1). Mit Supabase wurde ein Auftragsverarbeitungsvertrag (AVV) gemäß Art. 28 DSGVO geschlossen. Da die Muttergesellschaft ein US-Unternehmen ist, haben wir den Drittlandtransfer durch EU-Standardvertragsklauseln (SCCs) gemäß Art. 46 DSGVO sowie ein Transfer Impact Assessment abgesichert; alle Daten sind verschlüsselt (TLS 1.3 / AES-256). Deine <strong>biometrischen 3D-Scans sind hiervon nicht betroffen</strong>, da sie dein Gerät nicht verlassen.</p>
 
     <h2>7. Externe Dienste</h2>
     <h3>a) Sign in with Apple</h3>
-    <p>Wenn du dich über „Sign in with Apple" registrierst oder anmeldest, übermittelt Apple uns eine kryptographische User-ID sowie — sofern von dir freigegeben — deinen Namen und deine E-Mail-Adresse (oder eine private Apple-Relay-Adresse). Apple verarbeitet diese Daten als eigenständig Verantwortlicher.</p>
-    <p><strong>Anbieter:</strong> Apple Inc., One Apple Park Way, Cupertino, CA 95014, USA. Datenschutzerklärung: <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">apple.com/legal/privacy</a>. <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO (Einwilligung). Alternative Anmeldemethoden stehen zur Verfügung.</p>
+    <p>Bei „Sign in with Apple" übermittelt Apple uns eine kryptographische User-ID sowie — sofern freigegeben — Name und E-Mail (oder eine Apple-Relay-Adresse). Apple verarbeitet diese Daten als eigenständig Verantwortlicher. Anbieter: Apple Inc., Cupertino, USA. <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">apple.com/legal/privacy</a>. Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO (Einwilligung).</p>
     <h3>b) App-Store-Datenverarbeitung durch Apple</h3>
-    <p>Die Distribution der App erfolgt über den Apple App Store. Beim Download verarbeitet Apple Inc. eigenverantwortlich Daten (z. B. Apple-ID, Zahlungsdaten, Geräte-Informationen). Wir erhalten ausschließlich anonymisierte oder aggregierte Statistiken über Downloads und Crashes.</p>
+    <p>Die Distribution erfolgt über den Apple App Store. Apple verarbeitet dabei eigenverantwortlich Daten (Apple-ID, Zahlungsdaten, Geräte-Infos). Wir erhalten ausschließlich anonymisierte/aggregierte Statistiken.</p>
 
     <h2>8. Partner-Links und Klick-Statistik (Affiliate-Marketing)</h2>
-    <p>Die App finanziert sich u. a. durch <strong>Affiliate-Verlinkungen</strong> zu Schuh-Shops Dritter. Wenn du auf einen „ZUM SHOP"-Link tippst und dort kaufst, erhalten wir eine <strong>Provision vom jeweiligen Shop</strong> — für dich entstehen <strong>keine Mehrkosten</strong>. Diese Links sind stets mit dem Hinweis „Partnerlink (§5a UWG) — keine Mehrkosten für dich" gekennzeichnet.</p>
+    <p>Die App finanziert sich u. a. durch <strong>Affiliate-Verlinkungen</strong> zu Schuh-Shops. Wenn du auf einen „ZUM SHOP"-Link tippst und dort kaufst, erhalten wir eine Provision — für dich <strong>keine Mehrkosten</strong>. Gekennzeichnet mit „Partnerlink (§5a UWG)".</p>
     <h3>a) Weiterleitung über Awin</h3>
-    <p>Beim Tippen auf einen „ZUM SHOP"-Link öffnet das System des Affiliate-Netzwerks (aktuell: <strong>Awin AG / Awin Ltd.</strong>) im Browser deines Geräts eine Weiterleitungs-URL mit einem Tracking-Parameter, damit ein späterer Kauf unserer Empfehlung zugeordnet werden kann. Auf diesen Browser-Vorgang haben wir keinen Einfluss; es gelten die Datenschutzbestimmungen von Awin.</p>
-    <p><strong>Anbieter:</strong> Awin AG, Eichhornstraße 3, 10785 Berlin. Datenschutzerklärung: <a href="https://www.awin.com/de/rechtliches/privacy-policy-de" target="_blank" rel="noopener">awin.com/de/rechtliches/privacy-policy-de</a>. <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO — berechtigtes Interesse an der Finanzierung des kostenlos angebotenen Dienstes.</p>
+    <p>Beim Tippen öffnet das Affiliate-Netzwerk (<strong>Awin AG</strong>, Eichhornstraße 3, 10785 Berlin) im Browser eine Weiterleitungs-URL mit Tracking-Parameter. Es gelten die Datenschutzbestimmungen von Awin: <a href="https://www.awin.com/de/rechtliches/privacy-policy-de" target="_blank" rel="noopener">awin.com/de/rechtliches/privacy-policy-de</a>. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.</p>
     <h3>b) Eigene Klick-Statistik</h3>
-    <p>Damit wir Affiliate-Klicks intern auswerten können, speichern wir bei jedem Tap auf „ZUM SHOP": eine anonyme Geräte-/Account-Kennung (UUID — keine PII), die ID des angeschauten Schuhs, den Score-Wert, die Quelle des Klicks, die ID des Partner-Programms und den Zeitstempel. Diese Daten werden <strong>nicht mit deinem Account verknüpft</strong>. <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. f DSGVO. Speicherdauer: maximal 24 Monate.</p>
+    <p>Bei jedem Tap auf „ZUM SHOP" speichern wir eine anonyme Kennung (UUID — keine PII), die Schuh-ID, den Score, die Quelle, das Partner-Programm und den Zeitstempel — <strong>nicht mit deinem Account verknüpft</strong>. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO. Speicherdauer: max. 24 Monate.</p>
     <h3>c) Reihenfolge der Schuh-Empfehlungen</h3>
-    <p>Die Reihenfolge richtet sich <strong>primär nach der Passform-Übereinstimmung</strong> (Score 0–100). Bei mehreren gleich gut passenden Modellen kann die Position zusätzlich von kommerziellen Faktoren beeinflusst sein (z. B. höherer Provisionssatz). In solchen Fällen kennzeichnen wir das Modell mit dem Hinweis <strong>„Anzeige"</strong> (§5a UWG, EU-Verordnung 2019/1150).</p>
+    <p>Die Reihenfolge richtet sich <strong>primär nach der Passform</strong> (Score 0–100). Bei gleich guter Passform kann die Position zusätzlich von kommerziellen Faktoren beeinflusst sein; solche Modelle kennzeichnen wir mit <strong>„Anzeige"</strong> (§5a UWG, EU-VO 2019/1150).</p>
 
     <h2>9. Push-Benachrichtigungen</h2>
     <div class="note">Falls die App keine Push-Benachrichtigungen versendet, kann dieser Abschnitt entfernt werden.</div>
-    <p>Wir senden dir ggf. Push-Benachrichtigungen (z. B. zu neuen Schuhmodellen oder Statusmeldungen). Hierfür erhalten wir von Apple einen Push-Token, der dein Gerät anonym identifiziert (Apple Push Notification Service, APNs). <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO (Einwilligung über den iOS-Systemdialog), jederzeit in den iOS-Einstellungen widerrufbar.</p>
+    <p>Wir senden ggf. Push-Benachrichtigungen über den Apple Push Notification Service (APNs); Apple stellt dafür einen anonymen Push-Token bereit. Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO (Einwilligung über den iOS-Systemdialog), jederzeit widerrufbar.</p>
 
     <h2>10. Fehleranalyse, Tracking und Werbe-IDs</h2>
-    <p>Wir verzichten vollständig auf invasive Tracking-Tools, Werbe-Frameworks und gerätübergreifendes Profiling. Es kommen <strong>keine</strong> Drittanbieter-Analysetools (wie Google Firebase Analytics, Sentry, Adjust, AppsFlyer o. ä.) zum Einsatz. Wir nutzen die <strong>Apple-Werbekennung (IDFA) nicht</strong>.</p>
+    <p>Wir verzichten vollständig auf invasive Tracking-Tools, Werbe-Frameworks und gerätübergreifendes Profiling. Keine Drittanbieter-Analysetools (Firebase, Sentry, Adjust, AppsFlyer o. ä.), keine Nutzung der Apple-Werbekennung (IDFA).</p>
 
     <h2>11. Sicherheit der Verarbeitung (Art. 32 DSGVO)</h2>
-    <p>Wir treffen geeignete technische und organisatorische Maßnahmen (TOMs):</p>
     <ul>
-      <li>Transportverschlüsselung sämtlicher Datenübertragungen mittels TLS 1.3</li>
-      <li>Verschlüsselte Speicherung („Encryption at Rest", AES-256) bei Supabase</li>
-      <li>Hashing von Passwörtern (bcrypt bzw. Supabase-Auth-Standard)</li>
-      <li>Strikte Rollen- und Rechteverwaltung (Row Level Security)</li>
-      <li>On-Device-Verarbeitung biometrischer Rohdaten als zentrales Sicherheits-Konzept</li>
-      <li>Regelmäßige Sicherheitsupdates der App und des Backends</li>
+      <li>Transportverschlüsselung (TLS 1.3) &amp; Encryption at Rest (AES-256)</li>
+      <li>Passwort-Hashing (bcrypt / Supabase-Auth-Standard)</li>
+      <li>Row Level Security — jeder Nutzer sieht nur eigene Datensätze</li>
+      <li>On-Device-Verarbeitung biometrischer Rohdaten als zentrales Konzept</li>
+      <li>Regelmäßige Sicherheitsupdates</li>
     </ul>
 
     <h2>12. Datenschutz-Folgenabschätzung (Art. 35 DSGVO)</h2>
-    <p>Aufgrund der Verarbeitung biometrischer Daten haben wir vor der Inbetriebnahme eine Datenschutz-Folgenabschätzung durchgeführt und dokumentiert. Sie wird regelmäßig überprüft und bei wesentlichen Änderungen aktualisiert.</p>
-    <div class="note">Die DSFA muss tatsächlich durchgeführt und intern dokumentiert werden (Schutzbedarf, Risikoanalyse, TOMs). Vorlagen z. B. beim BayLDA oder im CNIL-PIA-Tool.</div>
+    <p>Aufgrund der Verarbeitung biometrischer Daten führen wir vor dem App-Launch eine Datenschutz-Folgenabschätzung durch und dokumentieren das Ergebnis.</p>
+    <div class="note">Die DSFA muss tatsächlich durchgeführt und dokumentiert werden. Vorlagen z. B. beim BayLDA oder im CNIL-PIA-Tool.</div>
 
     <h2>13. Speicherdauer und Löschung</h2>
     <ul>
-      <li><strong>Lokale Scans (USDZ, Punktewolken):</strong> verbleiben auf deinem Gerät, bis du sie löschst oder die App deinstallierst.</li>
-      <li><strong>Account- und Profildaten:</strong> Löschung über die Funktion „Account löschen", spätestens 30 Tage danach unwiderrufliche Vernichtung.</li>
-      <li><strong>Inaktive Accounts:</strong> Nach 24 Monaten Inaktivität Kontaktaufnahme; ohne Reaktion binnen 30 Tagen automatische Löschung.</li>
-      <li><strong>Server-Logfiles:</strong> nach 7 Tagen automatisch gelöscht.</li>
-      <li><strong>Klick-Statistik (Affiliate):</strong> maximal 24 Monate.</li>
-      <li><strong>Anonymes Passform-Feedback:</strong> Account-Verknüpfung wird bei Löschung entfernt; die anonymen Maßzahlen verbleiben im Modell-Durchschnitt.</li>
-      <li><strong>Einwilligungs-Zeitstempel:</strong> bis 3 Jahre nach Account-Löschung (Art. 7 Abs. 1 DSGVO).</li>
+      <li><strong>Lokale Scans:</strong> auf deinem Gerät, bis du sie löschst oder die App deinstallierst.</li>
+      <li><strong>Account- und Profildaten:</strong> Löschung über „Account löschen", spätestens 30 Tage danach.</li>
+      <li><strong>Server-Logfiles:</strong> nach 7 Tagen.</li>
+      <li><strong>Klick-Statistik:</strong> maximal 24 Monate.</li>
+      <li><strong>Einwilligungs-Zeitstempel:</strong> bis 3 Jahre nach Account-Löschung.</li>
     </ul>
 
     <h2>14. Deine Rechte als betroffene Person</h2>
-    <ul>
-      <li><strong>Auskunftsrecht</strong> (Art. 15 DSGVO)</li>
-      <li><strong>Recht auf Berichtigung</strong> (Art. 16 DSGVO)</li>
-      <li><strong>Recht auf Löschung</strong> (Art. 17 DSGVO) — Funktion „Account löschen"</li>
-      <li><strong>Recht auf Einschränkung</strong> (Art. 18 DSGVO)</li>
-      <li><strong>Recht auf Datenübertragbarkeit</strong> (Art. 20 DSGVO)</li>
-      <li><strong>Widerspruchsrecht</strong> (Art. 21 DSGVO)</li>
-      <li><strong>Widerrufsrecht</strong> (Art. 7 Abs. 3 DSGVO)</li>
-    </ul>
-    <p>Zur Ausübung deiner Rechte wende dich an: <strong>datenschutz@années.de</strong> oder an unseren Datenschutzbeauftragten.</p>
+    <p>Dir stehen zu: Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung (Art. 18), Datenübertragbarkeit (Art. 20), Widerspruch (Art. 21) und Widerruf (Art. 7 Abs. 3). Kontakt: <strong>datenschutz@années.de</strong>.</p>
     <h3>Beschwerderecht bei einer Aufsichtsbehörde</h3>
-    <p>Du hast das Recht, dich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art. 77 DSGVO). Die für uns zuständige Aufsichtsbehörde ist:</p>
+    <p>Du hast das Recht, dich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art. 77 DSGVO). Zuständig für uns:</p>
     <p>[ZUSTÄNDIGE LANDESDATENSCHUTZBEHÖRDE]<br>[ADRESSE DER BEHÖRDE]</p>
 
-    <h2>15. Aktualität und Änderung dieser Datenschutzerklärung</h2>
-    <p>Diese Datenschutzerklärung hat den oben angegebenen Stand. Aufgrund der Weiterentwicklung der App oder gesetzlicher Vorgaben kann eine Änderung notwendig werden. Über wesentliche Änderungen informieren wir dich rechtzeitig in der App und/oder per E-Mail.</p>
+    <h2>15. Aktualität und Änderung</h2>
+    <p>Diese Datenschutzerklärung hat den oben angegebenen Stand. Bei Weiterentwicklung der App oder gesetzlichen Vorgaben kann eine Änderung notwendig werden; über wesentliche Änderungen informieren wir rechtzeitig.</p>
 
     <p style="margin-top:34px"><a class="back" href="#home">← Zurück zur Startseite</a></p>
   </div>
 </section>
 
 <script>
+/* scroll reveal */
 (function(){
-  var c=document.getElementById('wind');
-  if(!c) return;
-  var x=c.getContext('2d'), W,H,dpr,parts,raf;
+  var els=document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return;}
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);} });
+  },{threshold:.18});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
+
+<script type="module">
+/* 3D point cloud — the ANNÉES "scan" motif */
+import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+(function(){
+  var canvas=document.getElementById('scene');
+  if(!canvas) return;
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function size(){
-    dpr=Math.min(window.devicePixelRatio||1,2);
-    W=c.width=Math.floor(innerWidth*dpr);
-    H=c.height=Math.floor(innerHeight*dpr);
-    c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';
+  var renderer;
+  try{ renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:true,alpha:true}); }
+  catch(e){ return; } /* graceful fallback: text on dark bg stays perfect */
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+
+  var scene=new THREE.Scene();
+  var camera=new THREE.PerspectiveCamera(55,1,0.1,100);
+  camera.position.set(0,0,7);
+
+  /* build an elegant elongated cloud (foot/scan-like) */
+  var N=5200;
+  var pos=new Float32Array(N*3), col=new Float32Array(N*3);
+  var c1=new THREE.Color(0xffffff), c2=new THREE.Color(0x7aa2ff);
+  for(var i=0;i<N;i++){
+    var u=Math.random()*2-1, t=Math.random()*Math.PI*2, r=Math.sqrt(1-u*u);
+    var x=r*Math.cos(t), y=u, z=r*Math.sin(t);
+    var j=0.10;
+    x=x*1.05+(Math.random()-0.5)*j;
+    y=y*0.55+(Math.random()-0.5)*j;
+    z=z*2.45+(Math.random()-0.5)*j;
+    pos[i*3]=x; pos[i*3+1]=y; pos[i*3+2]=z;
+    var m=c1.clone().lerp(c2,(z+2.45)/4.9*0.9+Math.random()*0.1);
+    col[i*3]=m.r; col[i*3+1]=m.g; col[i*3+2]=m.b;
   }
-  function init(){
-    var n=Math.max(40,Math.min(150,Math.floor(innerWidth/11)));
-    parts=[];
-    for(var i=0;i<n;i++){
-      parts.push({
-        x:Math.random()*W, y:Math.random()*H,
-        vx:(0.15+Math.random()*0.5)*dpr, vy:(Math.random()-0.5)*0.25*dpr,
-        r:(Math.random()*1.6+0.5)*dpr, a:Math.random()*0.5+0.15
-      });
-    }
+  var geo=new THREE.BufferGeometry();
+  geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  geo.setAttribute('color',new THREE.BufferAttribute(col,3));
+  var mat=new THREE.PointsMaterial({size:0.028,vertexColors:true,transparent:true,opacity:0.9,depthWrite:false,blending:THREE.AdditiveBlending});
+  var cloud=new THREE.Points(geo,mat);
+  cloud.rotation.x=0.35;
+  scene.add(cloud);
+
+  var mx=0,my=0,tx=0,ty=0;
+  window.addEventListener('pointermove',function(e){
+    tx=(e.clientX/window.innerWidth-0.5);
+    ty=(e.clientY/window.innerHeight-0.5);
+  });
+
+  function resize(){
+    var w=window.innerWidth,h=window.innerHeight;
+    renderer.setSize(w,h,false);
+    camera.aspect=w/h; camera.updateProjectionMatrix();
   }
-  function draw(){
-    x.clearRect(0,0,W,H);
-    for(var i=0;i<parts.length;i++){
-      var p=parts[i];
-      p.x+=p.vx; p.y+=p.vy;
-      if(p.x>W+10){p.x=-10;p.y=Math.random()*H;}
-      if(p.y<-10)p.y=H+10; if(p.y>H+10)p.y=-10;
-      x.beginPath();
-      x.arc(p.x,p.y,p.r,0,6.283);
-      x.fillStyle='rgba('+(200+Math.floor(p.a*55))+','+(205+Math.floor(p.a*50))+',255,'+(p.a*0.6)+')';
-      x.fill();
-    }
-    raf=requestAnimationFrame(draw);
+  window.addEventListener('resize',resize); resize();
+
+  function frame(){
+    mx+=(tx-mx)*0.05; my+=(ty-my)*0.05;
+    var sc=window.scrollY||0;
+    cloud.rotation.y+=0.0016;
+    cloud.rotation.x=0.35+my*0.4 - sc*0.0004;
+    cloud.position.y=0.2 + sc*0.0012;
+    cloud.position.x=mx*0.6;
+    renderer.render(scene,camera);
+    if(!reduce) requestAnimationFrame(frame);
   }
-  function start(){ size(); init(); cancelAnimationFrame(raf); draw(); }
-  window.addEventListener('resize',function(){ size(); init(); });
-  start();
+  frame();
 })();
 </script>
 </body>

@@ -41,12 +41,25 @@
   @keyframes pagein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
   .solid{background:var(--bg)}
   .glass{background:transparent}
+
+  /* readability fog: tinted blur behind text that floats over the live point-cloud */
+  .glass:not(.hero) .wrap{position:relative;z-index:1}
+  .glass:not(.hero) .wrap::before{
+    content:"";position:absolute;z-index:-1;inset:-9% -7%;pointer-events:none;
+    background:radial-gradient(118% 100% at 50% 48%,rgba(8,8,8,.62),rgba(8,8,8,.34) 52%,rgba(8,8,8,0) 78%);
+    -webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);
+    -webkit-mask:radial-gradient(118% 100% at 50% 48%,#000 50%,transparent 80%);
+            mask:radial-gradient(118% 100% at 50% 48%,#000 50%,transparent 80%);
+  }
+  @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+    .glass:not(.hero) .wrap::before{background:radial-gradient(118% 100% at 50% 48%,rgba(8,8,8,.82),rgba(8,8,8,.55) 52%,rgba(8,8,8,0) 80%)}
+  }
   .pad{padding:clamp(86px,13vh,150px) 0}
   .ptop{padding-top:108px}
 
   /* HERO */
   .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:120px 0 64px;position:relative}
-  .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(125% 80% at 28% 42%,rgba(8,8,8,.5),rgba(8,8,8,.85) 72%)}
+  .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(125% 80% at 28% 42%,rgba(8,8,8,.5),rgba(8,8,8,.85) 72%);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
   .eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:22px}
   .wordmark{font-family:var(--serif);font-weight:700;font-size:clamp(56px,14vw,140px);line-height:.92}
   .hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(24px,3.8vw,40px);line-height:1.22;margin:24px 0 16px;max-width:20ch}
@@ -234,22 +247,22 @@
 <div class="page" id="page-ueber">
   <section class="solid ptop pad">
     <div class="wrap"><div class="article">
-      <div class="kicker">Die Geschichte hinter ANNÉES</div>
-      <h1>Angefangen hat alles in Leipzig.</h1>
-      <p class="lead">Mit einem Problem, das nicht meins war — und der Überzeugung, dass Mathematik es lösen kann.</p>
+      <div class="kicker">Über uns</div>
+      <h1>Aus einer Idee wurde ein Team.</h1>
+      <p class="lead">ANNÉES begann mit einem persönlichen Problem — heute ist es das gemeinsame Projekt von fünf Gründern, die den Schuhkauf neu denken.</p>
 
-      <p>Als Informatikstudent in Leipzig habe ich mich schon immer für die Dinge begeistert, die viele für trockene Theorie halten: lineare Algebra, Vektorräume, die Mathematik hinter Technologien wie Face ID. Mich faszinieren mathematische Räume und höhere Dimensionen, ich mag Algebren — die Idee, dass sich etwas so Persönliches wie ein menschlicher Körper in saubere Geometrie übersetzen lässt, hat mich nie losgelassen.</p>
+      <p>Den Anfang machte die Mathematik. Als Informatikstudent in Leipzig hat mich seit jeher fasziniert, wie sich etwas so Persönliches wie der menschliche Körper in präzise Geometrie übersetzen lässt — dieselben Prinzipien aus linearer Algebra und Vektorräumen, auf denen Technologien wie Face ID beruhen.</p>
 
-      <p>Der Anstoß kam allerdings nicht aus einem Hörsaal, sondern von meiner Freundin. Sie tat sich unglaublich schwer damit, Schuhe zu finden, die wirklich passen — im Geschäft genauso wie online. Was bei der einen Marke saß, drückte bei der nächsten. Bestellen, anprobieren, zurückschicken. Immer wieder.</p>
+      <p>Den konkreten Anstoß gab meine Freundin. Online wie im Geschäft fand sie kaum Schuhe, die wirklich passen — was bei der einen Marke saß, drückte bei der nächsten. Die Frage lag auf der Hand: Warum raten wir bei Schuhgrößen noch, wenn jeder einen präzisen 3D-Scanner in der Hosentasche trägt? Genau diesen Sensor liefert das iPhone Pro mit LiDAR.</p>
 
-      <div class="pull">„Warum raten wir bei Schuhgrößen eigentlich noch, wenn jeder einen präzisen 3D-Scanner in der Hosentasche trägt?"</div>
+      <div class="pull">Fünf Gründer, ein Anspruch: Schuhkauf ohne Raten.</div>
 
-      <p>Genau das trägt das iPhone Pro mit seinem LiDAR-Sensor. Plötzlich ergab alles einen Sinn: Die Mathematik, die mich begeistert, traf auf ein echtes, alltägliches Problem. Aus einer Idee, die zuerst nur einer einzigen Person helfen sollte, wurde etwas Größeres.</p>
+      <p>Aus der Idee wurde über mehr als zwei Jahre Entwicklung ein Produkt — und aus einer Person ein Team. Was mit mir und meiner Freundin begann, sind heute fünf Partner: dazugekommen sind zwei enge Freunde und mein Bruder. Gemeinsam haben wir das Konzept entscheidend weiterentwickelt und auf ein neues Level gehoben — vom ersten Prototyp bis zur App, die nun kurz vor dem App Store steht.</p>
 
-      <p>Über zwei Jahre habe ich seitdem an ANNÉES gearbeitet — Abend für Abend, Iteration für Iteration. Jetzt steht die erste Version kurz vor dem App Store. Ich bin gespannt, und ehrlich gesagt auch ein wenig stolz. Mein größter Wunsch ist, dass ANNÉES den Erwartungen gerecht wird und Menschen die lästige Arbeit und das Risiko beim Schuhkauf wirklich abnimmt.</p>
+      <p>Wir bündeln Technik, Produktdenken und einen kompromisslosen Anspruch an Passform. Jeder bringt seinen Teil ein, mit einem gemeinsamen Ziel: dass schon der erste Schuh der richtige ist.</p>
 
       <h2>Kontakt</h2>
-      <p class="muted">Ich studiere noch nebenbei. Anfragen beantworte ich, so schnell es mir neben dem Studium möglich ist — bitte um etwas Geduld. Schreib mir gern an <a href="mailto:kontakt@xn--annes-dsa.de" style="color:var(--accent)">kontakt@années.de</a>.</p>
+      <p class="muted">Für Anfragen, Presse und Partnerschaften erreichst du uns unter <a href="mailto:kontakt@xn--annes-dsa.de" style="color:var(--accent)">kontakt@années.de</a>.</p>
     </div></div>
   </section>
 </div>

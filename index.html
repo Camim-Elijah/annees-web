@@ -41,12 +41,25 @@
   @keyframes pagein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
   .solid{background:var(--bg)}
   .glass{background:transparent}
+
+  /* readability fog: tinted blur behind text that floats over the live point-cloud */
+  .glass:not(.hero) .wrap{position:relative;z-index:1}
+  .glass:not(.hero) .wrap::before{
+    content:"";position:absolute;z-index:-1;inset:-9% -7%;pointer-events:none;
+    background:radial-gradient(118% 100% at 50% 48%,rgba(8,8,8,.62),rgba(8,8,8,.34) 52%,rgba(8,8,8,0) 78%);
+    -webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);
+    -webkit-mask:radial-gradient(118% 100% at 50% 48%,#000 50%,transparent 80%);
+            mask:radial-gradient(118% 100% at 50% 48%,#000 50%,transparent 80%);
+  }
+  @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+    .glass:not(.hero) .wrap::before{background:radial-gradient(118% 100% at 50% 48%,rgba(8,8,8,.82),rgba(8,8,8,.55) 52%,rgba(8,8,8,0) 80%)}
+  }
   .pad{padding:clamp(86px,13vh,150px) 0}
   .ptop{padding-top:108px}
 
   /* HERO */
   .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:120px 0 64px;position:relative}
-  .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(125% 80% at 28% 42%,rgba(8,8,8,.5),rgba(8,8,8,.85) 72%)}
+  .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(125% 80% at 28% 42%,rgba(8,8,8,.5),rgba(8,8,8,.85) 72%);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
   .eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:22px}
   .wordmark{font-family:var(--serif);font-weight:700;font-size:clamp(56px,14vw,140px);line-height:.92}
   .hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(24px,3.8vw,40px);line-height:1.22;margin:24px 0 16px;max-width:20ch}
@@ -58,6 +71,12 @@
   .link-cta{font-size:14px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:3px;transition:.25s}
   .link-cta:hover{color:var(--text);border-color:var(--text)}
   .scrollhint{margin-top:56px;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--faint)}
+
+  /* SOCIAL BUTTONS */
+  .social{display:inline-flex;flex-wrap:wrap;gap:10px}
+  .social a{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-size:13.5px;font-weight:500;color:var(--muted);text-decoration:none;background:rgba(255,255,255,.03);backdrop-filter:blur(8px);transition:.22s}
+  .social a:hover{color:var(--text);border-color:rgba(255,255,255,.28);transform:translateY(-2px)}
+  .social svg{width:17px;height:17px;flex:none}
 
   /* NUMBERS */
   .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -159,6 +178,16 @@
         <span class="badge"><span class="dot"></span>Bald im App Store</span>
         <a class="link-cta" href="mailto:kontakt@xn--annes-dsa.de?subject=Launch-Benachrichtigung">Zum Launch benachrichtigen →</a>
       </div>
+      <div class="social" style="margin-top:24px">
+        <a href="https://www.instagram.com/annees.de" target="_blank" rel="noopener" aria-label="ANNÉES auf Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+          Instagram
+        </a>
+        <a href="https://www.tiktok.com/@annees.de" target="_blank" rel="noopener" aria-label="ANNÉES auf TikTok">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2.1 1.6 3.6 3.7 3.9v2.4c-1.3.1-2.6-.3-3.7-1v5.6c0 3.3-2.4 5.6-5.5 5.6-3 0-5.2-2.3-5.2-5.1 0-2.9 2.3-5 5.2-5 .4 0 .8 0 1.2.1v2.6c-.4-.1-.7-.2-1.1-.2-1.4 0-2.5 1-2.5 2.4 0 1.4 1 2.5 2.4 2.5 1.4 0 2.5-1.1 2.5-2.6V3h2.5z"/></svg>
+          TikTok
+        </a>
+      </div>
       <div class="scrollhint">↓ Scrollen</div>
     </div>
   </header>
@@ -214,7 +243,7 @@
       <div class="tease">
         <a class="tcard reveal" href="#umwelt"><h3>Umweltaspekte</h3><p>Warum die nachhaltigste Retoure die ist, die nie entsteht.</p><div class="more">Mehr →</div></a>
         <a class="tcard reveal" href="#sicherheit"><h3>Datensicherheit</h3><p>Dein 3D-Scan verlässt dein iPhone nie. Versprochen.</p><div class="more">Mehr →</div></a>
-        <a class="tcard reveal" href="#finanzierung"><h3>Finanzierung</h3><p>Kostenlos, ohne Datenverkauf — so funktioniert das.</p><div class="more">Mehr →</div></a>
+        <a class="tcard reveal" href="#finanzierung"><h3>Finanzierung</h3><p>Partner-Provision statt Datenverkauf — warum dabei alle gewinnen.</p><div class="more">Mehr →</div></a>
       </div>
     </div>
   </section>
@@ -234,22 +263,22 @@
 <div class="page" id="page-ueber">
   <section class="solid ptop pad">
     <div class="wrap"><div class="article">
-      <div class="kicker">Die Geschichte hinter ANNÉES</div>
-      <h1>Angefangen hat alles in Leipzig.</h1>
-      <p class="lead">Mit einem Problem, das nicht meins war — und der Überzeugung, dass Mathematik es lösen kann.</p>
+      <div class="kicker">Über uns</div>
+      <h1>Aus einer Idee wurde ein Team.</h1>
+      <p class="lead">ANNÉES begann mit einem persönlichen Problem — heute ist es das gemeinsame Projekt von fünf Gründern, die den Schuhkauf neu denken.</p>
 
-      <p>Als Informatikstudent in Leipzig habe ich mich schon immer für die Dinge begeistert, die viele für trockene Theorie halten: lineare Algebra, Vektorräume, die Mathematik hinter Technologien wie Face ID. Mich faszinieren mathematische Räume und höhere Dimensionen, ich mag Algebren — die Idee, dass sich etwas so Persönliches wie ein menschlicher Körper in saubere Geometrie übersetzen lässt, hat mich nie losgelassen.</p>
+      <p>Den Anfang machte die Mathematik. Als Informatikstudent in Leipzig hat mich seit jeher fasziniert, wie sich etwas so Persönliches wie der menschliche Körper in präzise Geometrie übersetzen lässt — dieselben Prinzipien aus linearer Algebra und Vektorräumen, auf denen Technologien wie Face ID beruhen.</p>
 
-      <p>Der Anstoß kam allerdings nicht aus einem Hörsaal, sondern von meiner Freundin. Sie tat sich unglaublich schwer damit, Schuhe zu finden, die wirklich passen — im Geschäft genauso wie online. Was bei der einen Marke saß, drückte bei der nächsten. Bestellen, anprobieren, zurückschicken. Immer wieder.</p>
+      <p>Den konkreten Anstoß gab meine Freundin. Online wie im Geschäft fand sie kaum Schuhe, die wirklich passen — was bei der einen Marke saß, drückte bei der nächsten. Die Frage lag auf der Hand: Warum raten wir bei Schuhgrößen noch, wenn jeder einen präzisen 3D-Scanner in der Hosentasche trägt? Genau diesen Sensor liefert das iPhone Pro mit LiDAR.</p>
 
-      <div class="pull">„Warum raten wir bei Schuhgrößen eigentlich noch, wenn jeder einen präzisen 3D-Scanner in der Hosentasche trägt?"</div>
+      <div class="pull">Fünf Gründer, ein Anspruch: Schuhkauf ohne Raten.</div>
 
-      <p>Genau das trägt das iPhone Pro mit seinem LiDAR-Sensor. Plötzlich ergab alles einen Sinn: Die Mathematik, die mich begeistert, traf auf ein echtes, alltägliches Problem. Aus einer Idee, die zuerst nur einer einzigen Person helfen sollte, wurde etwas Größeres.</p>
+      <p>Aus der Idee wurde über mehr als zwei Jahre Entwicklung ein Produkt — und aus einer Person ein Team. Was mit mir und meiner Freundin begann, sind heute fünf Partner: dazugekommen sind zwei enge Freunde und mein Bruder. Gemeinsam haben wir das Konzept entscheidend weiterentwickelt und auf ein neues Level gehoben — vom ersten Prototyp bis zur App, die nun kurz vor dem App Store steht.</p>
 
-      <p>Über zwei Jahre habe ich seitdem an ANNÉES gearbeitet — Abend für Abend, Iteration für Iteration. Jetzt steht die erste Version kurz vor dem App Store. Ich bin gespannt, und ehrlich gesagt auch ein wenig stolz. Mein größter Wunsch ist, dass ANNÉES den Erwartungen gerecht wird und Menschen die lästige Arbeit und das Risiko beim Schuhkauf wirklich abnimmt.</p>
+      <p>Wir bündeln Technik, Produktdenken und einen kompromisslosen Anspruch an Passform. Jeder bringt seinen Teil ein, mit einem gemeinsamen Ziel: dass schon der erste Schuh der richtige ist.</p>
 
       <h2>Kontakt</h2>
-      <p class="muted">Ich studiere noch nebenbei. Anfragen beantworte ich, so schnell es mir neben dem Studium möglich ist — bitte um etwas Geduld. Schreib mir gern an <a href="mailto:kontakt@xn--annes-dsa.de" style="color:var(--accent)">kontakt@années.de</a>.</p>
+      <p class="muted">Für Anfragen, Presse und Partnerschaften erreichst du uns unter <a href="mailto:kontakt@xn--annes-dsa.de" style="color:var(--accent)">kontakt@années.de</a>.</p>
     </div></div>
   </section>
 </div>
@@ -319,25 +348,17 @@
   <section class="solid ptop pad">
     <div class="wrap"><div class="article">
       <div class="kicker">Wie wir uns finanzieren</div>
-      <h1>Kostenlos für dich. Ehrlich finanziert.</h1>
-      <p class="lead">Wenn die App nichts kostet und keine Daten verkauft — wie verdient ANNÉES dann Geld und bezahlt die Server? Gute Frage. Hier ist die ehrliche Antwort.</p>
+      <h1>Ein Modell, bei dem alle gewinnen.</h1>
+      <p class="lead">Eines vorweg: Wir verkaufen keine Daten. Wir verdienen an einer einzigen Stelle — und genau die sorgt dafür, dass unsere Interessen mit deinen übereinstimmen.</p>
 
-      <h2>Partner-Provisionen</h2>
-      <p>Wenn du über ANNÉES bei einem Partner-Shop kaufst, zahlt der Shop uns eine kleine Vermittlungs-Provision. Für dich ändert sich am Preis <strong>nichts</strong> — im Gegenteil, wir schicken dich immer zum günstigsten Angebot. So tragen die Shops die Kosten, nicht du.</p>
+      <h2>Provision nur bei der richtigen Vermittlung</h2>
+      <p>ANNÉES arbeitet mit Partner-Shops zusammen. Vermitteln wir dir erfolgreich einen Schuh, der wirklich passt, werden wir vom Shop provisionsbasiert vergütet. Für dich ändert das am Preis nichts.</p>
 
-      <h2>Was wir bewusst NICHT tun</h2>
-      <ul>
-        <li>Wir verkaufen <strong>keine</strong> Daten.</li>
-        <li>Wir blenden <strong>keine</strong> Werbung ein.</li>
-        <li>Wir tracken dich <strong>nicht</strong> quer durchs Netz.</li>
-      </ul>
+      <div class="pull">Wir verdienen genau dann, wenn wir es richtig machen — einen Schuh, den du behältst.</div>
 
-      <div class="pull">Wir verdienen nur, wenn wir dir den richtigen Schuh empfehlen — einen, den du behältst.</div>
+      <p>Damit zeigen die Interessen aller in dieselbe Richtung. <strong>Du</strong> bekommst von Anfang an die passende Wahl. <strong>Wir</strong> werden nur für gute Vermittlungen belohnt. Und sogar die <strong>Unternehmen</strong> profitieren stark: Jede Fehlbestellung, die gar nicht erst entsteht, spart eine Retoure — und Retouren sind für den Handel enorm teuer und für Umwelt und Planeten eine erhebliche Belastung.</p>
 
-      <p>Das Schöne daran: Unser Geschäftsmodell belohnt genau das, was dir hilft. Schlechte Empfehlungen führen zu Retouren — und davon hat niemand etwas. Gute Passform ist also nicht nur dein Interesse, sondern auch unseres. Anreize und Versprechen zeigen in dieselbe Richtung.</p>
-
-      <h2>Und in Zukunft?</h2>
-      <p class="muted">Denkbar sind später optionale Premium-Funktionen für alle, die noch tiefer einsteigen wollen. Das Kernversprechen — beste Passform, bester Preis — bleibt immer kostenlos.</p>
+      <p>Weniger zurückgeschickte Pakete heißt weniger Kosten, weniger Transportwege, weniger CO₂. Passform, die vorher stimmt, ist deshalb kein Nullsummenspiel: Kunde, ANNÉES und Handel gewinnen gleichzeitig.</p>
     </div></div>
   </section>
 </div>
@@ -433,9 +454,14 @@
         <a href="#ueber">Über uns</a> &nbsp;·&nbsp;
         <a href="#impressum">Impressum</a> &nbsp;·&nbsp;
         <a href="#datenschutz">Datenschutz</a> &nbsp;·&nbsp;
-        <a href="mailto:kontakt@xn--annes-dsa.de">Kontakt</a>
+        <a href="mailto:kontakt@xn--annes-dsa.de">Kontakt</a> &nbsp;·&nbsp;
+        <a href="https://www.instagram.com/annees.de" target="_blank" rel="noopener">Instagram</a> &nbsp;·&nbsp;
+        <a href="https://www.tiktok.com/@annees.de" target="_blank" rel="noopener">TikTok</a>
       </span>
       <span>© 2026 ANNÉES</span>
+    </div>
+    <div class="row" style="margin-top:18px;border-top:1px solid var(--line);padding-top:18px">
+      <span style="color:var(--faint)">Unterstützt von <strong style="color:var(--muted);font-weight:600">NOMOSAN Innovations GmbH</strong></span>
     </div>
   </div>
 </footer>

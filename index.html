@@ -2,6 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
+<script>document.documentElement.className+=" js";</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://années.de/">
@@ -84,8 +85,11 @@
   .nav-links a.on{color:var(--text);background:rgba(255,255,255,.08)}
 
   /* PAGES */
-  .page{display:none;position:relative;z-index:1}
-  .page.active{display:block;animation:pagein .55s cubic-bezier(.2,.7,.2,1)}
+  /* Progressive enhancement: without JS every page renders (crawlers see all content).
+     With JS the hash-router shows one page at a time. */
+  .page{display:block;position:relative;z-index:1}
+  .js .page{display:none}
+  .js .page.active{display:block;animation:pagein .55s cubic-bezier(.2,.7,.2,1)}
   @keyframes pagein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
   .solid{background:var(--bg)}
   .glass{background:transparent}

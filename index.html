@@ -150,7 +150,7 @@
   .step .n{font-family:var(--serif);font-size:42px;color:var(--faint);line-height:1;margin-bottom:14px}
   .step h3{font-size:19px;font-weight:600;margin-bottom:8px}
   .step p{color:var(--muted);font-size:15px}
-  .tease{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:52px}
+  .tease{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:52px}
   .tcard{border:1px solid var(--line);border-radius:18px;padding:28px;background:rgba(255,255,255,.02);text-decoration:none;display:block;transition:.25s}
   .tcard:hover{background:rgba(255,255,255,.05);transform:translateY(-3px)}
   .tcard h3{font-family:var(--serif);font-size:21px;font-weight:600;margin-bottom:8px}
@@ -217,7 +217,6 @@
   <a class="brand" href="#home">ANNÉES</a>
   <div class="nav-links">
     <a data-p="home" href="#home">Start</a>
-    <a data-p="methodik" href="#methodik">Wissenschaft</a>
     <a data-p="ueber" href="#ueber">Über uns</a>
     <a data-p="umwelt" href="#umwelt">Umwelt</a>
     <a data-p="sicherheit" href="#sicherheit">Datensicherheit</a>
@@ -274,7 +273,7 @@
     <div class="wrap">
       <div class="seclabel reveal">3D-Präzision</div>
       <h2 class="statement reveal">Ein Scan.<br>Tausende Schuhe.<br>Eine fundierte Wahl.</h2>
-      <p class="lead-sub reveal">Wir erfassen die echte Form deines Fußes und gleichen sie statistisch mit unserem Modellkatalog ab — nicht nur eine Zahl auf dem Karton. Was zu deiner Fußform passt, kommt nach oben. <a href="#methodik" style="color:var(--text);border-bottom:1px solid var(--line)">Wie das funktioniert →</a></p>
+      <p class="lead-sub reveal">Wir erfassen die echte Form deines Fußes und gleichen sie mit unserem Modellkatalog ab — nicht nur eine Zahl auf dem Karton. Was zu deiner Fußform passt, kommt nach oben.</p>
     </div>
   </section>
 
@@ -300,7 +299,6 @@
     <div class="wrap">
       <div class="seclabel reveal">Mehr erfahren</div>
       <div class="tease">
-        <a class="tcard reveal" href="#methodik"><h3>Wissenschaft</h3><p>Statistik statt Bauchgefühl: die Methodik hinter der Empfehlung.</p><div class="more">Mehr →</div></a>
         <a class="tcard reveal" href="#umwelt"><h3>Umweltaspekte</h3><p>Warum die nachhaltigste Retoure die ist, die nie entsteht.</p><div class="more">Mehr →</div></a>
         <a class="tcard reveal" href="#sicherheit"><h3>Datensicherheit</h3><p>Dein 3D-Scan verlässt dein iPhone nie — Verarbeitung vollständig on-device.</p><div class="more">Mehr →</div></a>
         <a class="tcard reveal" href="#finanzierung"><h3>Finanzierung</h3><p>Partner-Provision statt Datenverkauf — warum dabei alle gewinnen.</p><div class="more">Mehr →</div></a>
@@ -316,45 +314,6 @@
         <a class="link-cta" href="mailto:kontakt@xn--annes-dsa.de?subject=Launch-Benachrichtigung">Zum Launch benachrichtigen →</a>
       </div>
     </div>
-  </section>
-</div>
-
-<!-- ===================== METHODIK ===================== -->
-<div class="page" id="page-methodik">
-  <section class="solid ptop pad">
-    <div class="wrap"><div class="article">
-      <div class="kicker">Wissenschaft &amp; Methodik</div>
-      <h1>Statistik statt Schätzung.</h1>
-      <p class="lead">Die meisten Größenempfehlungen vergleichen zwei Zahlen: deine Größe und die Größe auf dem Etikett. Wir vergleichen Wahrscheinlichkeitsverteilungen.</p>
-
-      <h2>Warum eine Schuhgröße allein nicht reicht</h2>
-      <p>Eine EU 43 ist je nach Leisten, Marke und Modell ein anderer Schuh. Länge, Breite, Spannhöhe und Zehenfreiheit variieren unabhängig voneinander — eine einzelne Zahl kann das nicht abbilden. Deshalb beginnt ANNÉES nicht bei der Größe, sondern bei der Geometrie.</p>
-
-      <h2>Vom 3D-Scan zum dimensionslosen Vektor</h2>
-      <p>Aus dem LiDAR-/TrueDepth-Scan leiten wir mehrere Maßverhältnisse deines Fußes ab — etwa Breite zu Länge oder Zehenraum zu Spannhöhe. Als <strong>Verhältnisse statt Absolutwerte</strong> sind sie direkt mit jedem Schuhmodell vergleichbar, unabhängig von der absoluten Fußgröße.</p>
-
-      <h2>Z-Score statt Punktesystem</h2>
-      <p>Jedes Maßverhältnis wird gegen eine Populationsverteilung normiert — als <strong>Z-Score</strong>, also als statistische Abweichung vom Mittelwert, wie in der biometrischen Anthropometrie üblich. Das ersetzt ein willkürliches Punktesystem durch eine Methode mit definierter statistischer Bedeutung: Wie ungewöhnlich ist diese Passform tatsächlich für deinen Fuß?</p>
-
-      <h2>Bayesianische Modell-Profile</h2>
-      <p>Für jedes Schuhmodell pflegen wir ein probabilistisches Profil bekannter Passform-Eigenschaften — gewichtet nach Quellenanzahl und Konfidenz, nicht als starre Lookup-Tabelle. Neue, verlässliche Datenpunkte aktualisieren das Profil nach dem Bayes-Prinzip: Mehr unabhängige Evidenz erhöht die Konfidenz, einzelne Ausreißer verschieben das Bild kaum.</p>
-
-      <div class="minirow">
-        <div class="mini"><div class="b">Z-Score</div><div class="s">statt Punktesumme</div></div>
-        <div class="mini"><div class="b">Bayes</div><div class="s">Priors mit Konfidenzgewicht</div></div>
-        <div class="mini"><div class="b">On-Device</div><div class="s">Berechnung auf deinem iPhone</div></div>
-      </div>
-
-      <div class="pull">Eine Empfehlung ist nur so gut wie ihre Unsicherheit kennt. Deshalb modellieren wir Konfidenz, statt sie zu verschweigen.</div>
-
-      <h2>Harte Ausschlussregeln</h2>
-      <p>Statistik allein genügt nicht: Liegt eine Abweichung jenseits eines definierten Schwellenwerts — etwa bei Druckstellen am Vorfuß oder einer zu großen Längendifferenz —, wird ein Modell unabhängig vom Gesamtscore klar als unpassend markiert. Kontinuierliches Scoring und harte Grenzen ergänzen sich.</p>
-
-      <h2>Wo wir noch nicht am Ziel sind</h2>
-      <p class="muted">Unsere Methodik ist ein laufendes Forschungsprojekt, kein abgeschlossenes Produkt. Aktuell bewerten wir Maßverhältnisse weitgehend unabhängig voneinander; an einer multivariaten Methode (Mahalanobis-Distanz), die Korrelationen zwischen Maßen berücksichtigt, arbeiten wir. Unsere Modell-Profile wachsen kontinuierlich — auch durch anonymes, freiwilliges Nutzer-Feedback (siehe <a href="#sicherheit" style="color:var(--accent)">Datensicherheit</a>), das erst ab mehreren unabhängigen Rückmeldungen je Modell einfließt.</p>
-
-      <p class="sources">Methodischer Hintergrund: Z-Score-Normierung und Bayessche Aktualisierung sind Standardverfahren der Statistik und Biometrie, hier erstmals auf Schuh-Passform angewendet.</p>
-    </div></div>
   </section>
 </div>
 
@@ -576,7 +535,6 @@
     <div class="row">
       <span class="mark">ANNÉES</span>
       <span>
-        <a href="#methodik">Wissenschaft</a> &nbsp;·&nbsp;
         <a href="#ueber">Über uns</a> &nbsp;·&nbsp;
         <a href="#impressum">Impressum</a> &nbsp;·&nbsp;
         <a href="#datenschutz">Datenschutz</a> &nbsp;·&nbsp;
@@ -595,7 +553,7 @@
 <script>
 /* ---------- hash router ---------- */
 (function(){
-  var pages=['home','methodik','ueber','umwelt','sicherheit','finanzierung','impressum','datenschutz'];
+  var pages=['home','ueber','umwelt','sicherheit','finanzierung','impressum','datenschutz'];
   function show(id){
     if(pages.indexOf(id)<0) id='home';
     pages.forEach(function(p){var el=document.getElementById('page-'+p); if(el) el.classList.toggle('active',p===id);});

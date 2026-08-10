@@ -6,8 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://années.de/">
-<title>ANNÉES — 3D-Fußvermessung für die passende Schuhgröße</title>
-<meta name="description" content="ANNÉES vermisst deinen Fuß in 3D und gleicht ihn statistisch mit Schuhmodellen ab — datenbasiert statt geraten. Privacy-by-Design: der Scan bleibt auf deinem iPhone. Bald im App Store.">
+<title>ANNÉES — die App für den Sneaker-Kauf</title>
+<meta name="description" content="ANNÉES ist eine iPhone-App für Sneaker: ein persönlicher Katalog statt endloser Suche. Weniger Fehlkäufe, weniger Retouren. Bald im App Store.">
 <meta name="author" content="Années GbR">
 <meta name="theme-color" content="#080808">
 
@@ -19,14 +19,14 @@
 <meta property="og:site_name" content="ANNÉES">
 <meta property="og:locale" content="de_DE">
 <meta property="og:url" content="https://années.de/">
-<meta property="og:title" content="ANNÉES — 3D-Fußvermessung für die passende Schuhgröße">
-<meta property="og:description" content="Statistischer Abgleich von Fußform und Schuhmodell statt Größentabelle. Der 3D-Scan bleibt auf dem Gerät. Bald im App Store.">
+<meta property="og:title" content="ANNÉES — die App für den Sneaker-Kauf">
+<meta property="og:description" content="Ein persönlicher Sneaker-Katalog statt endloser Suche. Weniger Fehlkäufe, weniger Retouren. Bald im App Store.">
 <meta property="og:image" content="https://années.de/assets/img/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ANNÉES — 3D-Fußvermessung für die passende Schuhgröße">
-<meta name="twitter:description" content="Statistischer Abgleich von Fußform und Schuhmodell statt Größentabelle. Bald im App Store.">
+<meta name="twitter:title" content="ANNÉES — die App für den Sneaker-Kauf">
+<meta name="twitter:description" content="Ein persönlicher Sneaker-Katalog statt endloser Suche. Bald im App Store.">
 <meta name="twitter:image" content="https://années.de/assets/img/og-image.png">
 
 <script type="application/ld+json">
@@ -65,32 +65,44 @@
     --bg:#080808; --text:#f6f5f2; --muted:#a8a49c; --faint:#6d6960;
     --line:rgba(255,255,255,.10); --accent:#7aa2ff; --accent2:#66e0d0;
     --serif:"Playfair Display",Georgia,serif; --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    --ease:cubic-bezier(.2,.7,.2,1);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:hidden;overscroll-behavior-x:none;scrollbar-width:none;-ms-overflow-style:none}
   html::-webkit-scrollbar{width:0;height:0;display:none}
   body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden;overscroll-behavior-x:none;width:100%;max-width:100%}
   a{color:inherit}
-  #scene{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+  #scene{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0;transition:opacity 1.6s ease}
+  #scene.lit{opacity:1}
   .wrap{max-width:1060px;margin:0 auto;padding:0 28px}
+
+  /* SCROLL PROGRESS */
+  .progress{position:fixed;top:0;left:0;height:2px;width:100%;transform:scaleX(0);transform-origin:0 50%;z-index:60;
+    background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:.85;will-change:transform}
 
   /* NAV */
   .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
-    padding:14px 28px;background:rgba(8,8,8,.55);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-  .nav .brand{font-family:var(--serif);font-weight:700;font-size:20px;letter-spacing:.06em;cursor:pointer;text-decoration:none}
+    padding:14px 28px;background:rgba(8,8,8,.55);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);
+    transition:background .4s var(--ease),border-color .4s var(--ease),padding .4s var(--ease)}
+  .nav.scrolled{background:rgba(8,8,8,.82);padding:10px 28px}
+  .nav .brand{font-family:var(--serif);font-weight:700;font-size:20px;letter-spacing:.06em;cursor:pointer;text-decoration:none;transition:letter-spacing .4s var(--ease)}
+  .nav .brand:hover{letter-spacing:.12em}
   .nav-links{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
   .nav-links::-webkit-scrollbar{display:none}
-  .nav-links a{font-size:13px;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:999px;white-space:nowrap;transition:.2s}
+  .nav-links a{position:relative;font-size:13px;color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:999px;white-space:nowrap;transition:color .25s var(--ease),background .35s var(--ease)}
+  .nav-links a::after{content:"";position:absolute;left:12px;right:12px;bottom:4px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:0 50%;transition:transform .35s var(--ease)}
   .nav-links a:hover{color:var(--text)}
+  .nav-links a:hover::after{transform:scaleX(1)}
   .nav-links a.on{color:var(--text);background:rgba(255,255,255,.08)}
+  .nav-links a.on::after{transform:scaleX(0)}
 
   /* PAGES */
   /* Progressive enhancement: without JS every page renders (crawlers see all content).
      With JS the hash-router shows one page at a time. */
   .page{display:block;position:relative;z-index:1}
   .js .page{display:none}
-  .js .page.active{display:block;animation:pagein .55s cubic-bezier(.2,.7,.2,1)}
-  @keyframes pagein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .js .page.active{display:block;animation:pagein .6s var(--ease)}
+  @keyframes pagein{from{opacity:0;transform:translateY(14px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
   .solid{background:var(--bg)}
   .glass{background:transparent}
 
@@ -111,51 +123,92 @@
 
   /* HERO */
   .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:120px 0 64px;position:relative}
-  .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(125% 80% at 28% 42%,rgba(8,8,8,.5),rgba(8,8,8,.85) 72%);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+  /* Lesbarkeitsschleier: dunkel hinter dem Text (links), transparenter über der Punktwolke (rechts) */
+  .hero::after{content:"";position:absolute;inset:0;z-index:-1;
+    background:radial-gradient(95% 78% at 16% 48%,rgba(8,8,8,.9),rgba(8,8,8,.7) 46%,rgba(8,8,8,.4) 100%);
+    -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+  @media(max-width:760px){
+    .hero::after{background:radial-gradient(120% 70% at 30% 44%,rgba(8,8,8,.9),rgba(8,8,8,.76) 55%,rgba(8,8,8,.55) 100%)}
+  }
   .eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:22px}
-  .wordmark{font-family:var(--serif);font-weight:700;font-size:clamp(56px,14vw,140px);line-height:.92}
+  .wordmark{font-family:var(--serif);font-weight:700;font-size:clamp(56px,14vw,140px);line-height:.92;
+    background:linear-gradient(100deg,#fff 18%,#b9c9f2 38%,#fff 58%);background-size:250% 100%;
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    animation:sheen 9s linear infinite}
+  @keyframes sheen{0%{background-position:180% 0}100%{background-position:-80% 0}}
   .hero h1{font-family:var(--serif);font-weight:500;font-size:clamp(24px,3.8vw,40px);line-height:1.22;margin:24px 0 16px;max-width:20ch}
-  .hero .sub{font-size:clamp(16px,2.1vw,19px);color:var(--muted);max-width:50ch}
+  .hero .sub{font-size:clamp(16px,2.1vw,19px);color:var(--muted);max-width:52ch}
   .cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-top:36px}
-  .badge{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:999px;padding:13px 22px;font-size:14px;background:rgba(255,255,255,.03);backdrop-filter:blur(8px)}
+  .badge{position:relative;display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:999px;padding:13px 22px;font-size:14px;background:rgba(255,255,255,.03);backdrop-filter:blur(8px);overflow:hidden}
+  .badge::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.14) 50%,transparent 65%);transform:translateX(-120%);animation:swipe 5.5s ease-in-out infinite}
+  @keyframes swipe{0%,62%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
   .badge .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:pulse 2.4s ease-in-out infinite}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-  .link-cta{font-size:14px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:3px;transition:.25s}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.78)}}
+  .link-cta{font-size:14px;color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:3px;transition:color .25s var(--ease),border-color .25s var(--ease)}
   .link-cta:hover{color:var(--text);border-color:var(--text)}
-  .scrollhint{margin-top:56px;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--faint)}
+  .scrollhint{margin-top:56px;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--faint);animation:bob 2.8s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0);opacity:.65}50%{transform:translateY(6px);opacity:1}}
+
+  /* hero entrance */
+  @keyframes riseIn{from{opacity:0;transform:translateY(26px);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
+  .hero .eyebrow,.hero h1,.hero .sub,.hero .cta,.hero .social,.hero .scrollhint{animation:riseIn .95s var(--ease) both}
+  .hero .eyebrow{animation-delay:.05s}
+  .hero .wordmark{animation:riseIn .95s var(--ease) .14s both,sheen 9s linear 1.4s infinite}
+  .hero h1{animation-delay:.26s}
+  .hero .sub{animation-delay:.36s}
+  .hero .cta{animation-delay:.46s}
+  .hero .social{animation-delay:.56s}
+  .hero .scrollhint{animation-delay:.7s}
 
   /* SOCIAL BUTTONS */
   .social{display:inline-flex;flex-wrap:wrap;gap:10px}
-  .social a{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-size:13.5px;font-weight:500;color:var(--muted);text-decoration:none;background:rgba(255,255,255,.03);backdrop-filter:blur(8px);transition:.22s}
-  .social a:hover{color:var(--text);border-color:rgba(255,255,255,.28);transform:translateY(-2px)}
-  .social svg{width:17px;height:17px;flex:none}
+  .social a{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-size:13.5px;font-weight:500;color:var(--muted);text-decoration:none;background:rgba(255,255,255,.03);backdrop-filter:blur(8px);transition:.28s var(--ease)}
+  .social a:hover{color:var(--text);border-color:rgba(255,255,255,.28);transform:translateY(-3px);box-shadow:0 10px 30px -12px rgba(122,162,255,.5)}
+  .social svg{width:17px;height:17px;flex:none;transition:transform .3s var(--ease)}
+  .social a:hover svg{transform:scale(1.12) rotate(-4deg)}
 
   /* NUMBERS */
   .nums{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .num{padding:44px 12px;text-align:center}
-  .num .big{font-family:var(--serif);font-size:clamp(34px,5.4vw,54px);font-weight:600;line-height:1;background:linear-gradient(180deg,#fff,#9fb4e8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .num{padding:44px 12px;text-align:center;position:relative}
+  .num+.num::before{content:"";position:absolute;left:-12px;top:22%;bottom:22%;width:1px;background:var(--line)}
+  .num .big{font-family:var(--serif);font-size:clamp(34px,5.4vw,54px);font-weight:600;line-height:1;font-variant-numeric:tabular-nums;
+    background:linear-gradient(180deg,#fff,#9fb4e8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
   .num .lbl{font-size:13.5px;color:var(--muted);margin-top:14px;max-width:24ch;margin-left:auto;margin-right:auto}
-  .numcap{text-align:center;color:var(--muted);font-size:clamp(15px,2vw,18px);max-width:46ch;margin:36px auto 0}
+  .numcap{text-align:center;color:var(--muted);font-size:clamp(15px,2vw,18px);max-width:52ch;margin:36px auto 0}
+  .srcline{text-align:center;font-size:12px;color:var(--faint);margin-top:18px}
+  .srcline a{color:var(--faint);text-decoration:underline;text-underline-offset:3px}
+  .srcline a:hover{color:var(--muted)}
+  @media(max-width:760px){.num+.num::before{display:none}}
 
   /* STATEMENTS */
   .statement{font-family:var(--serif);font-weight:600;font-size:clamp(30px,6vw,66px);line-height:1.07;letter-spacing:-.01em;max-width:16ch}
   .center{margin-left:auto;margin-right:auto;text-align:center;max-width:19ch}
   .lead-sub{font-size:clamp(16px,2.1vw,21px);color:var(--muted);max-width:56ch;margin-top:24px}
   .center+.lead-sub{margin-left:auto;margin-right:auto;text-align:center}
-  .seclabel{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:24px}
+  .seclabel{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:24px;transition:letter-spacing 1.2s var(--ease)}
+  .seclabel.reveal:not(.in){letter-spacing:.62em}
   .accenttext{color:var(--accent)}
+  .inline-link{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(122,162,255,.35);transition:border-color .25s var(--ease)}
+  .inline-link:hover{border-color:var(--accent)}
 
   /* STEPS / CARDS */
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;margin-top:52px}
-  .step .n{font-family:var(--serif);font-size:42px;color:var(--faint);line-height:1;margin-bottom:14px}
+  .step{position:relative}
+  .step .n{font-family:var(--serif);font-size:42px;color:var(--faint);line-height:1;margin-bottom:14px;transition:color .6s var(--ease),transform .6s var(--ease)}
+  .step:hover .n{color:var(--accent);transform:translateY(-4px)}
   .step h3{font-size:19px;font-weight:600;margin-bottom:8px}
   .step p{color:var(--muted);font-size:15px}
   .tease{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:52px}
-  .tcard{border:1px solid var(--line);border-radius:18px;padding:28px;background:rgba(255,255,255,.02);text-decoration:none;display:block;transition:.25s}
-  .tcard:hover{background:rgba(255,255,255,.05);transform:translateY(-3px)}
-  .tcard h3{font-family:var(--serif);font-size:21px;font-weight:600;margin-bottom:8px}
-  .tcard p{color:var(--muted);font-size:14.5px}
-  .tcard .more{color:var(--accent);font-size:13px;margin-top:14px;font-weight:600}
+  .tcard{position:relative;border:1px solid var(--line);border-radius:18px;padding:28px;background:rgba(255,255,255,.02);text-decoration:none;display:block;overflow:hidden;
+    transition:background .35s var(--ease),transform .45s var(--ease),border-color .35s var(--ease),box-shadow .45s var(--ease)}
+  .tcard::before{content:"";position:absolute;inset:0;opacity:0;transition:opacity .45s var(--ease);
+    background:radial-gradient(340px 200px at var(--mx,50%) var(--my,0%),rgba(122,162,255,.16),transparent 70%)}
+  .tcard:hover{background:rgba(255,255,255,.05);transform:translateY(-5px);border-color:rgba(255,255,255,.22);box-shadow:0 24px 60px -30px rgba(122,162,255,.6)}
+  .tcard:hover::before{opacity:1}
+  .tcard h3{font-family:var(--serif);font-size:21px;font-weight:600;margin-bottom:8px;position:relative}
+  .tcard p{color:var(--muted);font-size:14.5px;position:relative}
+  .tcard .more{color:var(--accent);font-size:13px;margin-top:14px;font-weight:600;position:relative;transition:transform .35s var(--ease)}
+  .tcard:hover .more{transform:translateX(6px)}
 
   /* CONTENT PAGES */
   .article{max-width:760px;margin:0 auto}
@@ -169,23 +222,35 @@
   .article li{margin-bottom:8px}
   .pull{border-left:2px solid var(--accent);padding:6px 0 6px 20px;font-family:var(--serif);font-size:22px;color:var(--text);margin:28px 0;line-height:1.4}
   .minirow{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:30px 0}
-  .mini{border:1px solid var(--line);border-radius:14px;padding:20px;text-align:center}
-  .mini .b{font-family:var(--serif);font-size:30px;font-weight:600;line-height:1}
+  .mini{border:1px solid var(--line);border-radius:14px;padding:20px;text-align:center;transition:transform .4s var(--ease),border-color .4s var(--ease),background .4s var(--ease)}
+  .mini:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.03)}
+  .mini .b{font-family:var(--serif);font-size:30px;font-weight:600;line-height:1;font-variant-numeric:tabular-nums}
   .mini .s{font-size:12.5px;color:var(--muted);margin-top:8px}
-  .founders{grid-template-columns:repeat(4,1fr)}
-  .founders .mini .b{font-size:16px;line-height:1.3}
-  @media(max-width:900px){.founders{grid-template-columns:repeat(2,1fr)}}
-  .sources{font-size:12px;color:var(--faint);margin-top:30px}
+  .facts{list-style:none;padding-left:0}
+  .facts li{position:relative;padding-left:20px;margin-bottom:12px}
+  .facts li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;background:var(--accent);opacity:.8}
+  .sources{font-size:12.5px;color:var(--faint);margin-top:34px;line-height:1.7;border-top:1px solid var(--line);padding-top:18px}
+  .sources a{color:var(--faint);text-decoration:underline;text-underline-offset:3px}
+  .sources a:hover{color:var(--muted)}
 
   /* FOOTER */
   footer{border-top:1px solid var(--line);padding:44px 0 60px;color:var(--faint);font-size:13.5px;position:relative;z-index:1;background:var(--bg)}
   footer .row{display:flex;flex-wrap:wrap;gap:12px 26px;align-items:center;justify-content:space-between}
-  footer a{color:var(--muted);text-decoration:none;transition:.2s}
+  footer a{color:var(--muted);text-decoration:none;transition:color .2s var(--ease)}
   footer a:hover{color:var(--text)}
   .mark{font-family:var(--serif);font-size:18px;color:var(--text);letter-spacing:.04em}
 
-  .reveal{opacity:0;transform:translateY(30px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(34px);
+    transition:opacity 1.05s var(--ease),transform 1.05s var(--ease),filter 1.05s var(--ease),letter-spacing 1.2s var(--ease);
+    transition-delay:calc(var(--i,0) * 90ms)}
   .reveal.in{opacity:1;transform:none}
+  .reveal-blur{filter:blur(12px)}
+  .reveal-blur.in{filter:blur(0)}
+  /* Parallaxe übernimmt den Transform erst, wenn das Einblenden durch ist */
+  .par{will-change:transform}
+  .reveal.par.par-on{transform:translateY(var(--py,0px));
+    transition:opacity 1.05s var(--ease),filter 1.05s var(--ease),transform .22s linear}
 
   /* LEGAL */
   .legal h2{font-family:var(--serif);font-weight:600;font-size:22px;margin:30px 0 10px}
@@ -197,7 +262,6 @@
   .legal table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13.5px}
   .legal th,.legal td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top;color:var(--muted)}
   .legal th{color:var(--text)}
-  .draft{background:rgba(122,162,255,.08);border:1px solid rgba(122,162,255,.3);border-radius:10px;padding:13px 15px;font-size:13.5px;color:var(--text);margin:18px 0 26px}
   .note{background:rgba(255,255,255,.03);border-left:2px solid var(--faint);padding:9px 13px;font-size:13px;color:var(--faint);margin:10px 0;border-radius:0 6px 6px 0}
 
   @media(max-width:900px){
@@ -207,20 +271,30 @@
     .nav{padding:12px 16px}
     .nums,.steps,.tease,.minirow{grid-template-columns:1fr;gap:24px}
   }
-  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .reveal{opacity:1;transform:none;filter:none;transition:none}
+    .seclabel.reveal:not(.in){letter-spacing:.3em}
+    .hero .eyebrow,.hero .wordmark,.hero h1,.hero .sub,.hero .cta,.hero .social,.hero .scrollhint{animation:none}
+    .wordmark{animation:none}
+    .badge::after,.scrollhint,.badge .dot{animation:none}
+    .js .page.active{animation:none}
+    .progress{display:none}
+  }
 </style>
 </head>
 <body>
 <canvas id="scene"></canvas>
+<div class="progress" id="progress"></div>
 
-<nav class="nav">
+<nav class="nav" id="nav">
   <a class="brand" href="#home">ANNÉES</a>
   <div class="nav-links">
     <a data-p="home" href="#home">Start</a>
     <a data-p="ueber" href="#ueber">Über uns</a>
     <a data-p="umwelt" href="#umwelt">Umwelt</a>
     <a data-p="sicherheit" href="#sicherheit">Datensicherheit</a>
-    <a data-p="finanzierung" href="#finanzierung">Finanzierung</a>
+    <a data-p="prinzipien" href="#prinzipien">Prinzipien</a>
   </div>
 </nav>
 
@@ -228,10 +302,10 @@
 <div class="page" id="page-home">
   <header class="hero glass">
     <div class="wrap">
-      <div class="eyebrow">Die Zukunft des Schuhkaufs</div>
+      <div class="eyebrow">Sneaker, kuratiert</div>
       <div class="wordmark">ANNÉES</div>
-      <h1>Nie wieder der falsche Schuh.</h1>
-      <p class="sub">Wir vermessen deinen Fuß in 3D und gleichen ihn statistisch mit Schuhmodellen ab — und zeigen automatisch den günstigsten Preis unter unseren Partner-Shops.</p>
+      <h1>Nicht suchen. Entdecken.</h1>
+      <p class="sub">ANNÉES ist eine App für den Sneaker-Kauf: ein persönlicher Katalog, der sich an deinem Profil ausrichtet — statt endloser Filterlisten und Größentabellen.</p>
       <div class="cta">
         <span class="badge"><span class="dot"></span>Bald im App Store</span>
         <a class="link-cta" href="mailto:kontakt@xn--annes-dsa.de?subject=Launch-Benachrichtigung">Zum Launch benachrichtigen →</a>
@@ -252,46 +326,47 @@
 
   <section class="solid pad">
     <div class="wrap">
-      <div class="seclabel reveal center" style="text-align:center">Worum es geht</div>
-      <div class="nums reveal">
-        <div class="num"><div class="big">23,9 Mrd.</div><div class="lbl">Paar Schuhe werden jedes Jahr weltweit produziert</div></div>
-        <div class="num"><div class="big">51,8 Mio.</div><div class="lbl">Menschen kaufen allein bei Zalando ein</div></div>
-        <div class="num"><div class="big">~50 %</div><div class="lbl">der online bestellten Mode geht zurück — meist wegen der Passform</div></div>
+      <div class="seclabel reveal" style="text-align:center">Worum es geht</div>
+      <div class="nums">
+        <div class="num reveal"><div class="big" data-count="24.6" data-dec="1" data-suffix="&nbsp;Mrd.">24,6 Mrd.</div><div class="lbl">Paar Schuhe wurden 2025 weltweit produziert</div></div>
+        <div class="num reveal"><div class="big" data-count="550" data-suffix="&nbsp;Mio.">550 Mio.</div><div class="lbl">Retourenpakete erwartet der deutsche Onlinehandel für 2025</div></div>
+        <div class="num reveal"><div class="big" data-count="67" data-suffix="&nbsp;%">67 %</div><div class="lbl">nennen die falsche Größe als Grund für ihre Rücksendungen</div></div>
       </div>
-      <p class="numcap reveal">Hinter fast jeder Retoure steckt dieselbe Frage: <em>Passt es?</em> Genau die beantworten wir — vorher.</p>
+      <p class="numcap reveal">Der Markt ist riesig, die Orientierung klein. Hinter den meisten Rücksendungen steht dieselbe offene Frage — und sie lässt sich vorher beantworten.</p>
+      <p class="srcline reveal">Quellen: <a href="https://www.worldfootwear.com/" target="_blank" rel="noopener">World Footwear Yearbook 2026 (APICCAPS)</a> · <a href="https://www.retourenforschung.de/" target="_blank" rel="noopener">Forschungsgruppe Retourenforschung, Universität Bamberg</a> · <a href="https://www.bitkom.org/Presse/Presseinformation/Online-Shopping-Jeder-zehnte-Kauf-geht-zurueck" target="_blank" rel="noopener">Bitkom 2024</a></p>
     </div>
   </section>
 
   <section class="solid pad">
     <div class="wrap">
-      <h2 class="statement reveal">Jeder Fuß ist einzigartig. Schuhgrößen sind es nicht.</h2>
-      <p class="lead-sub reveal">Eine 43 ist nicht überall eine 43. Genau deshalb passt online so oft nichts. Wir hören auf zu schätzen — und fangen an zu messen.</p>
+      <h2 class="statement reveal reveal-blur par">Mehr Auswahl war noch nie weniger Orientierung.</h2>
+      <p class="lead-sub reveal" style="--i:1">Hunderte Marken, tausende Modelle, jede Größe ein wenig anders geschnitten. Wer online kauft, entscheidet meist ohne belastbare Grundlage — und korrigiert das Ergebnis später per Rücksendung.</p>
     </div>
   </section>
 
   <section class="glass pad">
     <div class="wrap">
-      <div class="seclabel reveal">3D-Präzision</div>
-      <h2 class="statement reveal">Ein Scan.<br>Tausende Schuhe.<br>Eine fundierte Wahl.</h2>
-      <p class="lead-sub reveal">Wir erfassen die echte Form deines Fußes und gleichen sie mit unserem Modellkatalog ab — nicht nur eine Zahl auf dem Karton. Was zu deiner Fußform passt, kommt nach oben.</p>
+      <div class="seclabel reveal">Das Prinzip</div>
+      <h2 class="statement reveal reveal-blur par" style="--i:1">Ein Profil.<br>Ein Katalog.<br>Deine Auswahl.</h2>
+      <p class="lead-sub reveal" style="--i:2">ANNÉES sortiert den Markt für jeden Nutzer neu. Nicht alles, was es gibt — sondern das, was zu dir passt, verständlich bewertet und nachvollziehbar begründet.</p>
     </div>
   </section>
 
   <section class="solid pad">
     <div class="wrap">
-      <div class="seclabel reveal">So einfach</div>
+      <div class="seclabel reveal">So funktioniert es</div>
       <div class="steps">
-        <div class="step reveal"><div class="n">1</div><h3>Scannen</h3><p>Einmal mit der iPhone-Kamera über deinen Fuß. Fertig in unter einer Minute.</p></div>
-        <div class="step reveal"><div class="n">2</div><h3>Entdecken</h3><p>Du siehst nur Schuhe, die wirklich zu deiner Fußform passen — klar bewertet.</p></div>
-        <div class="step reveal"><div class="n">3</div><h3>Kaufen</h3><p>Direkt zum günstigsten Angebot unter unseren Partner-Shops — ohne Umwege.</p></div>
+        <div class="step reveal"><div class="n">1</div><h3>Profil anlegen</h3><p>Einmal einrichten. Danach kennt die App deine Größe und deinen Geschmack.</p></div>
+        <div class="step reveal"><div class="n">2</div><h3>Entdecken</h3><p>Deine Startseite ist ein kuratierter Katalog, der sich mit jeder Rückmeldung weiter schärft.</p></div>
+        <div class="step reveal"><div class="n">3</div><h3>Entscheiden</h3><p>Zu jedem Modell siehst du, wie gut es zu dir passt. Du bestellst gezielt statt auf Verdacht.</p></div>
       </div>
     </div>
   </section>
 
   <section class="solid pad">
     <div class="wrap">
-      <h2 class="statement reveal">Preisvergleich unter Partner-Shops. <span class="accenttext">Automatisch.</span></h2>
-      <p class="lead-sub reveal">Wir vergleichen die Preise unserer Partner-Shops und zeigen dir, wo dein Modell gerade am günstigsten verfügbar ist. Eine Entscheidung weniger, die du selbst recherchieren musst.</p>
+      <h2 class="statement reveal reveal-blur par">Was vorher passt, <span class="accenttext">kommt nicht zurück.</span></h2>
+      <p class="lead-sub reveal" style="--i:1">Jede vermiedene Fehlbestellung spart ein Paket, einen Transportweg und eine Verpackung. Das ist für uns kein Nebeneffekt, sondern der Maßstab, an dem wir das Produkt messen. <a class="inline-link" href="#umwelt">Die Zahlen dazu →</a></p>
     </div>
   </section>
 
@@ -299,17 +374,17 @@
     <div class="wrap">
       <div class="seclabel reveal">Mehr erfahren</div>
       <div class="tease">
-        <a class="tcard reveal" href="#umwelt"><h3>Umweltaspekte</h3><p>Warum die nachhaltigste Retoure die ist, die nie entsteht.</p><div class="more">Mehr →</div></a>
-        <a class="tcard reveal" href="#sicherheit"><h3>Datensicherheit</h3><p>Dein 3D-Scan verlässt dein iPhone nie — Verarbeitung vollständig on-device.</p><div class="more">Mehr →</div></a>
-        <a class="tcard reveal" href="#finanzierung"><h3>Finanzierung</h3><p>Partner-Provision statt Datenverkauf — warum dabei alle gewinnen.</p><div class="more">Mehr →</div></a>
+        <a class="tcard reveal" href="#umwelt"><h3>Umwelt</h3><p>Produktion, Retouren, Emissionen — Zahlen mit Quellen.</p><div class="more">Mehr →</div></a>
+        <a class="tcard reveal" style="--i:1" href="#sicherheit"><h3>Datensicherheit</h3><p>Was auf deinem iPhone bleibt — und was nicht.</p><div class="more">Mehr →</div></a>
+        <a class="tcard reveal" style="--i:2" href="#prinzipien"><h3>Prinzipien</h3><p>Woran wir uns halten, unabhängig vom Einzelfall.</p><div class="more">Mehr →</div></a>
       </div>
     </div>
   </section>
 
   <section class="glass pad">
     <div class="wrap" style="text-align:center">
-      <h2 class="statement center reveal">Eine neue Grundlage für den Schuhkauf — beginnend mit deinem Fuß.</h2>
-      <div class="cta reveal" style="justify-content:center;margin-top:32px">
+      <h2 class="statement center reveal reveal-blur">Eine ruhigere Art, Sneaker zu kaufen.</h2>
+      <div class="cta reveal" style="--i:1;justify-content:center;margin-top:32px">
         <span class="badge"><span class="dot"></span>Bald im App Store</span>
         <a class="link-cta" href="mailto:kontakt@xn--annes-dsa.de?subject=Launch-Benachrichtigung">Zum Launch benachrichtigen →</a>
       </div>
@@ -321,29 +396,28 @@
 <div class="page" id="page-ueber">
   <section class="solid ptop pad">
     <div class="wrap"><div class="article">
-      <div class="kicker">Über uns</div>
-      <h1>Aus einer Vision wurde ein Team.</h1>
-      <p class="lead">ANNÉES begann mit einem alltäglichen Frust beim Online-Schuhkauf — heute ist es das gemeinsame Projekt von vier Gründern, die E-Commerce datenbasiert und nachhaltig neu denken.</p>
+      <div class="kicker reveal">Über uns</div>
+      <h1 class="reveal reveal-blur">Wer wir sind.</h1>
+      <p class="lead reveal" style="--i:1">ANNÉES ist eine App für den Sneaker-Kauf, entwickelt in Deutschland. Wir arbeiten seit über zwei Jahren daran, aus einer unübersichtlichen Auswahl eine nachvollziehbare Entscheidung zu machen.</p>
 
-      <p>Den konkreten Anstoß gab eine persönliche Beobachtung im Alltag: Passformen variieren von Marke zu Marke so stark, dass der Online-Schuhkauf oft zum puren Glücksspiel wird. Um den wiederkehrenden Frust bei der Suche nach der richtigen Größe endgültig zu beseitigen, lag die Lösung in moderner Technologie. Als Informatiker faszinierte mich die mathematische Modellierung — die Idee, komplexe, reale Geometrie in präzise Vektorräume zu übersetzen, um Biometrie digital exakt messbar zu machen. Genau hier setzt ANNÉES an, indem wir hochentwickelte Sensorik wie das LiDAR-System des iPhones nutzen, um das Raten bei Schuhgrößen zu beenden.</p>
+      <p class="reveal">Betrieben wird die App von der Années GbR mit Sitz in Hildesheim. Wir sind ein kleines Team mit Hintergrund in Informatik und Naturwissenschaft und veröffentlichen zuerst für iPhone. Die vollständigen Angaben zum Unternehmen stehen im <a class="inline-link" href="#impressum">Impressum</a>.</p>
 
-      <p>Doch bei ANNÉES geht es um mehr als nur um die richtige Passform – es geht um spürbaren Einfluss auf unsere Umwelt. Jede Fehlbestellung führt zu Retouren, die logistischen Aufwand und enorme CO₂-Emissionen verursachen. Genau an dieser Schnittstelle setzt unsere App an: Wer von Anfang an die passende Größe findet, schickt seltener etwas zurück — ein kleiner, aber messbarer Beitrag zu einem ressourcenschonenderen Online-Handel.</p>
+      <p class="reveal">Unser Anspruch lässt sich in einem Satz zusammenfassen: Eine Empfehlung ist nur so viel wert wie ihre Begründung. Deshalb zeigen wir zu jedem Modell, worauf die Einschätzung beruht, und halten uns mit Aussagen zurück, die wir nicht belegen können.</p>
 
-      <div class="pull">Vier Gründer, eine gemeinsame Basis: Von Leipzig in den App Store.</div>
+      <p class="reveal">Der zweite Maßstab ist der ökologische. Rücksendungen sind im Onlinehandel Normalzustand, und der häufigste Grund dafür ist die Größe. Wer vor der Bestellung besser einschätzen kann, was passt, verursacht weniger Retouren — die <a class="inline-link" href="#umwelt">belegten Zahlen dazu</a> haben wir zusammengetragen.</p>
 
-      <p>Was als technischer Lösungsansatz begann, hat sich über die letzten zwei Jahre zu einem starken, interdisziplinären Team entwickelt. Wir sind vier Gründer, die sich während ihrer Zeit in Leipzig kennengelernt haben und die heute eine tiefe Freundschaft verbindet. Drei von uns bringen als Chemiker die wissenschaftliche Präzision und analytische Tiefe mit, während ich als Informatikstudent die technologische Architektur und Softwareentwicklung steuere.</p>
-
-      <div class="minirow founders">
-        <div class="mini"><div class="b">S. Camim-Elijah Moschref</div><div class="s">Mitgründer · Informatik &amp; Produkt</div></div>
-        <div class="mini"><div class="b">Robin Curth</div><div class="s">Mitgründer · Chemie</div></div>
-        <div class="mini"><div class="b">Elias Osman</div><div class="s">Mitgründer · Chemie</div></div>
-        <div class="mini"><div class="b">S. Nabil-Gabriel Moschref</div><div class="s">Mitgründer · Chemie</div></div>
+      <div class="minirow">
+        <div class="mini reveal"><div class="b">2+</div><div class="s">Jahre Entwicklung</div></div>
+        <div class="mini reveal" style="--i:1"><div class="b">iOS</div><div class="s">Plattform zum Start</div></div>
+        <div class="mini reveal" style="--i:2"><div class="b">DE</div><div class="s">Entwicklung und Betrieb</div></div>
       </div>
 
-      <p>Auch unser Name erzählt diese Geschichte: <em>ANNÉES</em> leitet sich von Franz Liszts berühmtem Klavierzyklus <em>Années de pèlerinage</em> (Jahre der Pilgerschaft) ab. Denn genau wie das musikalische Meisterwerk war auch unsere über zweijährige Entwicklungszeit ein langer, intensiver Marsch voller Herausforderungen, Lernen und Evolution. Umso glücklicher macht es uns, diesen Weg gemeistert zu haben und die App nun endlich präsentieren zu können. Wir bündeln unsere Stärken für ein klares Ziel und hoffen auf viele begeisterte Nutzer, denen wir den Alltag ein Stück leichter machen können.</p>
+      <h2 class="reveal">Der Name</h2>
+      <div class="pull reveal">Années de pèlerinage — Jahre der Pilgerschaft.</div>
+      <p class="reveal">Auch unser Name erzählt diese Geschichte: <em>ANNÉES</em> leitet sich von Franz Liszts berühmtem Klavierzyklus <em>Années de pèlerinage</em> (Jahre der Pilgerschaft) ab. Denn genau wie das musikalische Meisterwerk war auch unsere über zweijährige Entwicklungszeit ein langer, intensiver Marsch voller Herausforderungen, Lernen und Evolution. Umso glücklicher macht es uns, diesen Weg gemeistert zu haben und die App nun endlich präsentieren zu können.</p>
 
-      <h2>Kontakt</h2>
-      <p class="muted">Für Anfragen, Presse und Partnerschaften erreichst du uns unter <a href="mailto:kontakt@xn--annes-dsa.de" style="color:var(--accent)">kontakt@années.de</a>.</p>
+      <h2 class="reveal">Kontakt</h2>
+      <p class="muted reveal">Für Anfragen, Presse und Partnerschaften erreichst du uns unter <a class="inline-link" href="mailto:kontakt@xn--annes-dsa.de">kontakt@années.de</a>.</p>
     </div></div>
   </section>
 </div>
@@ -352,28 +426,48 @@
 <div class="page" id="page-umwelt">
   <section class="solid ptop pad">
     <div class="wrap"><div class="article">
-      <div class="kicker">Umweltaspekte</div>
-      <h1>Die nachhaltigste Retoure ist die, die nie entsteht.</h1>
-      <p class="lead">Passform ist nicht nur ein Komfort-Thema. Sie ist ein Klima-Thema.</p>
+      <div class="kicker reveal">Umwelt</div>
+      <h1 class="reveal reveal-blur">Die nachhaltigste Retoure ist die, die nie entsteht.</h1>
+      <p class="lead reveal" style="--i:1">Passform ist nicht nur eine Komfortfrage. Sie entscheidet über Transportwege, Verpackung und Emissionen. Die folgenden Zahlen sind belegt und verlinkt.</p>
 
-      <p>In Deutschland geht rund die Hälfte aller online bestellten Mode wieder zurück — bei Schuhen ist es fast jedes zweite Paar. Der häufigste Grund ist kein Geschmack, sondern schlicht: Es passt nicht. Viele bestellen sogar bewusst mehrere Größen, um eine zu behalten und den Rest zurückzuschicken.</p>
+      <h2 class="reveal">Wie groß der Markt ist</h2>
+      <p class="reveal">2025 wurden weltweit rund <strong>24,6 Milliarden Paar Schuhe</strong> produziert — etwa drei Paar pro Mensch. 88,7 Prozent davon entstehen in Asien, allein 13,7 Milliarden Paar in China. Jedes Paar, das später ungetragen zurückgeschickt wird, hat diesen Weg trotzdem bereits hinter sich.</p>
 
       <div class="minirow">
-        <div class="mini"><div class="b">~50 %</div><div class="s">Retourenquote Mode in Deutschland</div></div>
-        <div class="mini"><div class="b">~44 %</div><div class="s">der Schuhe gehen zurück</div></div>
-        <div class="mini"><div class="b">23,9 Mrd.</div><div class="s">Paar Schuhe / Jahr weltweit</div></div>
+        <div class="mini reveal"><div class="b" data-count="24.6" data-dec="1" data-suffix="&nbsp;Mrd.">24,6 Mrd.</div><div class="s">Paar Schuhe weltweit, 2025</div></div>
+        <div class="mini reveal" style="--i:1"><div class="b" data-count="88.7" data-dec="1" data-suffix="&nbsp;%">88,7 %</div><div class="s">davon in Asien produziert</div></div>
+        <div class="mini reveal" style="--i:2"><div class="b" data-count="13.7" data-dec="1" data-suffix="&nbsp;Mrd.">13,7 Mrd.</div><div class="s">Paar allein aus China</div></div>
       </div>
 
-      <p>Jede dieser Retouren bedeutet: ein zusätzliches Paket, ein weiterer Transportweg, Verpackung, Sortierung — und im schlimmsten Fall sogar Vernichtung neuwertiger Ware. Das kostet CO₂, Material und Energie für ein Produkt, das nie hätte verschickt werden müssen.</p>
+      <h2 class="reveal">Wie viel davon zurückgeht</h2>
+      <p class="reveal">Für 2025 rechnet die Forschungsgruppe Retourenforschung der Universität Bamberg mit rund <strong>550 Millionen Retourenpaketen</strong> im deutschen Onlinehandel — ein neuer Höchststand. Mode ist dabei die Kategorie mit der höchsten Quote: Das bevh-Retourenkompendium weist für den Fashion-Bereich rund 40 Prozent aus, in einzelnen Sortimenten liegt der Wert deutlich darüber.</p>
 
-      <div class="pull">Wer von Anfang an das Richtige findet, schickt nichts zurück.</div>
+      <h2 class="reveal">Warum zurückgeschickt wird</h2>
+      <p class="reveal">In einer Bitkom-Befragung von 1.050 Online-Shopperinnen und -Shoppern (2024) nannten <strong>67 Prozent</strong> die nicht passende Größe als Retourengrund — häufiger als fehlerhafte Ware (56 Prozent) oder schlichtes Nichtgefallen (50 Prozent). Der häufigste Rücksendegrund ist damit einer, über den bereits vor der Bestellung entschieden wird.</p>
 
-      <p>Genau hier setzt ANNÉES an. Wenn der erste Schuh schon passt, fällt der gesamte Rückweg weg. Weniger Fehlbestellungen heißt weniger Retouren — und weniger Retouren heißt weniger CO₂, weniger Verpackung, weniger Müll.</p>
+      <div class="minirow">
+        <div class="mini reveal"><div class="b" data-count="67" data-suffix="&nbsp;%">67 %</div><div class="s">Größe hat nicht gepasst</div></div>
+        <div class="mini reveal" style="--i:1"><div class="b" data-count="56" data-suffix="&nbsp;%">56 %</div><div class="s">Ware fehlerhaft oder beschädigt</div></div>
+        <div class="mini reveal" style="--i:2"><div class="b" data-count="50" data-suffix="&nbsp;%">50 %</div><div class="s">Produkt hat nicht gefallen</div></div>
+      </div>
 
-      <h2>Ehrlich bleiben</h2>
-      <p class="muted">Wir lösen damit nicht das ganze Problem der Modebranche. Aber jede vermiedene Fehlbestellung ist ein Paket weniger auf der Straße. Und das summiert sich — bei Millionen von Bestellungen.</p>
+      <h2 class="reveal">Was eine Retoure ökologisch kostet</h2>
+      <p class="reveal">Die Bamberger Forschungsgruppe rechnete lange mit rund 850 Gramm CO₂-Äquivalenten je retourniertem Artikel. Angaben der Händler deuten inzwischen auf etwa <strong>1.500 Gramm</strong> hin. Hochgerechnet ergaben Retouren in Deutschland für 2021 rund <strong>795.000 Tonnen CO₂e</strong> — das entspricht ungefähr 5,3 Milliarden mit dem Auto gefahrenen Kilometern.</p>
 
-      <p class="sources">Quellen: World Footwear Yearbook 2024 (APICCAPS); Statista / E-Commerce-Berichte zu Retouren in Deutschland, 2022–2024.</p>
+      <div class="pull reveal">Ein Paket, das nie verschickt wird, muss auch nicht zurück.</div>
+
+      <h2 class="reveal">Ehrlich bleiben</h2>
+      <p class="reveal">Retouren sind nicht gleichbedeutend mit Müll: Nach Erhebungen derselben Forschungsgruppe werden rund 92 Prozent der zurückgesandten Artikel wieder verkauft, etwa 4 Prozent vernichtet. Der ökologische Hebel liegt also weniger in der Vernichtung als im Transport, in der Verpackung und in der Wiederaufbereitung. Genau dieser Aufwand entfällt vollständig, wenn die Bestellung von vornherein passt.</p>
+      <p class="muted reveal">Wir lösen damit kein Branchenproblem, und wir rechnen uns keine Einsparungen zu, die wir nicht messen können. Aber jede vermiedene Fehlbestellung ist ein Paket weniger auf der Straße — und das summiert sich über Millionen von Bestellungen.</p>
+
+      <div class="sources reveal">
+        <strong style="color:var(--muted)">Quellen</strong><br>
+        World Footwear Yearbook 2026, APICCAPS — globale Schuhproduktion 2025: <a href="https://www.worldfootwear.com/" target="_blank" rel="noopener">worldfootwear.com</a><br>
+        Forschungsgruppe Retourenforschung, Universität Bamberg (Prof. Dr. Björn Asdecker) — Retourenpakete, CO₂-Bilanz, Verwertungsquoten: <a href="https://www.retourenforschung.de/" target="_blank" rel="noopener">retourenforschung.de</a><br>
+        bevh-Retourenkompendium, Bundesverband E-Commerce und Versandhandel — Retourenquoten nach Warengruppen: <a href="https://bevh.org/daten-studien/retourenkompendium" target="_blank" rel="noopener">bevh.org</a><br>
+        Bitkom e. V., Presseinformation 2024 — Retourengründe, Befragung von 1.050 Online-Shoppern: <a href="https://www.bitkom.org/Presse/Presseinformation/Online-Shopping-Jeder-zehnte-Kauf-geht-zurueck" target="_blank" rel="noopener">bitkom.org</a><br>
+        <span style="opacity:.75">Stand der Angaben: August 2026.</span>
+      </div>
     </div></div>
   </section>
 </div>
@@ -382,48 +476,53 @@
 <div class="page" id="page-sicherheit">
   <section class="solid ptop pad">
     <div class="wrap"><div class="article">
-      <div class="kicker">Datensicherheit</div>
-      <h1>Dein Körper gehört dir. Deine Daten auch.</h1>
-      <p class="lead">Privatsphäre ist bei ANNÉES kein Feature, das man dazuschaltet. Sie ist das Fundament.</p>
+      <div class="kicker reveal">Datensicherheit</div>
+      <h1 class="reveal reveal-blur">Was auf deinem iPhone bleibt.</h1>
+      <p class="lead reveal" style="--i:1">Datenschutz ist bei ANNÉES keine Einstellung, die man erst suchen muss, sondern eine Entscheidung in der Architektur.</p>
 
-      <p>Um deine Passform zu berechnen, erstellt die App ein detailliertes 3D-Modell deines Fußes. Das sind hochsensible, biometrische Daten — und genau deshalb behandeln wir sie mit dem höchstmöglichen Schutz.</p>
-
-      <h2>Dein Scan verlässt dein iPhone nie</h2>
-      <p>Der komplette Abgleich zwischen deinem Fuß und den Schuhmodellen passiert <strong>lokal auf deinem Gerät</strong>. Es gibt keinen Upload deiner 3D-Scans auf unsere Server, in die Cloud oder zu Dritten. Löschst du die Scans oder die App, sind sie unwiederbringlich weg — wir haben keine Kopie.</p>
+      <h2 class="reveal">Verarbeitung auf dem Gerät</h2>
+      <p class="reveal">Dein persönliches Passform-Profil entsteht auf deinem iPhone und wird dort ausgewertet. Es gibt keinen Upload dieser Daten auf unsere Server, in eine Cloud oder zu Dritten. Löschst du das Profil oder die App, sind die Daten weg — wir haben keine Kopie.</p>
 
       <div class="minirow">
-        <div class="mini"><div class="b">100 %</div><div class="s">Scan-Verarbeitung lokal</div></div>
-        <div class="mini"><div class="b">0</div><div class="s">Werbe-IDs &amp; Tracker</div></div>
-        <div class="mini"><div class="b">EU</div><div class="s">Serverstandort für Account-Daten</div></div>
+        <div class="mini reveal"><div class="b" data-count="100" data-suffix="&nbsp;%">100 %</div><div class="s">Profil-Auswertung lokal</div></div>
+        <div class="mini reveal" style="--i:1"><div class="b">0</div><div class="s">Werbe-IDs und Tracker</div></div>
+        <div class="mini reveal" style="--i:2"><div class="b">EU</div><div class="s">Serverstandort für Kontodaten</div></div>
       </div>
 
-      <h2>Kein Tracking. Keine Werbe-IDs.</h2>
-      <p>Wir verzichten vollständig auf invasive Tracking-Tools, Werbe-Frameworks und gerätübergreifendes Profiling. Wir nutzen die Apple-Werbekennung (IDFA) nicht und geben deine Daten nicht an Shops weiter.</p>
+      <h2 class="reveal">Kein Tracking, keine Werbe-IDs</h2>
+      <p class="reveal">Wir setzen keine Analyse- oder Werbe-Frameworks von Drittanbietern ein und nutzen die Apple-Werbekennung (IDFA) nicht. Es gibt kein gerätübergreifendes Profiling, und wir geben deine Daten nicht an Shops weiter.</p>
 
-      <h2>Was in der Cloud liegt — und wie es geschützt ist</h2>
-      <p>Damit deine Wunschliste und Größe auf allen Geräten verfügbar sind, speichern wir nur das Nötigste (Account, Favoriten, errechnete Größe) — auf Servern <strong>innerhalb der EU</strong>, transportverschlüsselt (TLS 1.3) und verschlüsselt gespeichert (AES-256). Über „Account löschen" entfernst du alles jederzeit selbst.</p>
+      <h2 class="reveal">Was auf Servern liegt</h2>
+      <p class="reveal">Damit Konto, Merkliste und Größe auf deinen Geräten verfügbar sind, speichern wir nur das Nötige — Konto, Favoriten und die errechnete Größe — auf Servern <strong>innerhalb der EU</strong>, transportverschlüsselt (TLS 1.3) und verschlüsselt gespeichert (AES-256). Über „Account löschen“ entfernst du alles jederzeit selbst.</p>
 
-      <p class="muted" style="margin-top:26px">Alle Details findest du in unserer <a href="#datenschutz" style="color:var(--accent)">Datenschutzerklärung</a>.</p>
+      <p class="muted reveal" style="margin-top:26px">Welche Daten genau zu welchem Zweck verarbeitet werden, steht vollständig in der <a class="inline-link" href="#datenschutz">Datenschutzerklärung</a>.</p>
     </div></div>
   </section>
 </div>
 
-<!-- ===================== FINANZIERUNG ===================== -->
-<div class="page" id="page-finanzierung">
+<!-- ===================== PRINZIPIEN ===================== -->
+<div class="page" id="page-prinzipien">
   <section class="solid ptop pad">
     <div class="wrap"><div class="article">
-      <div class="kicker">Wie wir uns finanzieren</div>
-      <h1>Ein Modell, bei dem alle gewinnen.</h1>
-      <p class="lead">Eines vorweg: Wir verkaufen keine Daten. Wir verdienen an einer einzigen Stelle — und genau die sorgt dafür, dass unsere Interessen mit deinen übereinstimmen.</p>
+      <div class="kicker reveal">Prinzipien</div>
+      <h1 class="reveal reveal-blur">Woran wir uns halten.</h1>
+      <p class="lead reveal" style="--i:1">Ein paar Festlegungen, die wir nicht von Fall zu Fall neu entscheiden.</p>
 
-      <h2>Provision nur bei der richtigen Vermittlung</h2>
-      <p>ANNÉES arbeitet mit Partner-Shops zusammen. Vermitteln wir dir erfolgreich einen Schuh, der wirklich passt, werden wir vom Shop provisionsbasiert vergütet. Für dich ändert das am Preis nichts.</p>
+      <h2 class="reveal">Wir verkaufen keine Daten</h2>
+      <p class="reveal">Deine Daten sind für uns kein Produkt. Wir handeln weder mit Profilen noch mit Kontaktdaten und geben sie nicht zu Werbezwecken weiter.</p>
 
-      <div class="pull">Wir verdienen genau dann, wenn wir es richtig machen — einen Schuh, den du behältst.</div>
+      <h2 class="reveal">Empfehlungen sind nachvollziehbar</h2>
+      <p class="reveal">Zu jedem Vorschlag zeigen wir, worauf er beruht. Platzierungen, die kommerziell beeinflusst sind, kennzeichnen wir als solche — erkennbar und an der Stelle, an der sie auftauchen.</p>
 
-      <p>Damit zeigen die Interessen aller in dieselbe Richtung. <strong>Du</strong> bekommst von Anfang an die passende Wahl. <strong>Wir</strong> werden nur für gute Vermittlungen belohnt. Und sogar die <strong>Unternehmen</strong> profitieren stark: Jede Fehlbestellung, die gar nicht erst entsteht, spart eine Retoure — und Retouren sind für den Handel enorm teuer und für Umwelt und Planeten eine erhebliche Belastung.</p>
+      <h2 class="reveal">Wir behaupten nichts, was wir nicht belegen können</h2>
+      <p class="reveal">Eine Empfehlung ist eine begründete Einschätzung, keine Garantie. Wo Unsicherheit besteht, schreiben wir sie dazu, statt sie wegzuformulieren. Dasselbe gilt für Zahlen: Was wir nennen, ist mit einer Quelle hinterlegt.</p>
 
-      <p>Weniger zurückgeschickte Pakete heißt weniger Kosten, weniger Transportwege, weniger CO₂. Passform, die vorher stimmt, ist deshalb kein Nullsummenspiel: Kunde, ANNÉES und Handel gewinnen gleichzeitig.</p>
+      <div class="pull reveal">Erfolg heißt für uns nicht mehr Bestellungen, sondern weniger Rücksendungen.</div>
+
+      <h2 class="reveal">Weniger ist das Ziel</h2>
+      <p class="reveal">Eine App, die zu mehr Fehlkäufen führt, hätte ihren Zweck verfehlt — auch dann, wenn die Zahlen kurzfristig gut aussähen. Wir bewerten uns daran, wie oft die erste Wahl die richtige war.</p>
+
+      <p class="muted reveal" style="margin-top:26px">Fragen dazu? <a class="inline-link" href="mailto:kontakt@xn--annes-dsa.de">kontakt@années.de</a></p>
     </div></div>
   </section>
 </div>
@@ -485,39 +584,39 @@
       <p>Années GbR<br>vertreten durch die Gesellschafter S. Camim-Elijah Moschref, Robin Curth, Elias Osman, S. Nabil-Gabriel Moschref<br>Allensteinerstr. 35<br>31141 Hildesheim<br>E-Mail: <a href="mailto:kontakt@xn--annes-dsa.de">datenschutz@années.de</a></p>
 
       <h2>2. On-Device-Verarbeitung (Privacy by Design)</h2>
-      <p>Zur Größenempfehlung erstellt die App mit LiDAR/TrueDepth ein 3D-Modell deiner Füße (<strong>biometrische Daten, Art. 9 DSGVO</strong>). Diese 3D-Scans werden <strong>ausschließlich lokal</strong> auf deinem Gerät verarbeitet — kein Upload an Server, Cloud oder Dritte. Rechtsgrundlage: deine ausdrückliche Einwilligung (Art. 9 Abs. 2 lit. a i. V. m. Art. 6 Abs. 1 lit. a DSGVO). Widerruf jederzeit durch Löschen der Scans/der App.</p>
+      <p>Zur Größenempfehlung erstellt die App mit den Kamera- und Tiefensensoren deines iPhones ein 3D-Modell deiner Füße (<strong>biometrische Daten, Art. 9 DSGVO</strong>). Diese Modelle werden <strong>ausschließlich lokal</strong> auf deinem Gerät verarbeitet — kein Upload an Server, Cloud oder Dritte. Rechtsgrundlage: deine ausdrückliche Einwilligung (Art. 9 Abs. 2 lit. a i. V. m. Art. 6 Abs. 1 lit. a DSGVO). Widerruf jederzeit durch Löschen der Daten oder der App.</p>
 
       <h2>3. Daten auf unseren Servern</h2>
-      <p>Für dein Konto verarbeiten wir: E-Mail + gehashtes Passwort (oder Apple-User-ID bei „Sign in with Apple"), Anzeigename (optional), Wunschliste, Filter-Präferenz und die errechnete Schuhgröße (ohne 3D-Modell) sowie Einwilligungs-Zeitstempel. Rechtsgrundlagen: Art. 6 Abs. 1 lit. b, a und c DSGVO.</p>
+      <p>Für dein Konto verarbeiten wir: E-Mail + gehashtes Passwort (oder Apple-User-ID bei „Sign in with Apple“), Anzeigename (optional), Wunschliste, Filter-Präferenz und die errechnete Schuhgröße (ohne 3D-Modell) sowie Einwilligungs-Zeitstempel. Rechtsgrundlagen: Art. 6 Abs. 1 lit. b, a und c DSGVO.</p>
 
       <h2>3a. Dienstleister</h2>
       <table>
         <tr><th>Dienst</th><th>Zweck</th><th>Rolle</th></tr>
         <tr><td>Supabase, Inc. (EU-Server Frankfurt/AWS)</td><td>Account-Daten, Wunschliste, Größe, Klick-Statistik</td><td>Auftragsverarbeiter (Art. 28)</td></tr>
         <tr><td>IONOS SE (Deutschland)</td><td>Web-Hosting années.de &amp; E-Mail</td><td>Auftragsverarbeiter (Art. 28)</td></tr>
-        <tr><td>Apple Inc. (USA)</td><td>App-Store, „Sign in with Apple"</td><td>Eigenständig Verantwortlicher</td></tr>
+        <tr><td>Apple Inc. (USA)</td><td>App-Store, „Sign in with Apple“</td><td>Eigenständig Verantwortlicher</td></tr>
         <tr><td>Awin AG (Berlin)</td><td>Affiliate-Tracking im Browser</td><td>Eigenständig Verantwortlicher</td></tr>
       </table>
 
       <h2>4. Anonymes Passform-Feedback (freiwillig)</h2>
-      <p>Tippst du aktiv auf „PASST MIR", übermitteln wir nur dimensionslose Maßverhältnisse deines Fußes, die Schuhgröße, das Ergebnis und die Modell-Kennung — <strong>nie</strong> den 3D-Scan oder Rohdaten. Diese Werte erlauben keine Identifizierung und sind keine biometrischen Daten i. S. d. Art. 9 DSGVO. Rechtsgrundlage: Einwilligung (Art. 6 Abs. 1 lit. a). Durchschnitte werden erst ab fünf Rückmeldungen je Modell gebildet.</p>
+      <p>Tippst du aktiv auf „PASST MIR“, übermitteln wir nur dimensionslose Maßverhältnisse deines Fußes, die Schuhgröße, das Ergebnis und die Modell-Kennung — <strong>nie</strong> das 3D-Modell oder Rohdaten. Diese Werte erlauben keine Identifizierung und sind keine biometrischen Daten i. S. d. Art. 9 DSGVO. Rechtsgrundlage: Einwilligung (Art. 6 Abs. 1 lit. a). Durchschnitte werden erst ab fünf Rückmeldungen je Modell gebildet.</p>
 
       <h2>5. Server-Logfiles</h2>
       <p>Beim Backend-Zugriff werden IP (gekürzt), Zeit, App-/OS-Version und Statuscode erfasst (Art. 6 Abs. 1 lit. f). Speicherdauer: max. 7 Tage.</p>
 
       <h2>6. Drittlandtransfer (Supabase)</h2>
-      <p>Account-/Logdaten liegen bei Supabase, Inc. auf EU-Servern (Frankfurt, AWS). AVV nach Art. 28 DSGVO geschlossen; Drittlandtransfer über EU-Standardvertragsklauseln (Art. 46) abgesichert; Verschlüsselung TLS 1.3 / AES-256. Deine 3D-Scans sind nicht betroffen (verlassen das Gerät nicht).</p>
+      <p>Account-/Logdaten liegen bei Supabase, Inc. auf EU-Servern (Frankfurt, AWS). AVV nach Art. 28 DSGVO geschlossen; Drittlandtransfer über EU-Standardvertragsklauseln (Art. 46) abgesichert; Verschlüsselung TLS 1.3 / AES-256. Deine 3D-Modelle sind nicht betroffen (sie verlassen das Gerät nicht).</p>
 
       <h2>7. Affiliate-Links &amp; Klick-Statistik</h2>
-      <p>Beim Tap auf „ZUM SHOP" öffnet Awin (Eichhornstraße 3, 10785 Berlin) im Browser eine Weiterleitungs-URL mit Tracking-Parameter (Datenschutz: <a href="https://www.awin.com/de/rechtliches/privacy-policy-de" target="_blank" rel="noopener">awin.com</a>). Intern speichern wir eine anonyme UUID (keine PII), Schuh-ID, Score, Quelle, Programm-ID, Zeitstempel — nicht mit dem Account verknüpft (Art. 6 Abs. 1 lit. f; max. 24 Monate). Provisions-/kommerziell beeinflusste Platzierungen kennzeichnen wir mit „Anzeige" (§5a UWG, EU-VO 2019/1150).</p>
+      <p>Beim Tap auf „ZUM SHOP“ öffnet Awin (Eichhornstraße 3, 10785 Berlin) im Browser eine Weiterleitungs-URL mit Tracking-Parameter (Datenschutz: <a href="https://www.awin.com/de/rechtliches/privacy-policy-de" target="_blank" rel="noopener">awin.com</a>). Intern speichern wir eine anonyme UUID (keine PII), Schuh-ID, Score, Quelle, Programm-ID, Zeitstempel — nicht mit dem Account verknüpft (Art. 6 Abs. 1 lit. f; max. 24 Monate). Provisions-/kommerziell beeinflusste Platzierungen kennzeichnen wir mit „Anzeige“ (§ 5a UWG, EU-VO 2019/1150).</p>
 
       <h2>8. Kein Tracking / keine Werbe-IDs</h2>
       <p>Keine Drittanbieter-Analyse (Firebase, Sentry, Adjust, AppsFlyer …), keine Nutzung der Apple-Werbekennung (IDFA).</p>
 
       <h2>9. Speicherdauer &amp; Löschung</h2>
       <ul>
-        <li>Lokale Scans: auf deinem Gerät, bis du sie löschst / die App entfernst.</li>
-        <li>Account-/Profildaten: Löschung über „Account löschen", spätestens nach 30 Tagen.</li>
+        <li>Lokale Daten: auf deinem Gerät, bis du sie löschst / die App entfernst.</li>
+        <li>Account-/Profildaten: Löschung über „Account löschen“, spätestens nach 30 Tagen.</li>
         <li>Logfiles: 7 Tage · Klick-Statistik: max. 24 Monate · Einwilligungs-Zeitstempel: bis 3 Jahre nach Löschung.</li>
       </ul>
 
@@ -551,31 +650,121 @@
 </footer>
 
 <script>
+var REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 /* ---------- hash router ---------- */
 (function(){
-  var pages=['home','ueber','umwelt','sicherheit','finanzierung','impressum','datenschutz'];
+  var pages=['home','ueber','umwelt','sicherheit','prinzipien','impressum','datenschutz'];
+  var alias={finanzierung:'prinzipien'}; /* alte Links weiterleiten */
   function show(id){
+    if(alias[id]) id=alias[id];
     if(pages.indexOf(id)<0) id='home';
     pages.forEach(function(p){var el=document.getElementById('page-'+p); if(el) el.classList.toggle('active',p===id);});
     document.querySelectorAll('.nav-links a').forEach(function(a){a.classList.toggle('on',a.getAttribute('data-p')===id);});
     window.__annesPage=id;
     window.scrollTo(0,0);
+    if(window.__annesRefreshReveal) window.__annesRefreshReveal();
   }
   window.addEventListener('hashchange',function(){show((location.hash||'#home').slice(1));});
   show((location.hash||'#home').slice(1));
 })();
 
-/* ---------- scroll reveal ---------- */
+/* ---------- staggered scroll reveal + zählende Kennzahlen ---------- */
 (function(){
+  function countUp(el){
+    var to=parseFloat(el.getAttribute('data-count'));
+    if(isNaN(to)) return;
+    var dec=parseInt(el.getAttribute('data-dec')||'0',10);
+    var suf=el.getAttribute('data-suffix')||'';
+    var finalHTML=el.innerHTML, t0=null, dur=1500;
+    function fmt(v){
+      return v.toLocaleString('de-DE',{minimumFractionDigits:dec,maximumFractionDigits:dec})+suf;
+    }
+    function tick(now){
+      if(t0===null) t0=now;
+      var p=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-p,3);
+      el.innerHTML=fmt(to*e);
+      if(p<1) requestAnimationFrame(tick); else el.innerHTML=finalHTML;
+    }
+    requestAnimationFrame(tick);
+  }
+
+  /* Stagger-Index je Geschwister-Gruppe, sofern nicht per --i im Markup gesetzt */
+  (function stagger(){
+    Array.prototype.forEach.call(document.querySelectorAll('.reveal'),function(el){
+      if(el.style.getPropertyValue('--i')) return;
+      var sibs=Array.prototype.filter.call(el.parentNode.children,function(c){
+        return c.classList.contains('reveal');
+      });
+      if(sibs.length>1) el.style.setProperty('--i',String(sibs.indexOf(el)));
+    });
+  })();
+
   var els=document.querySelectorAll('.reveal');
-  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return;}
-  var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.16});
-  els.forEach(function(e){io.observe(e)});
+  function activate(el){
+    el.classList.add('in');
+    if(REDUCE) return;
+    var nums=el.matches('[data-count]')?[el]:el.querySelectorAll('[data-count]');
+    Array.prototype.forEach.call(nums,countUp);
+    if(el.classList.contains('par')) setTimeout(function(){el.classList.add('par-on');},1400);
+  }
+  if(!('IntersectionObserver' in window)){
+    Array.prototype.forEach.call(els,function(e){e.classList.add('in')});
+    return;
+  }
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(e){ if(e.isIntersecting){ activate(e.target); io.unobserve(e.target); } });
+  },{threshold:.14,rootMargin:'0px 0px -6% 0px'});
+  Array.prototype.forEach.call(els,function(e){io.observe(e)});
+
+  /* Nach Seitenwechsel erneut beobachten, was noch nicht sichtbar war */
+  window.__annesRefreshReveal=function(){
+    document.querySelectorAll('.reveal:not(.in)').forEach(function(e){io.observe(e)});
+  };
+})();
+
+/* ---------- Scroll-Fortschritt, Nav-Zustand, sanfte Parallaxe ---------- */
+(function(){
+  var bar=document.getElementById('progress'), nav=document.getElementById('nav');
+  var pending=false;
+  function apply(){
+    pending=false;
+    var h=document.documentElement;
+    var max=(h.scrollHeight-h.clientHeight)||1;
+    var y=window.scrollY||h.scrollTop||0;
+    if(bar) bar.style.transform='scaleX('+Math.min(1,y/max)+')';
+    if(nav) nav.classList.toggle('scrolled',y>24);
+    if(!REDUCE){
+      var vh=window.innerHeight;
+      Array.prototype.forEach.call(document.querySelectorAll('.page.active .par-on'),function(el){
+        var r=el.getBoundingClientRect();
+        if(r.bottom<-200||r.top>vh+200) return;
+        var mid=(r.top+r.height/2-vh/2)/vh; /* -0.5 .. 0.5 */
+        el.style.setProperty('--py',(mid*-22).toFixed(2)+'px');
+      });
+    }
+  }
+  function onScroll(){ if(!pending){pending=true;requestAnimationFrame(apply);} }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll);
+  apply();
+})();
+
+/* ---------- Lichtschein folgt dem Zeiger auf den Karten ---------- */
+(function(){
+  if(REDUCE) return;
+  document.querySelectorAll('.tcard').forEach(function(card){
+    card.addEventListener('pointermove',function(ev){
+      var r=card.getBoundingClientRect();
+      card.style.setProperty('--mx',((ev.clientX-r.left)/r.width*100).toFixed(1)+'%');
+      card.style.setProperty('--my',((ev.clientY-r.top)/r.height*100).toFixed(1)+'%');
+    });
+  });
 })();
 </script>
 
 <script type="module">
-/* ===== 3D foot point-cloud + animated nearest-neighbour graph & clustering ===== */
+/* ===== 3D-Punktwolke: Nachbarschaftsgraph, Clustering, Scan-Sweep ===== */
 import * as THREE from '/assets/js/three.module.js';
 (function(){
   var canvas=document.getElementById('scene'); if(!canvas) return;
@@ -587,16 +776,16 @@ import * as THREE from '/assets/js/three.module.js';
   var camera=new THREE.PerspectiveCamera(50,1,0.1,100); camera.position.set(0,0,7.6);
   var group=new THREE.Group(); group.rotation.x=0.14; scene.add(group);
 
-  /* --- sample a foot silhouette (top-down) into 3D points --- */
+  /* --- Fuß-Silhouette (Draufsicht) in 3D-Punkte überführen --- */
   function sampleFoot(n){
     var W=300,H=640,oc=document.createElement('canvas');oc.width=W;oc.height=H;
     var g=oc.getContext('2d');g.fillStyle='#fff';
     function circ(x,y,r){g.beginPath();g.arc(x,y,r,0,7);g.fill();}
     function ell(x,y,rx,ry){g.save();g.translate(x,y);g.scale(rx/ry,1);g.beginPath();g.arc(0,0,ry,0,7);g.fill();g.restore();}
-    circ(150,560,72);            /* heel */
-    ell(152,420,80,122);         /* midfoot */
-    ell(150,255,106,130);        /* forefoot */
-    circ(118,150,30);circ(166,140,25);circ(202,150,20);circ(231,166,17);circ(252,186,14); /* toes */
+    circ(150,560,72);            /* Ferse */
+    ell(152,420,80,122);         /* Mittelfuß */
+    ell(150,255,106,130);        /* Vorfuß */
+    circ(118,150,30);circ(166,140,25);circ(202,150,20);circ(231,166,17);circ(252,186,14); /* Zehen */
     var d=g.getImageData(0,0,W,H).data,filled=[];
     for(var py=0;py<H;py+=2)for(var px=0;px<W;px+=2){ if(d[(py*W+px)*4+3]>128) filled.push(px,py); }
     var pos=new Float32Array(n*3);
@@ -610,35 +799,44 @@ import * as THREE from '/assets/js/three.module.js';
     return pos;
   }
 
-  var N=820;
+  var N = reduce ? 700 : (window.innerWidth<760 ? 900 : 1250);
   var P=sampleFoot(N);
 
-  /* points */
+  /* Höhe je Punkt normiert (0 = Zehen oben, 1 = Ferse) — für den Sweep */
+  var yN=new Float32Array(N), phase=new Float32Array(N);
+  (function(){
+    var mn=1e9,mx=-1e9;
+    for(var i=0;i<N;i++){var v=P[i*3+1]; if(v<mn)mn=v; if(v>mx)mx=v;}
+    for(var i2=0;i2<N;i2++){ yN[i2]=(mx-P[i2*3+1])/(mx-mn+1e-6); phase[i2]=Math.random()*6.283; }
+  })();
+
+  /* Punkte */
   var pcol=new Float32Array(N*3);
   var base=[0.78,0.84,1.0];
   for(var i=0;i<N;i++){pcol[i*3]=base[0];pcol[i*3+1]=base[1];pcol[i*3+2]=base[2];}
   var pgeo=new THREE.BufferGeometry();
   pgeo.setAttribute('position',new THREE.BufferAttribute(P,3));
   pgeo.setAttribute('color',new THREE.BufferAttribute(pcol,3));
-  var pmat=new THREE.PointsMaterial({size:0.05,vertexColors:true,transparent:true,opacity:0.95,depthWrite:false,blending:THREE.AdditiveBlending});
+  var pmat=new THREE.PointsMaterial({size:0.056,vertexColors:true,transparent:true,opacity:1,depthWrite:false,blending:THREE.AdditiveBlending});
   group.add(new THREE.Points(pgeo,pmat));
 
-  /* k-nearest-neighbour edges (computed once) */
+  /* k-nächste Nachbarn — Teilauswahl statt Sortierung (deutlich schneller) */
   var K=3, edges=[];
   (function(){
     var seen={};
     for(var i=0;i<N;i++){
-      var lst=[];
+      var d0=1e18,d1=1e18,d2=1e18,j0=-1,j1=-1,j2=-1;
       for(var j=0;j<N;j++){ if(i===j)continue;
-        var dx=P[i*3]-P[j*3],dy=P[i*3+1]-P[j*3+1],dz=P[i*3+2]-P[j*3+2];
-        lst.push([dx*dx+dy*dy+dz*dz,j]);
+        var dx=P[i*3]-P[j*3],dy=P[i*3+1]-P[j*3+1],dz=P[i*3+2]-P[j*3+2],dd=dx*dx+dy*dy+dz*dz;
+        if(dd<d0){d2=d1;j2=j1;d1=d0;j1=j0;d0=dd;j0=j;}
+        else if(dd<d1){d2=d1;j2=j1;d1=dd;j1=j;}
+        else if(dd<d2){d2=dd;j2=j;}
       }
-      lst.sort(function(a,b){return a[0]-b[0];});
-      for(var m=0;m<K;m++){ var j2=lst[m][1],a=Math.min(i,j2),b=Math.max(i,j2),key=a+'_'+b;
-        if(!seen[key]){seen[key]=1; var my=(P[a*3+1]+P[b*3+1])*0.5; edges.push({a:a,b:b,s:my});} }
+      var cand=[j0,j1,j2];
+      for(var m=0;m<K;m++){ var j2i=cand[m]; if(j2i<0)continue;
+        var a=Math.min(i,j2i),b=Math.max(i,j2i),key=a+'_'+b;
+        if(!seen[key]){seen[key]=1; edges.push({a:a,b:b,s:(yN[a]+yN[b])*0.5});} }
     }
-    var ys=edges.map(function(e){return e.s;}); var mn=Math.min.apply(null,ys),mx=Math.max.apply(null,ys);
-    edges.forEach(function(e){ e.s=(mx-e.s)/(mx-mn+1e-6); }); /* 0 = toe(top) -> 1 heel : sweep */
   })();
   var E=edges.length;
   var epos=new Float32Array(E*6), ecol=new Float32Array(E*6);
@@ -651,55 +849,71 @@ import * as THREE from '/assets/js/three.module.js';
   var emat=new THREE.LineBasicMaterial({vertexColors:true,transparent:true,opacity:0.9,depthWrite:false,blending:THREE.AdditiveBlending});
   group.add(new THREE.LineSegments(egeo,emat));
 
-  /* cluster palette (cohesive cool tones) */
+  /* Cluster-Palette (kühle, zusammenhängende Töne) */
   var PAL=[[0.48,0.64,1.0],[0.40,0.88,0.82],[0.62,0.55,1.0],[0.55,0.78,1.0],[0.82,0.88,1.0]];
-  var KC=5, assign=new Int8Array(N);
+  var KC=5, assign=new Int8Array(N), prevAssign=new Int8Array(N);
   function kmeans(){
+    prevAssign.set(assign);
     var cx=new Float32Array(KC*3), seed=[];
     while(seed.length<KC){var r=(Math.random()*N)|0; if(seed.indexOf(r)<0)seed.push(r);}
     for(var c=0;c<KC;c++){cx[c*3]=P[seed[c]*3];cx[c*3+1]=P[seed[c]*3+1];cx[c*3+2]=P[seed[c]*3+2];}
     for(var it=0;it<7;it++){
       for(var i=0;i<N;i++){var bd=1e9,bi=0;
-        for(var c=0;c<KC;c++){var dx=P[i*3]-cx[c*3],dy=P[i*3+1]-cx[c*3+1],dz=P[i*3+2]-cx[c*3+2],dd=dx*dx+dy*dy+dz*dz; if(dd<bd){bd=dd;bi=c;}}
+        for(var c2=0;c2<KC;c2++){var dx=P[i*3]-cx[c2*3],dy=P[i*3+1]-cx[c2*3+1],dz=P[i*3+2]-cx[c2*3+2],dd=dx*dx+dy*dy+dz*dz; if(dd<bd){bd=dd;bi=c2;}}
         assign[i]=bi;}
       var sx=new Float32Array(KC*3),cnt=new Int32Array(KC);
-      for(var i=0;i<N;i++){var c=assign[i];sx[c*3]+=P[i*3];sx[c*3+1]+=P[i*3+1];sx[c*3+2]+=P[i*3+2];cnt[c]++;}
-      for(var c=0;c<KC;c++){ if(cnt[c]){cx[c*3]=sx[c*3]/cnt[c];cx[c*3+1]=sx[c*3+1]/cnt[c];cx[c*3+2]=sx[c*3+2]/cnt[c];}}
+      for(var i3=0;i3<N;i3++){var c3=assign[i3];sx[c3*3]+=P[i3*3];sx[c3*3+1]+=P[i3*3+1];sx[c3*3+2]+=P[i3*3+2];cnt[c3]++;}
+      for(var c4=0;c4<KC;c4++){ if(cnt[c4]){cx[c4*3]=sx[c4*3]/cnt[c4];cx[c4*3+1]=sx[c4*3+1]/cnt[c4];cx[c4*3+2]=sx[c4*3+2]/cnt[c4];}}
     }
   }
   kmeans();
 
-  /* interaction */
+  /* Interaktion */
   var tx=0,ty=0,mx=0,my=0;
-  window.addEventListener('pointermove',function(ev){tx=ev.clientX/window.innerWidth-0.5;ty=ev.clientY/window.innerHeight-0.5;});
+  window.addEventListener('pointermove',function(ev){tx=ev.clientX/window.innerWidth-0.5;ty=ev.clientY/window.innerHeight-0.5;},{passive:true});
   function resize(){var w=window.innerWidth,h=window.innerHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
   window.addEventListener('resize',resize);resize();
 
   function sstep(a,b,x){x=Math.max(0,Math.min(1,(x-a)/(b-a)));return x*x*(3-2*x);}
-  var CYCLE=13000, start=performance.now();
+  var CYCLE=13000, start=performance.now(), born=performance.now();
+  canvas.classList.add('lit');
 
   function frame(now){
     if(window.__annesPage && window.__annesPage!=='home'){ requestAnimationFrame(frame); return; }
     var t=((now-start)%CYCLE)/CYCLE;
     if(now-start>=CYCLE){ start=now; kmeans(); }
+    var age=Math.min(1,(now-born)/2200);
+    var secs=now*0.001;
 
-    var reveal=sstep(0,0.42,t);                 /* threads draw heel->toe sweep */
-    var cmix=sstep(0.42,0.60,t)-sstep(0.86,1.0,t); /* cluster color in, then out */
+    var reveal=sstep(0,0.42,t);                     /* Kanten zeichnen sich von der Ferse zur Zehe */
+    var cmix=sstep(0.42,0.60,t)-sstep(0.86,1.0,t);  /* Cluster-Farben ein, dann wieder aus */
     if(cmix<0)cmix=0;
     var eglobal=sstep(0.02,0.30,t)*(1-sstep(0.88,1.0,t));
 
-    /* points colour */
-    for(var i=0;i<N;i++){var col=PAL[assign[i]];
-      pcol[i*3]  =base[0]+(col[0]-base[0])*cmix;
-      pcol[i*3+1]=base[1]+(col[1]-base[1])*cmix;
-      pcol[i*3+2]=base[2]+(col[2]-base[2])*cmix;}
+    /* wandernder Scan-Streifen */
+    var sweep=((now%5200)/5200);
+    var sweepPos=sweep*1.35-0.18;
+
+    /* Punktfarben: Cluster-Mischung + Eigenleben + Scan-Streifen */
+    for(var i=0;i<N;i++){
+      var col=PAL[assign[i]];
+      var dsw=yN[i]-sweepPos;
+      var glow=Math.exp(-(dsw*dsw)/0.0022)*1.05;
+      var tw=0.96+0.14*Math.sin(secs*1.5+phase[i]);
+      var k=(tw+glow)*age;
+      pcol[i*3]  =(base[0]+(col[0]-base[0])*cmix)*k;
+      pcol[i*3+1]=(base[1]+(col[1]-base[1])*cmix)*k;
+      pcol[i*3+2]=(base[2]+(col[2]-base[2])*cmix)*k;
+    }
     pgeo.attributes.color.needsUpdate=true;
 
-    /* edges colour (reveal sweep + cross-cluster fade) */
+    /* Kantenfarben: Aufbau-Sweep + Ausblenden über Clustergrenzen */
     for(var e2=0;e2<E;e2++){var ed=edges[e2];
       var vis=ed.s<=reveal?1:0;
       var cross=assign[ed.a]!==assign[ed.b];
-      var al=eglobal*vis*(cross?(1-cmix):1);
+      var dsw2=ed.s-sweepPos;
+      var eg=1+Math.exp(-(dsw2*dsw2)/0.0016)*0.9;
+      var al=eglobal*vis*(cross?(1-cmix):1)*eg*age;
       var cc=PAL[assign[ed.a]];
       var r=(0.5+(cc[0]-0.5)*cmix)*al, gg=(0.62+(cc[1]-0.62)*cmix)*al, bb=(1.0)*al;
       ecol[e2*6]=r;ecol[e2*6+1]=gg;ecol[e2*6+2]=bb;
@@ -708,10 +922,13 @@ import * as THREE from '/assets/js/three.module.js';
 
     mx+=(tx-mx)*0.05; my+=(ty-my)*0.05;
     var sc=window.scrollY||0;
-    group.rotation.y+=0.0017;
-    group.rotation.x=0.14+my*0.35-sc*0.0003;
-    group.position.x=mx*0.7;
-    group.position.y=0.15+sc*0.001;
+    var breath=1+Math.sin(secs*0.45)*0.022;
+    group.rotation.y+=0.0017+mx*0.0016;
+    group.rotation.x=0.14+my*0.4-sc*0.0003;
+    group.rotation.z=Math.sin(secs*0.22)*0.03;
+    group.scale.setScalar(breath*(0.94+0.06*age));
+    group.position.x=mx*0.9;
+    group.position.y=0.15+sc*0.001+Math.sin(secs*0.35)*0.05;
     renderer.render(scene,camera);
     if(!reduce) requestAnimationFrame(frame);
   }

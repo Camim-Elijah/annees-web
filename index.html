@@ -45,6 +45,16 @@
     "addressLocality": "Hildesheim",
     "addressCountry": "DE"
   },
+  "foundingLocation": {
+    "@type": "Place",
+    "name": "Leipzig, Deutschland"
+  },
+  "founder": [
+    {"@type": "Person", "name": "S. Camim-Elijah Moschref"},
+    {"@type": "Person", "name": "Robin Curth"},
+    {"@type": "Person", "name": "Elias Osman"},
+    {"@type": "Person", "name": "S. Nabil-Gabriel Moschref"}
+  ],
   "sameAs": [
     "https://www.instagram.com/annees.de",
     "https://www.tiktok.com/@annees.de"
@@ -210,6 +220,57 @@
   .tcard .more{color:var(--accent);font-size:13px;margin-top:14px;font-weight:600;position:relative;transition:transform .35s var(--ease)}
   .tcard:hover .more{transform:translateX(6px)}
 
+  /* CREW — Gründerportraits */
+  .crewwrap{max-width:1060px;margin:56px auto 12px}
+  .crew{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+  @media(max-width:900px){.crew{grid-template-columns:repeat(2,1fr);gap:22px 18px}}
+  .member{position:relative}
+  .portrait{position:relative;aspect-ratio:4/5;border-radius:16px;overflow:hidden;border:1px solid var(--line);
+    background:linear-gradient(158deg,#171922 0%,#0d0e13 58%,#0a0a0d 100%);
+    transition:border-color .45s var(--ease),box-shadow .55s var(--ease),transform .55s var(--ease)}
+  /* Fallback, solange kein Foto hinterlegt ist: Monogramm auf getöntem Verlauf */
+  .portrait::before{content:attr(data-mono);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:var(--serif);font-weight:600;font-size:clamp(38px,5vw,58px);letter-spacing:.05em;
+    color:rgba(198,214,255,.16);text-shadow:0 0 40px rgba(122,162,255,.14)}
+  /* Scan-Streifen wie in der Punktwolke — erscheint beim Hovern */
+  .portrait::after{content:"";position:absolute;left:0;right:0;height:36%;top:-36%;pointer-events:none;opacity:0;
+    background:linear-gradient(180deg,transparent,rgba(122,162,255,.22) 62%,rgba(102,224,208,.42) 92%,transparent);
+    transition:opacity .35s var(--ease)}
+  .portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;
+    filter:grayscale(1) contrast(1.08) brightness(.9);transform:scale(1.01);
+    transition:filter .6s var(--ease),transform .8s var(--ease)}
+  .member:hover .portrait{border-color:rgba(255,255,255,.24);transform:translateY(-5px);box-shadow:0 28px 60px -34px rgba(122,162,255,.65)}
+  .member:hover .portrait img{filter:grayscale(.12) contrast(1.02) brightness(1);transform:scale(1.06)}
+  .member:hover .portrait::after{opacity:1;animation:scanline 1.6s var(--ease)}
+  @keyframes scanline{0%{transform:translateY(0)}100%{transform:translateY(340%)}}
+  .member .role{font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-top:18px}
+  /* zwei Zeilen reservieren, damit die Kurztexte aller vier auf einer Linie starten */
+  .member .name{font-family:var(--serif);font-size:20px;font-weight:600;line-height:1.2;margin-top:8px;min-height:2.4em}
+  @media(max-width:520px){.member .name{font-size:17px;min-height:0}.member .bio{font-size:13.5px}}
+  .member .bio{color:var(--muted);font-size:14px;line-height:1.6;margin-top:9px}
+  .crewnote{color:var(--faint);font-size:12.5px;margin-top:28px;text-align:center}
+
+  /* Gesichter-Reihe (Teaser auf der Startseite) */
+  .faces{display:flex;align-items:center;margin-top:34px}
+  .faces .face{width:60px;height:60px;border-radius:50%;overflow:hidden;position:relative;flex:none;
+    border:1px solid rgba(255,255,255,.18);background:linear-gradient(158deg,#1a1c26,#0b0c11);
+    margin-left:-14px;transition:transform .45s var(--ease),border-color .45s var(--ease)}
+  .faces .face:first-child{margin-left:0}
+  .faces .face::before{content:attr(data-mono);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:var(--serif);font-size:20px;color:rgba(198,214,255,.32)}
+  .faces .face img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;filter:grayscale(1) contrast(1.06)}
+  .faces:hover .face{transform:translateY(-4px);border-color:rgba(122,162,255,.5)}
+  .faces .facelabel{margin-left:18px;font-size:13.5px;color:var(--muted)}
+
+  /* Zeitleiste der Story */
+  .track{list-style:none;padding:0;margin:34px 0 8px;position:relative}
+  .track::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:linear-gradient(180deg,var(--accent),rgba(122,162,255,.12))}
+  .track li{position:relative;padding-left:34px;margin-bottom:22px}
+  .track li::before{content:"";position:absolute;left:0;top:.5em;width:13px;height:13px;border-radius:50%;
+    background:var(--bg);border:1px solid var(--accent);box-shadow:0 0 0 4px rgba(8,8,8,.9)}
+  .track .yr{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .track .tx{color:#d9d6d0;font-size:16px;line-height:1.7;margin-top:5px}
+
   /* CONTENT PAGES */
   .article{max-width:760px;margin:0 auto}
   .article h1{font-family:var(--serif);font-weight:600;font-size:clamp(34px,8vw,58px);line-height:1.05;margin-bottom:10px;overflow-wrap:break-word;hyphens:auto}
@@ -278,6 +339,8 @@
     .hero .eyebrow,.hero .wordmark,.hero h1,.hero .sub,.hero .cta,.hero .social,.hero .scrollhint{animation:none}
     .wordmark{animation:none}
     .badge::after,.scrollhint,.badge .dot{animation:none}
+    .member:hover .portrait::after{animation:none}
+    .member:hover .portrait,.member:hover .portrait img,.faces:hover .face{transform:none}
     .js .page.active{animation:none}
     .progress{display:none}
   }
@@ -370,6 +433,21 @@
     </div>
   </section>
 
+  <section class="glass pad">
+    <div class="wrap">
+      <div class="seclabel reveal">Die Gründer</div>
+      <h2 class="statement reveal reveal-blur par" style="--i:1">Vier Studenten.<br>Zwei Jahre.<br>Eine Küche in Leipzig.</h2>
+      <p class="lead-sub reveal" style="--i:2">ANNÉES ist nicht in einem Konferenzraum entstanden, sondern zwischen Vorlesungen, Nebenjobs und zu vielen zurückgeschickten Paketen. Wir haben zwei Jahre daran gebaut, bevor wir zum ersten Mal darüber geredet haben.</p>
+      <div class="faces reveal" style="--i:3">
+        <div class="face" data-mono="C"><img src="/assets/img/team/camim-elijah.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+        <div class="face" data-mono="R"><img src="/assets/img/team/robin.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+        <div class="face" data-mono="E"><img src="/assets/img/team/elias.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+        <div class="face" data-mono="N"><img src="/assets/img/team/nabil-gabriel.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
+        <a class="facelabel inline-link" href="#ueber">Unsere Geschichte →</a>
+      </div>
+    </div>
+  </section>
+
   <section class="solid pad">
     <div class="wrap">
       <div class="seclabel reveal">Mehr erfahren</div>
@@ -397,21 +475,89 @@
   <section class="solid ptop pad">
     <div class="wrap"><div class="article">
       <div class="kicker reveal">Über uns</div>
-      <h1 class="reveal reveal-blur">Wer wir sind.</h1>
-      <p class="lead reveal" style="--i:1">ANNÉES ist eine App für den Sneaker-Kauf, entwickelt in Deutschland. Wir arbeiten seit über zwei Jahren daran, aus einer unübersichtlichen Auswahl eine nachvollziehbare Entscheidung zu machen.</p>
+      <h1 class="reveal reveal-blur">Angefangen hat alles in Leipzig.</h1>
+      <p class="lead reveal" style="--i:1">Vier Studenten, zwei Jahre, kein Büro. Stattdessen zwei WG-Küchen, zu viele Paar Schuhe im Flur und eine Frage, die uns nicht losgelassen hat: Warum weiß beim Online-Kauf eigentlich niemand vorher, was passt?</p>
 
-      <p class="reveal">Betrieben wird die App von der Années GbR mit Sitz in Hildesheim. Wir sind ein kleines Team mit Hintergrund in Informatik und Naturwissenschaft und veröffentlichen zuerst für iPhone. Die vollständigen Angaben zum Unternehmen stehen im <a class="inline-link" href="#impressum">Impressum</a>.</p>
+      <p class="reveal">Leipzig macht es einem leicht anzufangen. Die Stadt ist groß genug, dass man ständig auf Leute trifft, die gerade selbst etwas bauen — und klein genug, dass zwischen zwei Vorlesungen und einer Idee keine halbe Stunde Bahnfahrt liegt. Unsere Garage war eine Küche im Hinterhaus, Kaffee, zwei Monitore auf einem Klapptisch, dazwischen die Wäscheständer der Mitbewohner.</p>
+
+      <p class="reveal">Angefangen hat es mit Ärger. Sneaker bestellt, drei Größen zurückgeschickt, danach die Größentabelle des nächsten Herstellers geöffnet und festgestellt: Sie sagt wieder etwas anderes. Wir haben eine Weile geglaubt, das sei ein persönliches Problem. Dann haben wir die Zahlen gesucht — und gefunden, dass zwei Drittel aller Rücksendungen genau daran hängen.</p>
+
+      <div class="pull reveal">Wir wollten nicht die hundertste Shopping-App. Wir wollten die eine Frage beantworten, die vor jedem Kauf steht.</div>
+
+      <h2 class="reveal">Zwei Jahre, ohne Abkürzung</h2>
+      <p class="reveal">Zwei Jahre klingen nach viel für eine App. Sie waren es auch. Der größte Teil der Zeit ging nicht in Oberflächen, sondern in das, was darunter liegt: Wie beschreibt man einen Fuß so, dass ein Vergleich mit einem Schuh überhaupt möglich wird? Welche Aussage ist noch belastbar, und wo fängt Raten an? Was wir nicht sauber begründen konnten, ist wieder rausgeflogen — mehr als einmal auch die Arbeit von Wochen.</p>
+
+      <ul class="track">
+        <li class="reveal"><div class="yr">Der Anfang</div><div class="tx">Vier Studenten, eine Leipziger WG-Küche, ein Prototyp, der noch nichts konnte außer messen.</div></li>
+        <li class="reveal"><div class="yr">Dazwischen</div><div class="tx">Semester, Nebenjobs, Prüfungsphasen — und Abende, an denen aus Fußmaßen langsam ein Passform-Modell wurde.</div></li>
+        <li class="reveal"><div class="yr">Heute</div><div class="tx">Aus dem Projekt ist die Années GbR geworden. Die App erscheint zuerst fürs iPhone.</div></li>
+      </ul>
+
+      <p class="reveal">Betrieben wird die App heute von der Années GbR; der Sitz der Gesellschaft ist Hildesheim, entstanden ist ANNÉES in Leipzig. Wir sind nach wie vor ein kleines Team mit Hintergrund in Informatik und Naturwissenschaft. Die vollständigen Angaben zum Unternehmen stehen im <a class="inline-link" href="#impressum">Impressum</a>.</p>
 
       <p class="reveal">Unser Anspruch lässt sich in einem Satz zusammenfassen: Eine Empfehlung ist nur so viel wert wie ihre Begründung. Deshalb zeigen wir zu jedem Modell, worauf die Einschätzung beruht, und halten uns mit Aussagen zurück, die wir nicht belegen können.</p>
 
       <p class="reveal">Der zweite Maßstab ist der ökologische. Rücksendungen sind im Onlinehandel Normalzustand, und der häufigste Grund dafür ist die Größe. Wer vor der Bestellung besser einschätzen kann, was passt, verursacht weniger Retouren — die <a class="inline-link" href="#umwelt">belegten Zahlen dazu</a> haben wir zusammengetragen.</p>
 
       <div class="minirow">
-        <div class="mini reveal"><div class="b">2+</div><div class="s">Jahre Entwicklung</div></div>
-        <div class="mini reveal" style="--i:1"><div class="b">iOS</div><div class="s">Plattform zum Start</div></div>
-        <div class="mini reveal" style="--i:2"><div class="b">DE</div><div class="s">Entwicklung und Betrieb</div></div>
+        <div class="mini reveal"><div class="b">4</div><div class="s">Gründer, alle im Studium</div></div>
+        <div class="mini reveal" style="--i:1"><div class="b">2+</div><div class="s">Jahre Entwicklung</div></div>
+        <div class="mini reveal" style="--i:2"><div class="b">iOS</div><div class="s">Plattform zum Start</div></div>
       </div>
+    </div></div>
 
+    <!-- ---- Gründerportraits ----
+         Fotos ablegen unter /assets/img/team/<name>.jpg (Hochformat 4:5, mind. 800×1000 px).
+         Fehlt ein Foto, zeigt die Kachel automatisch das Monogramm-Fallback.
+         TODO: Rollen und Kurztexte sind ein Entwurf — bitte inhaltlich prüfen und korrigieren. -->
+    <div class="wrap">
+      <div class="crewwrap">
+        <div class="seclabel reveal">Die Gründer</div>
+        <h2 class="statement reveal reveal-blur" style="font-size:clamp(28px,5vw,48px);max-width:20ch">Vier, die sich das eingebrockt haben.</h2>
+        <div class="crew" style="margin-top:44px">
+
+          <div class="member reveal">
+            <div class="portrait" data-mono="CM">
+              <img src="/assets/img/team/camim-elijah.jpg" alt="Porträt von S. Camim-Elijah Moschref" loading="lazy" onerror="this.remove()">
+            </div>
+            <div class="role">Produkt &amp; App</div>
+            <div class="name">S. Camim-Elijah Moschref</div>
+            <p class="bio">Hat die erste Version an einem Wochenende gebaut und danach zwei Jahre nicht mehr aufgehört. Verantwortet Produkt, iOS-App und den Ton, in dem ANNÉES mit Nutzern spricht.</p>
+          </div>
+
+          <div class="member reveal" style="--i:1">
+            <div class="portrait" data-mono="RC">
+              <img src="/assets/img/team/robin.jpg" alt="Porträt von Robin Curth" loading="lazy" onerror="this.remove()">
+            </div>
+            <div class="role">Passform &amp; Daten</div>
+            <div class="name">Robin Curth</div>
+            <p class="bio">Übersetzt Fußmaße in nachvollziehbare Empfehlungen — Modelle, Abgleiche, Grenzfälle. Fragt bei jeder Zahl zuerst, woher sie kommt.</p>
+          </div>
+
+          <div class="member reveal" style="--i:2">
+            <div class="portrait" data-mono="EO">
+              <img src="/assets/img/team/elias.jpg" alt="Porträt von Elias Osman" loading="lazy" onerror="this.remove()">
+            </div>
+            <div class="role">Backend &amp; Infrastruktur</div>
+            <div class="name">Elias Osman</div>
+            <p class="bio">Sorgt dafür, dass Katalog, Konten und Datenwege stabil laufen — und dass so wenig das iPhone verlässt wie irgend möglich.</p>
+          </div>
+
+          <div class="member reveal" style="--i:3">
+            <div class="portrait" data-mono="NM">
+              <img src="/assets/img/team/nabil-gabriel.jpg" alt="Porträt von S. Nabil-Gabriel Moschref" loading="lazy" onerror="this.remove()">
+            </div>
+            <div class="role">Gestaltung &amp; Marke</div>
+            <div class="name">S. Nabil-Gabriel Moschref</div>
+            <p class="bio">Kümmert sich um Oberfläche, Typografie und die Frage, wie eine App aussehen muss, damit man ihr glaubt.</p>
+          </div>
+
+        </div>
+        <p class="crewnote reveal">Années GbR · gegründet von vier Studenten · entstanden in Leipzig</p>
+      </div>
+    </div>
+
+    <div class="wrap"><div class="article" style="margin-top:60px">
       <h2 class="reveal">Der Name</h2>
       <div class="pull reveal">Années de pèlerinage — Jahre der Pilgerschaft.</div>
       <p class="reveal">Auch unser Name erzählt diese Geschichte: <em>ANNÉES</em> leitet sich von Franz Liszts berühmtem Klavierzyklus <em>Années de pèlerinage</em> (Jahre der Pilgerschaft) ab. Denn genau wie das musikalische Meisterwerk war auch unsere über zweijährige Entwicklungszeit ein langer, intensiver Marsch voller Herausforderungen, Lernen und Evolution. Umso glücklicher macht es uns, diesen Weg gemeistert zu haben und die App nun endlich präsentieren zu können.</p>
@@ -655,7 +801,7 @@ var REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: re
 /* ---------- hash router ---------- */
 (function(){
   var pages=['home','ueber','umwelt','sicherheit','prinzipien','impressum','datenschutz'];
-  var alias={finanzierung:'prinzipien'}; /* alte Links weiterleiten */
+  var alias={finanzierung:'prinzipien',team:'ueber',gruender:'ueber',story:'ueber'}; /* alte und kurze Links weiterleiten */
   function show(id){
     if(alias[id]) id=alias[id];
     if(pages.indexOf(id)<0) id='home';
